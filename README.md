@@ -1,0 +1,1 @@
+# NER Annotator for Spacy
