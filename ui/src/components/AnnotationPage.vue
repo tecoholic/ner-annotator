@@ -1,6 +1,8 @@
 <template>
   <div class="columns is-desktop">
-    <div class="column is-one-fifth"></div>
+    <div class="column is-one-fifth">
+      <AnnotationSidebar :current="currentSentence" />
+    </div>
     <div class="column">
       <div class="panel m-4">
         <div class="panel-heading"></div>
@@ -25,6 +27,7 @@ import { mapState } from "vuex";
 import axios from "../axios";
 import Token from "./Token";
 import TokenBlock from "./TokenBlock";
+import AnnotationSidebar from "./AnnotationSidebar";
 
 export default {
   name: "AnnotationPage",
@@ -38,6 +41,7 @@ export default {
   components: {
     Token,
     TokenBlock,
+    AnnotationSidebar,
   },
   computed: {
     ...mapState(["inputSentences", "classes", "annotations"]),
