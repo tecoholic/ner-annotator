@@ -5,7 +5,10 @@
     </div>
     <div class="column">
       <div class="panel m-4">
-        <div class="panel-heading"></div>
+        <div class="panel-heading">
+          <classes-block />
+
+        </div>
         <div class="panel-block">
           <div id="editor">
             <component
@@ -28,6 +31,7 @@ import axios from "../axios";
 import Token from "./Token";
 import TokenBlock from "./TokenBlock";
 import AnnotationSidebar from "./AnnotationSidebar";
+import ClassesBlock from './ClassesBlock.vue';
 
 export default {
   name: "AnnotationPage",
@@ -42,6 +46,7 @@ export default {
     Token,
     TokenBlock,
     AnnotationSidebar,
+    ClassesBlock,
   },
   computed: {
     ...mapState(["inputSentences", "classes", "annotations"]),

@@ -1,19 +1,24 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import 'es6-promise/auto'
-import { createStore } from 'vuex'
-import store from './store.js'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckCircle, faHourglassHalf } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { createApp } from "vue";
+import App from "./App.vue";
+import "es6-promise/auto";
+import { createStore } from "vuex";
+import store from "./store.js";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faCheckCircle,
+  faHourglassHalf,
+  faPlusSquare,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faCheckCircle)
-library.add(faHourglassHalf)
+library.add(faCheckCircle);
+library.add(faHourglassHalf);
+library.add(faPlusSquare);
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(createStore(store))
+app.use(createStore(store));
 
-app.component('font-awesome-icon', FontAwesomeIcon)
+app.component("font-awesome-icon", FontAwesomeIcon);
 
-app.mount('#app')
+app.mount("#app");
