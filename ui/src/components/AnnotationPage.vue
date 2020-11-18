@@ -14,7 +14,7 @@
             <component
               :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
               :id="'t' + t.start"
-              v-for="t in tokens"
+              v-for="t in tm.tokens"
               :token="t"
               :key="t.start"
               @remove-block="onRemoveBlock"
@@ -32,12 +32,13 @@ import Token from "./Token";
 import TokenBlock from "./TokenBlock";
 import AnnotationSidebar from "./AnnotationSidebar";
 import ClassesBlock from './ClassesBlock.vue';
+import TokenManager from './token-manager';
 
 export default {
   name: "AnnotationPage",
   data: function() {
     return {
-      tokens: [],
+      tm: new TokenManager([]),
       currentSentence: {},
       redone: "",
     };
@@ -57,12 +58,7 @@ export default {
       axios
         .post("/tokenize", this.currentSentence)
         .then((res) => {
-          this.tokens = res.data.tokens.map((t) => ({
-            type: "token",
-            start: t[0],
-            end: t[1],
-            text: t[2],
-          }));
+          this.tm = new TokenManager(res.data.tokens); 
         })
         .catch((err) => alert(err));
     }
@@ -86,48 +82,11 @@ export default {
         console.log("selected text were not tokens");
         return;
       }
-
-      let selectedTokens = [];
-      let newTokens = [];
-      for (let i = 0; i < this.tokens.length; i++) {
-        let t = this.tokens[i];
-        if (t.start < startIdx) {
-          newTokens.push(t);
-        } else if (
-          t.type == "token" &&
-          t.start >= startIdx &&
-          t.start <= endIdx
-        ) {
-          selectedTokens.push(t);
-        } else if (t.start > startIdx && selectedTokens.length) {
-          newTokens.push({
-            type: "token-block",
-            start: selectedTokens[0].start,
-            end: selectedTokens[selectedTokens.length - 1].end,
-            tokens: selectedTokens,
-          });
-          selectedTokens = [];
-          newTokens.push(t);
-        } else {
-          newTokens.push(t);
-        }
-      }
-      this.tokens = newTokens;
+      this.tm.addNewBlock(startIdx, endIdx);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
-      let newTokens = [];
-      for (let i = 0; i < this.tokens.length; i++) {
-        if (
-          this.tokens[i].type === "token-block" &&
-          this.tokens[i].start === blockStart
-        ) {
-          newTokens.push(...this.tokens[i].tokens);
-        } else {
-          newTokens.push(this.tokens[i]);
-        }
-      }
-      this.tokens = newTokens;
+      this.tm.removeBlock(blockStart);
     },
   },
 };

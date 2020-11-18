@@ -2,7 +2,7 @@
   <mark>
     <Token :token="t" v-for="t in token.tokens" :key="t.start" />
     <span class="tag">
-      {{tag}}
+      {{ token.label }}
       <a class="delete is-small" @click="$emit('remove-block', token.start)"></a>
     </span>
   </mark>
@@ -15,7 +15,6 @@ export default {
   emits: ["remove-block"],
   data:function() {
     return {
-      tag: "TAG",
       showClose: false,
     }
   },
