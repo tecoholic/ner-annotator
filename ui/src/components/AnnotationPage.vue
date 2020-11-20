@@ -7,7 +7,6 @@
       <div class="panel m-4">
         <div class="panel-heading">
           <classes-block />
-
         </div>
         <div class="panel-block">
           <div id="editor">
@@ -21,6 +20,21 @@
             />
           </div>
         </div>
+        <div class="panel-block">
+          <div class="field is-grouped">
+            <p class="control">
+              <button class="button is-danger is-outlined" @click="resetBlocks">
+                Reset
+              </button>
+            </p>
+            <p class="control">
+              <button class="button" @click="skipCurrentSentence">Skip</button>
+            </p>
+            <p class="control">
+              <button class="button is-link" @click="saveTags">Save</button>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -31,8 +45,8 @@ import axios from "../axios";
 import Token from "./Token";
 import TokenBlock from "./TokenBlock";
 import AnnotationSidebar from "./AnnotationSidebar";
-import ClassesBlock from './ClassesBlock.vue';
-import TokenManager from './token-manager';
+import ClassesBlock from "./ClassesBlock.vue";
+import TokenManager from "./token-manager";
 
 export default {
   name: "AnnotationPage",
@@ -50,7 +64,7 @@ export default {
     ClassesBlock,
   },
   computed: {
-    ...mapState(["inputSentences", "classes", "annotations"]),
+    ...mapState(["inputSentences", "classes", "annotations", "currentClass"]),
   },
   created() {
     if (this.inputSentences.length) {
@@ -58,7 +72,7 @@ export default {
       axios
         .post("/tokenize", this.currentSentence)
         .then((res) => {
-          this.tm = new TokenManager(res.data.tokens); 
+          this.tm = new TokenManager(res.data.tokens);
         })
         .catch((err) => alert(err));
     }
@@ -68,7 +82,11 @@ export default {
   methods: {
     selectTokens() {
       let selection = document.getSelection();
-      if (selection.anchorOffset === selection.focusOffset && selection.anchorNode === selection.focusNode)
+
+      if (
+        selection.anchorOffset === selection.focusOffset &&
+        selection.anchorNode === selection.focusNode
+      )
         return;
       let startIdx, endIdx;
       try {
@@ -82,11 +100,30 @@ export default {
         console.log("selected text were not tokens");
         return;
       }
-      this.tm.addNewBlock(startIdx, endIdx);
+
+      if (!this.classes.length && selection.anchorNode) {
+        // TODO show no classes for tagging modal to warn users
+        alert(
+          "There are no Tags available. Kindly add some Tags before tagging."
+        );
+        selection.empty();
+        return;
+      }
+
+      this.tm.addNewBlock(startIdx, endIdx, this.currentClass);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
       this.tm.removeBlock(blockStart);
+    },
+    resetBlocks() {
+      this.tm.resetBlocks();
+    },
+    skipCurrentSentence() {
+      // TODO implement this
+    },
+    addTags() {
+      // TODO export the blocks from the
     },
   },
 };

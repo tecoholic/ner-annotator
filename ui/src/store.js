@@ -18,10 +18,16 @@ export const mutations = {
       id: lastIndex + 1,
       name: payload,
     });
+    if (state.classes.length === 1) {
+      state.currentClass = state.classes[0];
+    }
   },
   removeClass(state, payload) {
-    state.classes = state.classes.filter(c => c.id != payload);
-  }
+    state.classes = state.classes.filter((c) => c.id != payload);
+  },
+  setCurrentClass(state, payload) {
+    state.currentClass = state.classes.find((c) => c.id === payload);
+  },
 };
 
 export const getters = {};
@@ -31,6 +37,7 @@ export default {
       classes: [],
       inputSentences: [],
       annotations: [],
+      currentClass: {},
     };
   },
   getters,

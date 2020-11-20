@@ -1,7 +1,7 @@
 class TokenManager {
   /**
-   * 
-   * @param {Array} tokens 
+   *
+   * @param {Array} tokens
    */
   constructor(tokens) {
     this.tokens = tokens.map((t) => ({
@@ -18,8 +18,9 @@ class TokenManager {
    *
    * @param {Number} start 'start' value of the token forming the start of the token block
    * @param {Number} end 'start' value of the token forming the end of the token block
+   * @param {Number} _class the id of the class to highlight
    */
-  addNewBlock(start, end) {
+  addNewBlock(start, end, _class) {
     let selectedTokens = [];
     let newTokens = [];
 
@@ -35,7 +36,8 @@ class TokenManager {
           start: selectedTokens[0].start,
           end: selectedTokens[selectedTokens.length - 1].end,
           tokens: selectedTokens,
-          label: "Unlabelled",
+          label: _class && _class.name ? _class.name : "Unlabelled",
+          classId: _class && _class.id ? _class.id : 0,
         });
         selectedTokens = [];
         newTokens.push(t);
@@ -48,7 +50,7 @@ class TokenManager {
 
   /**
    * Removes a token block and puts back all the tokens in their original position
-   * 
+   *
    * @param {Number} blockStart 'start' value of the token block to remove
    */
   removeBlock(blockStart) {
