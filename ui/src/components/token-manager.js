@@ -10,6 +10,7 @@ class TokenManager {
       end: t[1],
       text: t[2],
     }));
+    this.words = tokens.map(t => t[2]); 
   }
 
   /**
@@ -66,6 +67,35 @@ class TokenManager {
       }
     }
     this.tokens = newTokens;
+  }
+
+  /**
+   * Removes all the tag blocks and leaves only tokens
+   */
+  resetBlocks() {
+    let newTokens = [];
+    for (let i = 0; i < this.tokens.length; i++) {
+      if (this.tokens[i].type === "token") {
+        newTokens.push(this.tokens[i]);
+      } else {
+        newTokens.push(...this.tokens[i].tokens);
+      }
+    }
+    this.tokens = newTokens;
+  }
+
+  /**
+   * Exports the tokens and the token blocks as annotations
+   */
+  exportAsAnnotation() {
+    let entities = [];
+    for (let i = 0; i < this.tokens.length; i++) {
+      if (this.tokens[i].type === "token-block") {
+        let b = this.tokens[i];
+        entities.push([b.start, b.end, b.label]);
+      }
+    }
+    return entities;
   }
 }
 

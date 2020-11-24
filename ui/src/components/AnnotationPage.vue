@@ -54,6 +54,7 @@ export default {
     return {
       tm: new TokenManager([]),
       currentSentence: {},
+      currentIndex: 0,
       redone: "",
     };
   },
@@ -68,18 +69,20 @@ export default {
   },
   created() {
     if (this.inputSentences.length) {
-      this.currentSentence = this.inputSentences[0];
+      this.tokenizeCurrentSentence();
+    }
+    document.addEventListener("mouseup", this.selectTokens);
+  },
+  methods: {
+    tokenizeCurrentSentence() {
+      this.currentSentence = this.inputSentences[this.currentIndex];
       axios
         .post("/tokenize", this.currentSentence)
         .then((res) => {
           this.tm = new TokenManager(res.data.tokens);
         })
         .catch((err) => alert(err));
-    }
-
-    document.addEventListener("mouseup", this.selectTokens);
-  },
-  methods: {
+    },
     selectTokens() {
       let selection = document.getSelection();
 
@@ -120,10 +123,23 @@ export default {
       this.tm.resetBlocks();
     },
     skipCurrentSentence() {
-      // TODO implement this
+      this.currentIndex++;
+      this.tokenizeCurrentSentence();
     },
-    addTags() {
-      // TODO export the blocks from the
+    saveTags() {
+      axios
+        .post("/detokenize", { tokens: this.tm.words })
+        .then((res) => {
+          this.$store.commit("addAnnotation", [
+            res.data.text,
+            { entites: this.tm.exportAsAnnotation() },
+          ]);
+          this.currentIndex++;
+          this.tokenizeCurrentSentence();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
   },
 };

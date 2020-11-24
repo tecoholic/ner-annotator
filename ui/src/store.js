@@ -24,10 +24,16 @@ export const mutations = {
   },
   removeClass(state, payload) {
     state.classes = state.classes.filter((c) => c.id != payload);
+    if (state.currentClass.id === payload) {
+      state.currentClass = state.classes[0];
+    }
   },
   setCurrentClass(state, payload) {
     state.currentClass = state.classes.find((c) => c.id === payload);
   },
+  addAnnotation(state, payload) {
+    state.annotations.push(payload);
+  }
 };
 
 export const getters = {};

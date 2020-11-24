@@ -28,7 +28,7 @@
 
     <p class="control">
       <button
-        class="button is-small is-primary"
+        class="button is-primary"
         @click="showNewClassInput = true"
       >
         <span class="icon">

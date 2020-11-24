@@ -64,3 +64,29 @@ test("removeBlock: removes a token block and puts the tokens back", () => {
   expect(tm.tokens[1].start).toBe(3);
   expect(tm.tokens[2].start).toBe(7);
 });
+
+test("resetBlocks removes all the token blocks", () => {
+  let tm = new TokenManager(inputTokens);
+  tm.addNewBlock(0, 3, { id: 1, name: "Block 1" });
+  tm.addNewBlock(7, 7, { id: 2, name: "Block 2" });
+
+  expect(tm.tokens[0].type).toBe("token-block");
+  expect(tm.tokens[1].type).toBe("token-block");
+
+  tm.resetBlocks();
+
+  expect(tm.tokens[0].type).toBe("token");
+  expect(tm.tokens[1].type).toBe("token");
+});
+
+test("exportAsAnnotation returns the entities array from the tokens", () => {
+  let tm = new TokenManager(inputTokens);
+  tm.addNewBlock(0, 3, { id: 1, name: "Block 1" });
+  tm.addNewBlock(7, 7, { id: 2, name: "Block 2" });
+
+  let annotations = tm.exportAsAnnotation();
+  let expected = [[0, 5, "Block 1"], [7, 9, "Block 2"]];
+  expect(JSON.stringify(annotations)).toBe(JSON.stringify(expected));
+
+});
+
