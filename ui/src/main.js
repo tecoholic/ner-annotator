@@ -5,14 +5,12 @@ import { createStore } from "vuex";
 import store from "./store.js";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faCheckCircle,
-  faHourglassHalf,
+  faFileAlt,
   faPlusSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faCheckCircle);
-library.add(faHourglassHalf);
+library.add(faFileAlt);
 library.add(faPlusSquare);
 
 const app = createApp(App);

@@ -17,7 +17,7 @@
           />
           <span class="file-cta">
             <span class="file-icon">
-              <i class="fas fa-upload"></i>
+              <font-awesome-icon icon="file-alt" />
             </span>
             <span class="file-label">
               Choose a file…
