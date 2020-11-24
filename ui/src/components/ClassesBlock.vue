@@ -67,7 +67,6 @@ export default {
       this.newClassName = "";
     },
     onInputKeyup(e) {
-      console.log(e);
       if (e.key === "Enter") {
         this.saveNewClass();
       }
