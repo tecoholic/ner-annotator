@@ -1,5 +1,9 @@
 # NER Annotator for Spacy
 
+![Homepage](docs/start_page.png?raw=true)
+![Annotation Page](docs/tagging.png?raw=true)
+![JSON output](docs/output.png?raw=true)
+
 
 ## Starting the application
 
