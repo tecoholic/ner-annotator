@@ -10,12 +10,16 @@ import {mapState} from "vuex";
 export default {
   name: "Export",
   computed: {
-    ...mapState(["annotations"]),
+    ...mapState(["annotations", "classes"]),
   },
   methods: {
     generateJSONExport() {
-      const filename = "data.json";
-      const jsonStr = JSON.stringify(this.annotations);
+      const filename = "training_data.json";
+      const output = {
+        "classes": this.classes.map(c => c.name),
+        "annotations": this.annotations
+      }
+      const jsonStr = JSON.stringify(output);
 
       let element = document.createElement("a");
       element.setAttribute(

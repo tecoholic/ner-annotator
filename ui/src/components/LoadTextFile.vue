@@ -1,30 +1,23 @@
 <template>
-  <div class="tile box">
-    <div class="tile-body">
-      <h3 class="title">Load Text File</h3>
-      <p>
-        Load strings from text file and generate JSON suitable for
-        <strong>Spacy</strong> NER training
-      </p>
-      <div class="file has-name is-boxed mt-4">
-        <label class="file-label">
-          <input
-            class="file-input"
-            type="file"
-            name="textfile"
-            accept=".txt"
-            @change="onFileSelected"
-          />
-          <span class="file-cta">
-            <span class="file-icon">
-              <font-awesome-icon icon="file-alt" />
-            </span>
-            <span class="file-label">
-              Choose a file…
-            </span>
+  <div class="field">
+    <div class="file is-centered is-primary has-name is-boxed my-4">
+      <label class="file-label">
+        <input
+          class="file-input"
+          type="file"
+          name="textfile"
+          accept=".txt"
+          @change="onFileSelected"
+        />
+        <span class="file-cta">
+          <span class="file-icon">
+            <font-awesome-icon icon="file-alt" />
           </span>
-        </label>
-      </div>
+          <span class="file-label">
+            Select file to start annotating
+          </span>
+        </span>
+      </label>
     </div>
   </div>
 </template>

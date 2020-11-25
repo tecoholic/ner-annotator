@@ -137,7 +137,7 @@ export default {
         .then((res) => {
           this.$store.commit("addAnnotation", [
             res.data.text,
-            { entites: this.tm.exportAsAnnotation() },
+            { entities: this.tm.exportAsAnnotation() },
           ]);
           this.currentIndex++;
           this.tokenizeCurrentSentence();
