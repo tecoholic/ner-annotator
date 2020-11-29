@@ -110,7 +110,6 @@ export default {
       }
 
       if (!this.classes.length && selection.anchorNode) {
-        // TODO show no classes for tagging modal to warn users
         alert(
           "There are no Tags available. Kindly add some Tags before tagging."
         );
