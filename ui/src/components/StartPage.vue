@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">NER Text Annotator</h1>
-          <h2 class="subtitle">Annotate text for SpaCy NER Model traning</h2>
+          <h2 class="subtitle">Annotate text for SpaCy NER Model training</h2>
         </div>
       </div>
     </section>
@@ -86,18 +86,19 @@ with open('your-annotations.json') as fp:
 nlp = spacy.blank('en')
 nlp.vocab.vectors.name = 'demo'
 ner = nlp.create_pipe('ner')
-nlp.add_pipe(ber, last=True)
+nlp.add_pipe(ner, last=True)
 
 # Add the custome NER Tags as entities into the model
 for label in training_data["classes"]:
   nlp.entity.add_label(label)
 
 # Train the model
-optimizer = nlp.begin_trainging()
+optimizer = nlp.begin_training()
 
-for text, annotations in tranining_data["annotations"]:
-  nlp.update([text], [annotations], sgd=optimizer)
-              </code></pre>
+for text, annotations in training_data["annotations"]:
+    if len(text) > 0: # in case an empty sentence was saved while annotating
+        nlp.update([text], [annotations], sgd=optimizer)
+             </code></pre>
 
             </div>
           </div>
