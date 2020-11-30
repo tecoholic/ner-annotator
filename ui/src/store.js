@@ -1,10 +1,10 @@
 export const mutations = {
   setInputSentences(state, payload) {
-    if (Array.isArray(payload)) {
-      payload = payload.join("\n");
+    if (!Array.isArray(payload)) {
+      state.originalText = payload;
+      payload = payload.split(state.separator);
     }
-    let lines = payload.split("\n");
-    state.inputSentences = lines.map((s, i) => ({ id: i, text: s }));
+    state.inputSentences = payload.map((s, i) => ({ id: i, text: s }));
   },
   addClass(state, payload) {
     let existing = state.classes.find((c) => c.name == payload);
@@ -33,6 +33,11 @@ export const mutations = {
   },
   addAnnotation(state, payload) {
     state.annotations.push(payload);
+  },
+  setSeparator(state, payload) {
+    state.separator = payload;
+    const sentences = state.originalText.split(state.separator);
+    state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   }
 };
 
@@ -40,6 +45,8 @@ export const getters = {};
 export default {
   state() {
     return {
+      originalText: "",
+      separator: "\n",
       classes: [],
       inputSentences: [],
       annotations: [],

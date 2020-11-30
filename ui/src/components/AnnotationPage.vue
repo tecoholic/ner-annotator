@@ -67,11 +67,21 @@ export default {
   computed: {
     ...mapState(["inputSentences", "classes", "annotations", "currentClass"]),
   },
+  watch: {
+    inputSentences() {
+      this.currentIndex = 0;
+      this.tokenizeCurrentSentence();
+    }
+
+  },
   created() {
     if (this.inputSentences.length) {
       this.tokenizeCurrentSentence();
     }
     document.addEventListener("mouseup", this.selectTokens);
+  },
+  beforeUnmount() {
+    document.removeEventListener("mouseup", this.selectTokens);
   },
   methods: {
     tokenizeCurrentSentence() {
