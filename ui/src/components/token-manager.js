@@ -21,9 +21,12 @@ class TokenManager {
    * @param {Number} end 'start' value of the token forming the end of the token block
    * @param {Number} _class the id of the class to highlight
    */
-  addNewBlock(start, end, _class) {
+  addNewBlock(_start, _end, _class) {
     let selectedTokens = [];
     let newTokens = [];
+
+    let start = _end < _start ? _end : _start;
+    let end = _end > _start ? _end : _start;
 
     for (let i = 0; i < this.tokens.length; i++) {
       let t = this.tokens[i];
