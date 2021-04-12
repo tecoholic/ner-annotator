@@ -21,10 +21,13 @@ class TokenManager {
    * @param {Number} end 'start' value of the token forming the end of the token block
    * @param {Number} _class the id of the class to highlight
    */
-  addNewBlock(start, end, _class) {
+  addNewBlock(_start, _end, _class) {
     let selectedTokens = [];
     let newTokens = [];
 
+    let start = _end < _start ? _end : _start;
+    let end = _end > _start ? _end : _start;
+    
     for (let i = 0; i < this.tokens.length; i++) {
       let t = this.tokens[i];
       if (t.start < start) {
@@ -46,6 +49,19 @@ class TokenManager {
         newTokens.push(t);
       }
     }
+
+    // Case if the selected tokens are at the end of the text and have not been added to the newTokens
+    if (selectedTokens.length) {
+        newTokens.push({
+          type: "token-block",
+          start: selectedTokens[0].start,
+          end: selectedTokens[selectedTokens.length - 1].end,
+          tokens: selectedTokens,
+          label: _class && _class.name ? _class.name : "Unlabelled",
+          classId: _class && _class.id ? _class.id : 0,
+      });
+    }
+
     this.tokens = newTokens;
   }
 
