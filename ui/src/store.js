@@ -1,3 +1,21 @@
+const niceColors = [
+  "#eeff96",
+  "#bdff96",
+  "#96ffee",
+  "#96bbff",
+  "#be96ff",
+  "#ef96ff",
+  "#ff96d2",
+  "#ff9696",
+  "#ffd596",
+];
+
+function pickColor(index) {
+  if(index <= niceColors.length)
+    return niceColors[index];
+  return null;
+}
+
 export const mutations = {
   setInputSentences(state, payload) {
     if (!Array.isArray(payload)) {
@@ -17,6 +35,7 @@ export const mutations = {
     state.classes.push({
       id: lastIndex + 1,
       name: payload,
+      color: pickColor(lastIndex+1),
     });
     if (state.classes.length === 1) {
       state.currentClass = state.classes[0];

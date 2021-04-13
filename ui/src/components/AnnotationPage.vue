@@ -16,6 +16,7 @@
               v-for="t in tm.tokens"
               :token="t"
               :key="t.start"
+              :backgroundColor="t.backgroundColor"
               @remove-block="onRemoveBlock"
             />
           </div>

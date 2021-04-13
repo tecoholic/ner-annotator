@@ -1,5 +1,5 @@
 <template>
-  <mark>
+  <mark v-bind:style="{backgroundColor:backgroundColor}">
     <Token :token="t" v-for="t in token.tokens" :key="t.start" />
     <span class="tag">
       {{ token.label }}
@@ -22,6 +22,10 @@ export default {
     token: {
       type: Object,
       requried: true
+    },
+    backgroundColor: {
+      type: String,
+      required: false
     }
   },
   components: {

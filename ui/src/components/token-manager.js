@@ -42,6 +42,7 @@ class TokenManager {
           tokens: selectedTokens,
           label: _class && _class.name ? _class.name : "Unlabelled",
           classId: _class && _class.id ? _class.id : 0,
+          backgroundColor: _class && _class.color ? _class.color : null,
         });
         selectedTokens = [];
         newTokens.push(t);
@@ -59,6 +60,7 @@ class TokenManager {
           tokens: selectedTokens,
           label: _class && _class.name ? _class.name : "Unlabelled",
           classId: _class && _class.id ? _class.id : 0,
+          backgroundColor: _class && _class.color ? _class.color : null,
       });
     }
 
