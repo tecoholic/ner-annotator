@@ -16,3 +16,11 @@ test("Mutation: addClass assigns the right id", () => {
   addClass(state, "test");
   expect(state.classes[2].id).toBe(46);
 });
+
+test("Mutation: addClass always assigns a color", () => {
+  let state = { classes: [] };
+  for (let i = 0; i < 100; i++) {
+    addClass(state, "class " + i);
+    expect(typeof state.classes[i].color).toBe("string");
+  }
+});

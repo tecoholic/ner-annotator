@@ -7,6 +7,7 @@
           :class="{ 'is-link': cl.id === currentClass.id }"
           @click="setCurrentClass(cl.id)"
         >
+          <span class="color-box" :style="{ backgroundColor: cl.color }"></span>
           {{ cl.name }}
         </a>
         <a class="tag is-medium is-delete" @click="removeClass(cl.id)"></a>
@@ -27,10 +28,7 @@
     </p>
 
     <p class="control">
-      <button
-        class="button is-primary"
-        @click="showNewClassInput = true"
-      >
+      <button class="button is-primary" @click="showNewClassInput = true">
         <span class="icon">
           <font-awesome-icon class="fa-lg" icon="plus-square" />
         </span>
@@ -74,3 +72,11 @@ export default {
   },
 };
 </script>
+
+<style lang="css" scoped>
+.color-box {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1rem;
+}
+</style>

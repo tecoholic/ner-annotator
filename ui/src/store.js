@@ -1,3 +1,15 @@
+const niceColors = [
+  "#eeff96",
+  "#bdff96",
+  "#96ffee",
+  "#96bbff",
+  "#be96ff",
+  "#ef96ff",
+  "#ff96d2",
+  "#ff9696",
+  "#ffd596",
+];
+
 export const mutations = {
   setInputSentences(state, payload) {
     if (!Array.isArray(payload)) {
@@ -17,6 +29,7 @@ export const mutations = {
     state.classes.push({
       id: lastIndex + 1,
       name: payload,
+      color: niceColors[lastIndex % niceColors.length],
     });
     if (state.classes.length === 1) {
       state.currentClass = state.classes[0];
@@ -38,7 +51,7 @@ export const mutations = {
     state.separator = payload;
     const sentences = state.originalText.split(state.separator);
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
-  }
+  },
 };
 
 export const getters = {};
