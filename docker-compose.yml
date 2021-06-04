@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+    annotator-server:
+        image: lyihaoo/annotator-server:1
+        ports:
+            - "5555:5555"
+
+    annotator-ui:
+        image: lyihaoo/annotator-ui:1
+        ports:
+            - "8080:8080"
