@@ -2,11 +2,17 @@ version: "3.8"
 
 services:
     annotator-server:
-        image: lyihaoo/annotator-server:1
+        build:
+            context: ./annotator
+            dockerfile: server.Dockerfile
+        image: annotator-server
         ports:
             - "5555:5555"
 
     annotator-ui:
-        image: lyihaoo/annotator-ui:1
+        build:
+            context: ./ui
+            dockerfile: ui.Dockerfile
+        image: annotator-ui
         ports:
             - "8080:8080"
