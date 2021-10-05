@@ -146,7 +146,7 @@ export default {
         .post("/detokenize", { tokens: this.tm.words })
         .then((res) => {
           this.$store.commit("addAnnotation", [
-            res.data.text,
+            this.currentSentence.text,
             { entities: this.tm.exportAsAnnotation() },
           ]);
           this.currentIndex++;
