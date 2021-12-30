@@ -1,5 +1,7 @@
 # NER Annotator for Spacy
 
+**ANNOUCEMENT** - NER Annotator is now available at [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/). This can be used up without any setup. Just open the page, load a text file and start tagging.
+
 ![Homepage](docs/start_page.png?raw=true)
 ![Annotation Page](docs/tagging.png?raw=true)
 ![JSON output](docs/output.png?raw=true)
