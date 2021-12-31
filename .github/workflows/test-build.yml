@@ -5,9 +5,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - run: cd ui
             - uses: actions/setup-node@v2
               with:
                   node-version: '14'
                   cache: 'npm'
-            - run: yarn && yarn build
+                  cache-dependency-path: ui/yarn.lock
+            - run: cd ui && yarn && yarn build
