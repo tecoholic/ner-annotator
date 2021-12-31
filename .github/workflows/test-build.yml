@@ -10,5 +10,4 @@ jobs:
               with:
                   node-version: '14'
                   cache: 'npm'
-            - run: npm install
-            - run: npm build
+            - run: yarn && yarn build
