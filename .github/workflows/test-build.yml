@@ -1,0 +1,7 @@
+name: Run UI Build
+on: [push]
+jobs:
+    Build-UI:
+        runs-on: node:14
+        steps:
+            - run: cd ui && yarn && yarn build
