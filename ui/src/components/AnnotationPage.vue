@@ -42,12 +42,12 @@
 </template>
 <script>
 import { mapState } from "vuex";
-import axios from "../axios";
 import Token from "./Token";
 import TokenBlock from "./TokenBlock";
 import AnnotationSidebar from "./AnnotationSidebar";
 import ClassesBlock from "./ClassesBlock.vue";
 import TokenManager from "./token-manager";
+import TreebankTokenizer from "treebank-tokenizer";
 
 export default {
   name: "AnnotationPage",
@@ -57,6 +57,7 @@ export default {
       currentSentence: {},
       currentIndex: 0,
       redone: "",
+      tokenizer: new TreebankTokenizer(),
     };
   },
   components: {
@@ -72,8 +73,7 @@ export default {
     inputSentences() {
       this.currentIndex = 0;
       this.tokenizeCurrentSentence();
-    }
-
+    },
   },
   created() {
     if (this.inputSentences.length) {
@@ -88,16 +88,15 @@ export default {
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
-        alert("You have completed all the sentences")
+        alert("You have completed all the sentences");
         return;
       }
       this.currentSentence = this.inputSentences[this.currentIndex];
-      axios
-        .post("/tokenize", this.currentSentence)
-        .then((res) => {
-          this.tm = new TokenManager(res.data.tokens);
-        })
-        .catch((err) => alert(err));
+
+      let tokens = this.tokenizer.tokenize(this.currentSentence.text);
+      let spans = this.tokenizer.span_tokenize(this.currentSentence.text);
+      let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
+      this.tm = new TokenManager(combined);
     },
     selectTokens() {
       let selection = document.getSelection();
@@ -142,19 +141,12 @@ export default {
       this.tokenizeCurrentSentence();
     },
     saveTags() {
-      axios
-        .post("/detokenize", { tokens: this.tm.words })
-        .then((res) => {
-          this.$store.commit("addAnnotation", [
-            this.currentSentence.text,
-            { entities: this.tm.exportAsAnnotation() },
-          ]);
-          this.currentIndex++;
-          this.tokenizeCurrentSentence();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      this.$store.commit("addAnnotation", [
+        this.currentSentence.text,
+        { entities: this.tm.exportAsAnnotation() },
+      ]);
+      this.currentIndex++;
+      this.tokenizeCurrentSentence();
     },
   },
 };

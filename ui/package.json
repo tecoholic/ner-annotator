@@ -12,10 +12,10 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
-    "axios": "^0.21.0",
     "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "es6-promise": "^4.2.8",
+    "treebank-tokenizer": "^0.0.1",
     "vue": "^3.0.0",
     "vuex": "^4.0.0-rc.1"
   },
