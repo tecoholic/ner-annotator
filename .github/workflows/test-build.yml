@@ -1,7 +1,14 @@
 name: Run UI Build
 on: [push]
 jobs:
-    Build-UI:
-        runs-on: node:14
+    build:
+        runs-on: ubuntu-latest
         steps:
-            - run: cd ui && yarn && yarn build
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: '14'
+                  cache: 'npm'
+            - run: cd ui
+            - run: npm install
+            - run: npm build
