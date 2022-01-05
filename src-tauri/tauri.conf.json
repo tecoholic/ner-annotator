@@ -4,8 +4,8 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../../dist",
-    "devPath": "http://localhost:8081",
+    "distDir": "Set automatically by Vue CLI plugin",
+    "devPath": "Set automatically by Vue CLI plugin",
     "beforeDevCommand": "",
     "beforeBuildCommand": ""
   },
