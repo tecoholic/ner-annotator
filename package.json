@@ -6,12 +6,14 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test": "jest"
+    "test": "jest",
+    "tauri": "tauri"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-2",
+    "@tauri-apps/api": "^1.0.0-beta.8",
     "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "es6-promise": "^4.2.8",
@@ -20,6 +22,7 @@
     "vuex": "^4.0.0-rc.1"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1.0.0-beta.10",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
