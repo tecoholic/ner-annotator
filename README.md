@@ -1,17 +1,24 @@
-# NER Annotator for Spacy
+# ui
 
-![Homepage](assets/start_page.png?raw=true)
-![Annotation Page](assets/tagging.png?raw=true)
-![JSON output](assets/output.png?raw=true)
-
-## Running it locally for development
-
-1. Open another terminal and start the server for the UI
-
-```sh
-cd ui
+## Project setup
+```
 yarn install
+```
+
+### Compiles and hot-reloads for development
+```
 yarn serve
 ```
 
-Now go to [http://localhost:8081/ner-annotator/](http://localhost:8081/ner-annotator/)
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
