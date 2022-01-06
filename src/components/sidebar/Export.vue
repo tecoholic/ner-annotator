@@ -25,22 +25,35 @@ export default {
       };
       const jsonStr = JSON.stringify(output);
 
-      save({
-        defaultPath: await documentDir(),
-        filters: [
-          { extensions: ["json"], name: "JSON Files (*.json)" },
-          { name: "All files (*.*)", extensions: ["*"] },
-        ],
-      })
-        .then((path) => {
-          if (!path) return;
-          if (!path.match(/.*\.json$/)) path += ".json";
-
-          invoke("save_file", { filepath: path, contents: jsonStr })
-            .then((msg) => alert(msg))
-            .catch((e) => alert(e));
+      if (typeof window.rpc === "undefined") {
+        let element = document.createElement("a");
+        element.setAttribute(
+          "href",
+          "data:text/plain;charset=utf-8," + encodeURIComponent(jsonStr)
+        );
+        element.setAttribute("download", "annotations.json");
+        element.style.display = "none";
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      } else {
+        save({
+          defaultPath: await documentDir(),
+          filters: [
+            { extensions: ["json"], name: "JSON Files (*.json)" },
+            { name: "All files (*.*)", extensions: ["*"] },
+          ],
         })
-        .catch((e) => console.log("Save cancelled.", e));
+          .then((path) => {
+            if (!path) return;
+            if (!path.match(/.*\.json$/)) path += ".json";
+
+            invoke("save_file", { filepath: path, contents: jsonStr })
+              .then((msg) => alert(msg))
+              .catch((e) => alert(e));
+          })
+          .catch((e) => console.log("Save cancelled.", e));
+      }
     },
   },
 };
