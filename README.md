@@ -9,14 +9,15 @@ An experimental version of the annotator is also available for Linux as:
 - [Debian Package](https://github.com/tecoholic/ner-annotator/releases/download/0.1.0/ner-annotator_0.1.0_amd64.deb)
 - [AppImage](https://github.com/tecoholic/ner-annotator/releases/download/0.1.0/ner-annotator_0.1.0_amd64.AppImage)
 
-
 ## Screenshots of the process
+
 
 ![Homepage](assets/start_page.png?raw=true)
 ![Annotation Page](assets/tagging.png?raw=true)
 ![JSON output](assets/output.png?raw=true)
 
 ## Development
+
 ### Running it locally for development
 
 1. Open another terminal and start the server for the UI
@@ -31,5 +32,12 @@ Now go to [http://localhost:8081/ner-annotator/](http://localhost:8081/ner-annot
 
 ### Developing the desktop application
 
-The desktop applications have been created using [Tauri](https://tauri.studio). The source code for this is available in 
-the `desktop-tauri` branch.
+The desktop applications have been created using [Tauri](https://tauri.studio).
+
+```sh
+yarn tauri:serve
+```
+
+## Credits
+
+1. App Icon - <a href="https://www.flaticon.com/free-icons/ornithology" title="ornithology icons">Ornithology icons created by Freepik - Flaticon</a>
