@@ -70,6 +70,10 @@ const actions = {
       resolve();
     });
   },
+  deleteClass({ commit, state }, classId) {
+    commit("removeClass", classId);
+    dbSet("classes", state.classes);
+  },
 };
 
 export default {

@@ -71,8 +71,8 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(["removeClass", "setCurrentClass"]),
-    ...mapActions(["createNewClass"]),
+    ...mapMutations(["setCurrentClass"]),
+    ...mapActions(["createNewClass", "deleteClass"]),
     handleRemoveClass(class_id, className) {
       let sure = confirm(
         "Are you sure you want to remove the tag `" +
@@ -80,7 +80,7 @@ export default {
           "`?\nNOTE: This will NOT affect previously tagged entities."
       );
       if (sure) {
-        this.removeClass(class_id);
+        this.deleteClass(class_id);
       }
     },
     saveNewClass() {
