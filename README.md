@@ -41,3 +41,14 @@ yarn tauri:serve
 ## Credits
 
 1. App Icon - <a href="https://www.flaticon.com/free-icons/ornithology" title="ornithology icons">Ornithology icons created by Freepik - Flaticon</a>
+
+
+## Changelog
+
+##### Version 0.1.1
+- [#14](issues/14) - Remembers tags across sessions
+- [#3](issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
+
+##### Version 0.1.0
+- Adds the desktop application
+
