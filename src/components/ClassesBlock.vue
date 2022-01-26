@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 export default {
   name: "ClassesBlock",
   data() {
@@ -72,6 +72,7 @@ export default {
   },
   methods: {
     ...mapMutations(["removeClass", "setCurrentClass"]),
+    ...mapActions(["createNewClass"]),
     handleRemoveClass(class_id, className) {
       let sure = confirm(
         "Are you sure you want to remove the tag `" +
@@ -83,9 +84,11 @@ export default {
       }
     },
     saveNewClass() {
-      this.$store.commit("addClass", this.newClassName);
-      this.showNewClassInput = false;
-      this.newClassName = "";
+      const self = this;
+      this.createNewClass(this.newClassName).then(() => {
+        self.showNewClassInput = false;
+        self.newClassName = "";
+      });
     },
     onInputKeyup(e) {
       if (e.key === "Enter") {

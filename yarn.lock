@@ -7724,6 +7724,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lockr@^0.9.0-beta.0:
+  version "0.9.0-beta.0"
+  resolved "https://registry.yarnpkg.com/lockr/-/lockr-0.9.0-beta.0.tgz#2d13863699a0b358fbe5b8b4d6c6af7913e655bb"
+  integrity sha512-/00iP8I+RJStGkExa8bW5yl1tIyxZvYS1eM5S8ze9D8A73QOxXMSE0lijF37b2HryyqzFJi7vS9LdurTX5e/CA==
+
 lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"

@@ -1,3 +1,5 @@
+import { set as dbSet, get as dbGet } from "lockr";
+
 const niceColors = [
   "#eeff96",
   "#bdff96",
@@ -55,12 +57,27 @@ export const mutations = {
 };
 
 export const getters = {};
+
+const actions = {
+  createNewClass({ commit, state }, className) {
+    return new Promise((resolve, reject) => {
+      commit("addClass", className);
+      try {
+        dbSet("classes", state.classes);
+      } catch (e) {
+        reject(e);
+      }
+      resolve();
+    });
+  },
+};
+
 export default {
   state() {
     return {
       originalText: "",
       separator: "\n",
-      classes: [],
+      classes: dbGet("classes") || [],
       inputSentences: [],
       annotations: [],
       currentClass: {},
@@ -68,5 +85,5 @@ export default {
   },
   getters,
   mutations,
-  actions: {},
+  actions,
 };
