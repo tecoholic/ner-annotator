@@ -9,5 +9,5 @@ jobs:
               with:
                   node-version: '14'
                   cache: 'yarn'
-                  cache-dependency-path: ui/yarn.lock
-            - run: cd ui && yarn && yarn build
+                  cache-dependency-path: yarn.lock
+            - run: yarn && yarn build
