@@ -10,11 +10,15 @@
           <span class="color-box" :style="{ backgroundColor: cl.color }"></span>
           {{ cl.name }}
         </a>
-        <a class="tag is-medium is-delete" @click="removeClass(cl.id)"></a>
+        <a
+          v-if="showDeleteButtons"
+          class="tag is-medium is-delete"
+          @click="handleRemoveClass(cl.id, cl.name)"
+        ></a>
       </div>
     </div>
 
-    <p class="control" v-if="showNewClassInput || classes.length === 0">
+    <div class="control" v-if="showNewClassInput || classes.length === 0">
       <input
         type="text"
         class="input is-inline"
@@ -25,15 +29,23 @@
       <button class="button is-info is-inline" @click="saveNewClass">
         Add
       </button>
-    </p>
+    </div>
 
-    <p class="control">
+    <div class="control">
       <button class="button is-primary" @click="showNewClassInput = true">
         <span class="icon">
           <font-awesome-icon class="fa-lg" icon="plus-square" />
         </span>
       </button>
-    </p>
+      <button
+        :class="['button', showDeleteButtons ? 'is-danger' : 'is-secondary']"
+        @click="showDeleteButtons = !showDeleteButtons"
+      >
+        <span class="icon">
+          <font-awesome-icon class="fa" icon="edit" />
+        </span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -45,6 +57,7 @@ export default {
     return {
       showNewClassInput: false,
       newClassName: "",
+      showDeleteButtons: false,
     };
   },
   computed: {
@@ -59,6 +72,16 @@ export default {
   },
   methods: {
     ...mapMutations(["removeClass", "setCurrentClass"]),
+    handleRemoveClass(class_id, className) {
+      let sure = confirm(
+        "Are you sure you want to remove the tag `" +
+          className +
+          "`?\nNOTE: This will NOT affect previously tagged entities."
+      );
+      if (sure) {
+        this.removeClass(class_id);
+      }
+    },
     saveNewClass() {
       this.$store.commit("addClass", this.newClassName);
       this.showNewClassInput = false;
