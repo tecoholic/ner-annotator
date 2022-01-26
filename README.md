@@ -4,17 +4,7 @@ NER Annotator for SpaCy allows you to create training data for creating a custom
 
 ## Desktop application (experimental)
 
-An experimental version of the annotator is also available for Linux as:
-
-- [Debian Package](https://github.com/tecoholic/ner-annotator/releases/download/0.1.0/ner-annotator_0.1.0_amd64.deb)
-- [AppImage](https://github.com/tecoholic/ner-annotator/releases/download/0.1.0/ner-annotator_0.1.0_amd64.AppImage)
-
-## Screenshots of the process
-
-
-![Homepage](assets/start_page.png?raw=true)
-![Annotation Page](assets/tagging.png?raw=true)
-![JSON output](assets/output.png?raw=true)
+An experimental version of the annotator is also available for Linux as a [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
 
 ## Development
 
@@ -36,6 +26,12 @@ The desktop applications have been created using [Tauri](https://tauri.studio).
 
 ```sh
 yarn tauri:serve
+```
+
+To build the final binaries run
+
+```sh
+yarn tauri:build
 ```
 
 ## Credits
