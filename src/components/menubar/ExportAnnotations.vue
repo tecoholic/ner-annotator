@@ -1,9 +1,7 @@
 <template>
-  <div class="my-2">
-    <button class="button is-danger" @click="generateJSONExport()">
-      Export Annotations
-    </button>
-  </div>
+  <q-item clickable v-close-popup @click="generateJSONExport()">
+    <q-item-section>Export</q-item-section>
+  </q-item>
 </template>
 
 <script>
@@ -13,7 +11,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { documentDir } from "@tauri-apps/api/path";
 
 export default {
-  name: "Export",
+  name: "ExportAnnotations",
   computed: {
     ...mapState(["annotations", "classes"]),
   },

@@ -1,38 +1,44 @@
 <template>
-  <div>
-    <section class="hero is-dark">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">NER Text Annotator</h1>
-          <h2 class="subtitle">Annotate text for spaCy NER Model training</h2>
-        </div>
-      </div>
-    </section>
+  <div class="q-mx-auto q-my-xl" style="max-width: 600px">
+    <h5 class="text-h5">NER Text Annotator</h5>
+    <p class="text-subtitle1">Annotate text for spaCy NER Model training</p>
 
-    <section class="hero">
-      <div class="container">
-        <div class="columns">
-          <div class="column">
-            <LoadTextFile class="pt-6" v-on:file-loaded="onFileLoaded" />
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="q-my-xl q-py-xl">
+      <q-file
+        v-model="textFile"
+        accept=".txt"
+        filled
+        @update:model-value="onFileSelected"
+        label="Open a text file to begin"
+      >
+        <template v-slot:prepend>
+          <q-icon name="fas fa-upload" />
+        </template>
+      </q-file>
+    </div>
   </div>
 </template>
 
 <script>
-import LoadTextFile from "./LoadTextFile";
+import { mapMutations } from "vuex";
 
 export default {
   name: "StartPage",
   emits: ["file-loaded"],
-  components: {
-    LoadTextFile,
+  data() {
+    return {
+      textFile: null,
+    };
   },
   methods: {
-    onFileLoaded() {
-      this.$emit("file-loaded");
+    ...mapMutations(["setInputSentences"]),
+    onFileSelected(file) {
+      let reader = new FileReader();
+      reader.addEventListener("load", (event) => {
+        this.setInputSentences(event.target.result);
+        this.$emit("file-loaded");
+      });
+      reader.readAsText(file);
     },
   },
 };

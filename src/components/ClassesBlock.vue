@@ -1,50 +1,65 @@
 <template>
-  <div class="field is-grouped is-grouped-multiline">
-    <div class="control" v-for="cl in classes" :key="cl.id">
-      <div class="tags is-medium has-addons">
-        <a
-          class="tag is-medium"
-          :class="{ 'is-link': cl.id === currentClass.id }"
+  <div class="q-pa-md" style="border-bottom: 1px solid #ccc;">
+    <div class="row">
+      <div class="tags">
+        <q-chip
+          v-for="cl in classes"
+          :key="cl.id"
+          square
+          :color="cl.id === currentClass.id ? cl.color : 'grey-3'"
+          clickable
           @click="setCurrentClass(cl.id)"
+          :removable="showDeleteButtons"
+          @remove="handleRemoveClass(cl.id, cl.name)"
         >
-          <span class="color-box" :style="{ backgroundColor: cl.color }"></span>
+          <q-avatar
+            :color="cl.color.replace('11', '12')"
+            text-color="white"
+            :icon="cl.id === currentClass.id ? 'fa fa-check' : ''"
+          ></q-avatar>
           {{ cl.name }}
-        </a>
-        <a
-          v-if="showDeleteButtons"
-          class="tag is-medium is-delete"
-          @click="handleRemoveClass(cl.id, cl.name)"
-        ></a>
+        </q-chip>
       </div>
-    </div>
-
-    <div class="control" v-if="showNewClassInput || classes.length === 0">
-      <input
-        type="text"
-        class="input is-inline"
-        v-model="newClassName"
-        @keyup="onInputKeyup"
-        placeholder="NER TAG"
-      />
-      <button class="button is-info is-inline" @click="saveNewClass">
-        Add
-      </button>
-    </div>
-
-    <div class="control">
-      <button class="button is-primary" @click="showNewClassInput = true">
-        <span class="icon">
-          <font-awesome-icon class="fa-lg" icon="plus-square" />
-        </span>
-      </button>
-      <button
-        :class="['button', showDeleteButtons ? 'is-danger' : 'is-secondary']"
-        @click="showDeleteButtons = !showDeleteButtons"
-      >
-        <span class="icon">
-          <font-awesome-icon class="fa" icon="edit" />
-        </span>
-      </button>
+      <q-space></q-space>
+      <div class="q-mx-md">
+        <q-input
+          bottom-slots
+          v-model="newClassName"
+          v-if="showNewClassInput || classes.length === 0"
+          hint="Enter a NER Tag and click [+] to add it"
+          dense
+          autofocus
+        >
+          <template v-slot:append>
+            <q-btn
+              round
+              dense
+              flat
+              color="green-4"
+              icon="fa fa-plus"
+              @click="saveNewClass"
+            />
+            <q-btn
+              round
+              color="red-4"
+              dense
+              flat
+              icon="fa fa-times"
+              @click="showNewClassInput = false"
+            />
+          </template>
+        </q-input>
+      </div>
+      <div class="buttons">
+        <q-btn-group>
+          <q-btn outline @click="showNewClassInput = true" label="New Tag" />
+          <q-btn
+            outline
+            @click="showDeleteButtons = !showDeleteButtons"
+            :label="showDeleteButtons ? 'Lock Tags' : 'Edit Tags'"
+          />
+        </q-btn-group>
+      </div>
     </div>
   </div>
 </template>

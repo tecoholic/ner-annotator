@@ -1,34 +1,25 @@
 <template>
   <section>
-    <div class="control">
-      <label class="label">
-        Text separator
-      </label>
-      <div class="select">
-        <select
-          name="split_type"
-          id="split_type"
-          v-model="splitType"
-          @select="onSelect"
-          :disabled="annotations.length"
-        >
-          <option value="newline">New Line</option>
-          <option value="emptyline">An Empty Line</option>
-          <option value="custom">Custom String</option>
-        </select>
-      </div>
+    <div class="q-pa-md">
+      <q-select
+        outlined
+        bg-color="white"
+        v-model="splitType"
+        :options="splitOptions"
+        :map-options="true"
+        label="Text Seperator"
+      />
     </div>
 
-    <div class="field my-2" v-if="splitType === 'custom'">
-      <div class="control">
-        <input
-          type="text"
-          class="input"
-          v-model="customSeparator"
-          @change="separatorChanged"
-          :disabled="annotations.length"
-        />
-      </div>
+    <div class="q-px-md" v-if="splitType === 'custom'">
+      <q-input
+        label="Separator"
+        bg-color="white"
+        outlined
+        v-model="customSeparator"
+        @change="separatorChanged"
+        :disabled="annotations.length"
+      />
     </div>
   </section>
 </template>
@@ -41,6 +32,11 @@ export default {
   data() {
     return {
       customSeparator: "---",
+      splitOptions: [
+        { label: "New Line", value: "newline" },
+        { label: "An Empty Line", value: "emptyline" },
+        { label: "Custom String", value: "custom" },
+      ],
     };
   },
   computed: {
@@ -56,8 +52,8 @@ export default {
             return "custom";
         }
       },
-      set(value) {
-        switch (value) {
+      set(option) {
+        switch (option.value) {
           case "newline":
             this.$store.commit("setSeparator", "\n");
             break;

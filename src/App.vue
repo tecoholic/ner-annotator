@@ -1,30 +1,48 @@
 <template>
-  <div>
-    <StartPage v-if="currentPage === 'start'" v-on:file-loaded="onFileLoaded" />
-    <AnnotationPage v-if="currentPage === 'annotator'" />
-  </div>
+  <q-layout view="hHh lpR fFf">
+    <menu-bar />
+
+    <q-drawer :model-value="currentPage !== 'start'" bordered class="bg-grey-2">
+      <annotation-sidebar :current="current" />
+    </q-drawer>
+
+    <q-page-container>
+      <start-page
+        v-if="currentPage === 'start'"
+        @file-loaded="switchToPage('annotate')"
+      />
+      <annotation-page v-if="currentPage === 'annotate'" />
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script>
-import StartPage from "./components/StartPage";
-import AnnotationPage from "./components/AnnotationPage";
-
-import "./assets/styles.scss";
+import MenuBar from "./components/menubar/MenuBar.vue";
+import StartPage from "./components/StartPage.vue";
+import AnnotationPage from "./components/AnnotationPage.vue";
+import AnnotationSidebar from "./components/AnnotationSidebar.vue";
 
 export default {
-  name: "App",
-  data: function() {
+  name: "LayoutDefault",
+
+  data() {
     return {
       currentPage: "start",
+      current: 1,
     };
   },
+
   components: {
+    MenuBar,
     StartPage,
     AnnotationPage,
+    AnnotationSidebar,
   },
+
   methods: {
-    onFileLoaded() {
-      this.currentPage = "annotator";
+    switchToPage(page) {
+      this.currentPage = page;
+      console.log(this.currentPage);
     },
   },
 };

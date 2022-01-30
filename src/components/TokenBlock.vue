@@ -1,9 +1,16 @@
 <template>
-  <mark v-bind:style="{backgroundColor:backgroundColor}">
+  <mark :class="'bg-' + backgroundColor">
     <Token :token="t" v-for="t in token.tokens" :key="t.start" />
     <span class="tag">
       {{ token.label }}
-      <a class="delete is-small" @click="$emit('remove-block', token.start)"></a>
+      <q-btn
+        icon="fa fa-times-circle"
+        round
+        flat
+        size="xs"
+        text-color="grey-7"
+        @click="$emit('remove-block', token.start)"
+      />
     </span>
   </mark>
 </template>
@@ -13,25 +20,25 @@ import Token from "./Token";
 export default {
   name: "TokenBlock",
   emits: ["remove-block"],
-  data:function() {
+  data: function() {
     return {
       showClose: false,
-    }
+    };
   },
   props: {
     token: {
       type: Object,
-      requried: true
+      requried: true,
     },
     backgroundColor: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
   components: {
-    Token
-  }
-}
+    Token,
+  },
+};
 </script>
 
 <style lang="scss">
@@ -39,19 +46,20 @@ mark {
   padding: 0.5rem;
   position: relative;
   background-color: burlywood;
-  &::after {
-    content: var(--tag);
-    padding: 0.3rem;
-    color: darkslategray;
-    font-size: small;
-  }
+  border-radius: 4px;
+}
+.tag {
+  background-color: whitesmoke;
+  padding: 4px 0 4px 8px;
+  border-radius: 2px;
+  font-size: x-small;
 }
 .close-btn {
   cursor: pointer;
   font-size: small;
   position: absolute;
   width: 1rem;
-  height:1rem;
+  height: 1rem;
   padding-left: 0.2rem;
   border-radius: 50%;
   background-color: black;

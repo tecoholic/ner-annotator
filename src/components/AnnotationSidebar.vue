@@ -1,16 +1,18 @@
 <template>
   <nav class="px-3">
     <split-type-selector class="mt-4 mb-5" />
-    <progress-bar class="mb-5" :completed="current.id" :total="inputSentences.length" />
-    <export />
+    <progress-bar
+      class="mb-5"
+      :completed="current.id"
+      :total="inputSentences.length"
+    />
   </nav>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import Export from './sidebar/Export.vue';
-import ProgressBar from './sidebar/ProgressBar.vue';
-import SplitTypeSelector from './sidebar/SplitTypeSelector.vue';
+import ProgressBar from "./sidebar/ProgressBar.vue";
+import SplitTypeSelector from "./sidebar/SplitTypeSelector.vue";
 
 export default {
   name: "AnnotationSidebar",
@@ -22,8 +24,7 @@ export default {
   },
   components: {
     ProgressBar,
-    Export,
-    SplitTypeSelector
+    SplitTypeSelector,
   },
   computed: {
     ...mapState(["inputSentences"]),

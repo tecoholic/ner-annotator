@@ -1,11 +1,7 @@
 <template>
-  <div class="my-2">
-    <p class="is-size-6"><strong>Tagging Progress</strong></p>
-    <p class="is-size-7 has-text-right">Completed {{ completed }}/{{ total }}</p>
-
-    <progress class="progress is-small is-primary" :value="completed" :max="total">
-      {{ completedPercent }}%
-    </progress>
+  <div class="q-mx-md">
+    <p class="is-size-6">Tagging Progress ({{ completed }}/{{ total }})</p>
+    <q-linear-progress size="md" color="primary" :value="completed / total" />
   </div>
 </template>
 
@@ -16,6 +12,7 @@ export default {
     completed: {
       type: Number,
       required: true,
+      default: 0,
     },
     total: {
       type: Number,
