@@ -3,7 +3,7 @@
     <menu-bar />
 
     <q-drawer :model-value="currentPage !== 'start'" bordered class="bg-grey-2">
-      <annotation-sidebar :current="current" />
+      <annotation-sidebar />
     </q-drawer>
 
     <q-page-container>
@@ -28,21 +28,17 @@ export default {
   data() {
     return {
       currentPage: "start",
-      current: 1,
     };
   },
-
   components: {
     MenuBar,
     StartPage,
     AnnotationPage,
     AnnotationSidebar,
   },
-
   methods: {
     switchToPage(page) {
       this.currentPage = page;
-      console.log(this.currentPage);
     },
   },
 };

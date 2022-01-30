@@ -64,6 +64,12 @@ export const mutations = {
     const sentences = state.originalText.split(state.separator);
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
+  nextSentence(state) {
+    state.currentIndex += 1;
+  },
+  resetIndex(state) {
+    state.currentIndex = 0;
+  },
 };
 
 export const getters = {};
@@ -95,6 +101,7 @@ export default {
       inputSentences: [],
       annotations: [],
       currentClass: {},
+      currentIndex: 0,
     };
   },
   getters,

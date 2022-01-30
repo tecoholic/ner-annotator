@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import Token from "./Token";
 import TokenBlock from "./TokenBlock";
 import ClassesBlock from "./ClassesBlock.vue";
@@ -51,7 +51,6 @@ export default {
     return {
       tm: new TokenManager([]),
       currentSentence: {},
-      currentIndex: 0,
       redone: "",
       tokenizer: new TreebankTokenizer(),
     };
@@ -62,11 +61,18 @@ export default {
     ClassesBlock,
   },
   computed: {
-    ...mapState(["inputSentences", "classes", "annotations", "currentClass"]),
+    ...mapState([
+      "inputSentences",
+      "classes",
+      "annotations",
+      "currentClass",
+      "currentIndex",
+      "resetIndex",
+    ]),
   },
   watch: {
     inputSentences() {
-      this.currentIndex = 0;
+      this.resetIndex();
       this.tokenizeCurrentSentence();
     },
   },
@@ -80,6 +86,7 @@ export default {
     document.removeEventListener("mouseup", this.selectTokens);
   },
   methods: {
+    ...mapMutations(["nextSentence"]),
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
@@ -132,7 +139,7 @@ export default {
       this.tm.resetBlocks();
     },
     skipCurrentSentence() {
-      this.currentIndex++;
+      this.nextSentence();
       this.tokenizeCurrentSentence();
     },
     saveTags() {
@@ -140,7 +147,7 @@ export default {
         this.currentSentence.text,
         { entities: this.tm.exportAsAnnotation() },
       ]);
-      this.currentIndex++;
+      this.nextSentence();
       this.tokenizeCurrentSentence();
     },
   },

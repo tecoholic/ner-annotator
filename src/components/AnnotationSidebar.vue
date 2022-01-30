@@ -3,7 +3,7 @@
     <split-type-selector class="mt-4 mb-5" />
     <progress-bar
       class="mb-5"
-      :completed="current.id"
+      :completed="currentIndex"
       :total="inputSentences.length"
     />
   </nav>
@@ -16,26 +16,12 @@ import SplitTypeSelector from "./sidebar/SplitTypeSelector.vue";
 
 export default {
   name: "AnnotationSidebar",
-  props: {
-    current: {
-      type: Object,
-      required: true,
-    },
-  },
   components: {
     ProgressBar,
     SplitTypeSelector,
   },
   computed: {
-    ...mapState(["inputSentences"]),
-    visibleSentences() {
-      let start = this.current.id;
-      if (start + 10 > this.inputSentences.length) {
-        start = this.inputSentences.length - 10;
-      }
-      let end = start + 10;
-      return this.inputSentences.slice(start, end);
-    },
+    ...mapState(["currentIndex", "inputSentences"]),
   },
 };
 </script>

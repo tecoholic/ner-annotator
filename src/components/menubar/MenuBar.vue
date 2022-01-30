@@ -1,6 +1,7 @@
 <template>
   <q-header bordered>
     <div class="q-pa-sm q-pl-md row items-center">
+      <!-- 
       <div class="cursor-pointer non-selectable">
         <span>
           Project
@@ -25,6 +26,7 @@
           </q-list>
         </q-menu>
       </div>
+      -->
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>
@@ -37,6 +39,7 @@
         </q-menu>
       </div>
 
+      <!--
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>
           Tags
@@ -52,6 +55,7 @@
           </q-list>
         </q-menu>
       </div>
+      -->
     </div>
   </q-header>
 
