@@ -70,6 +70,24 @@ export const mutations = {
   resetIndex(state) {
     state.currentIndex = 0;
   },
+  loadClasses(state, payload) {
+    if (!Array.isArray(payload)) {
+      throw new Error("loadClasses: payload must be an array");
+    }
+    let isValid = payload.reduce(
+      (acc, curr) =>
+        acc &&
+        typeof curr === "object" &&
+        "id" in curr &&
+        "name" in curr &&
+        "color" in curr,
+      true
+    );
+    if (!isValid) {
+      throw new Error("loadClasses: payload has invalid schema");
+    }
+    state.classes = payload;
+  },
 };
 
 export const getters = {};

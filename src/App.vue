@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <menu-bar />
+    <menu-bar v-if="currentPage !== 'start'" />
 
     <q-drawer :model-value="currentPage !== 'start'" bordered class="bg-grey-2">
       <annotation-sidebar />
