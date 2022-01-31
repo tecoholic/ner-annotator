@@ -1,6 +1,6 @@
 {
-  "name": "ui",
-  "version": "0.1.1",
+  "name": "ner-annotator",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
