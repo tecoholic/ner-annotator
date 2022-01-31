@@ -97,7 +97,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit("addClass", className);
       try {
-        LocalStorage.set("classes", state.classes);
+        LocalStorage.set("tags", state.classes);
       } catch (e) {
         reject(e);
       }
@@ -106,7 +106,7 @@ const actions = {
   },
   deleteClass({ commit, state }, classId) {
     commit("removeClass", classId);
-    LocalStorage.set("classes", state.classes);
+    LocalStorage.set("tags", state.classes);
   },
 };
 
@@ -115,7 +115,7 @@ export default {
     return {
       originalText: "",
       separator: "\n",
-      classes: LocalStorage.getItem("classes") || [],
+      classes: LocalStorage.getItem("tags") || [],
       inputSentences: [],
       annotations: [],
       currentClass: {},
