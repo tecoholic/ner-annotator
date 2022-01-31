@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "NER Annotator",
-    "version": "0.1.1"
+    "version": "1.0.0"
   },
   "build": {
     "distDir": "Set automatically by Vue CLI plugin",
