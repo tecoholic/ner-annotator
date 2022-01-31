@@ -8,13 +8,18 @@ An experimental version of the annotator is also available for Linux as a [Debia
 
 ## Development
 
+### Requirements
+
+1. Node JS 12.x or 14.x
+2. Yarn Package Manager
+3. Rust (for building desktop versions)
+
 ### Running it locally for development
 
 1. Open another terminal and start the server for the UI
 
 ```sh
-cd ui
-yarn install
+yarn
 yarn serve
 ```
 
@@ -38,13 +43,18 @@ yarn tauri:build
 
 1. App Icon - <a href="https://www.flaticon.com/free-icons/ornithology" title="ornithology icons">Ornithology icons created by Freepik - Flaticon</a>
 
-
 ## Changelog
 
+#### Version 1.0.0
+
+- Rewritten UI using [Quasar](https://quasar.dev) framework
+- Export and Import tags
+
 ##### Version 0.1.1
+
 - [#14](issues/14) - Remembers tags across sessions
 - [#3](issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
 
 ##### Version 0.1.0
-- Adds the desktop application
 
+- Adds the desktop application
