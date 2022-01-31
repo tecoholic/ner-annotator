@@ -1,6 +1,16 @@
 <template>
   <q-header bordered>
     <div class="q-pa-sm q-pl-md row items-center">
+      <div>
+        <q-avatar size="xs">
+          <img src="@/assets/icon_32.png" />
+        </q-avatar>
+        <span class="q-ml-sm">
+          <strong>
+            NER Annotator
+          </strong>
+        </span>
+      </div>
       <!-- 
       <div class="cursor-pointer non-selectable">
         <span>
@@ -61,6 +71,41 @@
           </q-list>
         </q-menu>
       </div>
+
+      <q-space />
+
+      <div class="q-ml-md cursor-pointer non-selectable">
+        <span>Help</span>
+
+        <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item
+              clickable
+              v-close-popup
+              href="https://github.com/tecoholic/ner-annotator/discussions"
+              target="_blank"
+            >
+              <q-item-section>
+                Forum
+              </q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              v-close-popup
+              href="https://github.com/tecoholic/ner-annotator/issues"
+              target="_blank"
+            >
+              Report Issue
+            </q-item>
+            <q-separator />
+            <q-item clickable v-close-popup @click="showAbout = true">
+              <q-item-section>About</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+
+        <about-dialog :show="showAbout" @hide="showAbout = false" />
+      </div>
     </div>
   </q-header>
 
@@ -92,9 +137,10 @@ import ExportAnnotations from "./ExportAnnotations.vue";
 import { mapState, mapMutations } from "vuex";
 import { exportFile } from "./utils";
 import { useQuasar } from "quasar";
+import AboutDialog from "../AboutDialog.vue";
 
 export default {
-  components: { ExportAnnotations },
+  components: { ExportAnnotations, AboutDialog },
   name: "MenuBar",
   setup() {
     const $q = useQuasar();
@@ -120,6 +166,7 @@ export default {
     return {
       promptForProject: false,
       newProjectName: "",
+      showAbout: false,
     };
   },
   computed: {
