@@ -67,7 +67,6 @@ export default {
       "annotations",
       "currentClass",
       "currentIndex",
-      "resetIndex",
     ]),
   },
   watch: {
@@ -86,7 +85,7 @@ export default {
     document.removeEventListener("mouseup", this.selectTokens);
   },
   methods: {
-    ...mapMutations(["nextSentence"]),
+    ...mapMutations(["nextSentence", "resetIndex"]),
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
