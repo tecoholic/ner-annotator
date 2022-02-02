@@ -20,6 +20,98 @@
       </q-file>
     </div>
   </div>
+  <q-separator />
+  <div class="bg-grey-1 q-pa-lg">
+    <div class="q-mx-auto" style="max-width: 600px">
+      <h4 class="text-h4">
+        How to use the NER Annotator?
+      </h4>
+      <q-timeline>
+        <q-timeline-entry
+          subtitle="Step 1"
+          title="Load your text file with contents to annotate"
+          icon="fa fa-upload"
+          color="yellow-8"
+        >
+          <q-img
+            src="@/assets/step-1.png"
+            spinner-color="white"
+            class="rounded-borders"
+            style="border: 1px solid #ccc"
+          />
+          <p class="text-subtitle1 q-my-md">Tips to prepare the text file</p>
+          <ul>
+            <li>Break your content in paragraphs or passages</li>
+            <li>
+              Maintain a consistent seperator between the passages. <br />
+              Eg., newline, empty line or a text seperator like <code>---</code>
+            </li>
+            <li>
+              For large datasets, break the text into smaller files and tag them
+              seperately
+            </li>
+          </ul>
+        </q-timeline-entry>
+        <q-timeline-entry
+          subtitle="Step 2"
+          title="Create some tags and start tagging your text"
+          icon="fa fa-tag"
+          color="orange-6"
+        >
+          <q-img
+            src="@/assets/step-2.png"
+            spinner-color="white"
+            class="rounded-borders"
+            style="border: 1px solid #ccc"
+          />
+          <ul class="q-my-md">
+            <li>Use the <strong>New Tag</strong> button to create new tags</li>
+            <li>
+              Use the <strong>Edit Tag</strong> button to remove unwanted tags
+            </li>
+            <li>
+              Click the <strong>Save</strong> button once you are done
+              annotating an entry and to move to the next one
+            </li>
+            <li>
+              Adjust the <strong>Text Seperator</strong> break your content
+              correctly into entries
+            </li>
+            <li>
+              Use the <strong>Tags</strong> menu to Export/Import tags to share
+              with your team
+            </li>
+          </ul>
+        </q-timeline-entry>
+        <q-timeline-entry
+          subtitle="Step 3"
+          title="Download your annotations as a JSON file that can be used for training"
+          icon="fa fa-download"
+          color="red-6"
+        >
+          <q-img
+            src="@/assets/step-3.png"
+            spinner-color="white"
+            class="rounded-borders"
+            style="border: 1px solid #ccc"
+          />
+        </q-timeline-entry>
+
+        <q-timeline-entry
+          subtitle="Finally"
+          title="Convert to DocBin format and use it for training"
+          icon="fa fa-file"
+          color="red-10"
+        >
+          <p>
+            See the spaCy documentation
+            <a href="https://spacy.io/api/data-formats#json-input">here</a> on
+            how to convert the annotations from JSON to DocBin format.
+          </p>
+        </q-timeline-entry>
+      </q-timeline>
+    </div>
+  </div>
 </template>
 
 <script>
