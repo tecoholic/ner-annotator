@@ -5,7 +5,7 @@
       Annotate text for spaCy NER Model training
     </p>
 
-    <div class="q-my-xl q-py-xl">
+    <div class="q-my-xl q-py-md">
       <q-file
         v-model="textFile"
         accept=".txt"
