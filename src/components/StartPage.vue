@@ -37,7 +37,7 @@
             src="@/assets/step-1.png"
             spinner-color="white"
             class="rounded-borders"
-            style="border: 1px solid #ccc"
+            style="border: 1px solid #ccc; width: 80%"
           />
           <p class="text-subtitle1 q-my-md">Tips to prepare the text file</p>
           <ul>
@@ -93,7 +93,7 @@
             src="@/assets/step-3.png"
             spinner-color="white"
             class="rounded-borders"
-            style="border: 1px solid #ccc"
+            style="border: 1px solid #ccc; width: 70%"
           />
         </q-timeline-entry>
 
