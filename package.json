@@ -9,6 +9,8 @@
     "tauri": "tauri",
     "tauri:build": "vue-cli-service tauri:build",
     "tauri:serve": "vue-cli-service tauri:serve",
+    "tauri:build-win": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service tauri:build",
+    "tauri:serve-win": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service tauri:serve",
     "test": "jest"
   },
   "dependencies": {
