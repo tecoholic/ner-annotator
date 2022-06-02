@@ -2,9 +2,9 @@
 
 NER Annotator for SpaCy allows you to create training data for creating a custome NER Model with custom tags. It can either be access as a web application directly from [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/) or can be installed in Linux systems as a desktop application.
 
-🚀🚀 **You can now sponsor this project for specific features your need.**
+🚀🚀 **You can now sponsor this project for specific features your need.** -> Click the sponsor button on the right
 
-<iframe src="https://github.com/sponsors/tecoholic/button" title="Sponsor tecoholic" height="35" width="116" style="border: 0;"></iframe>
+
 
 ## Desktop application
 
