@@ -17,7 +17,10 @@ export default {
     async generateJSONExport() {
       const output = {
         classes: this.classes.map((c) => c.name),
-        annotations: this.annotations,
+        annotations: this.annotations.map((a) => ([
+          a.text,
+          {entities: a.entities}
+        ])),
       };
       const jsonStr = JSON.stringify(output);
       await exportFile(jsonStr, "annotations.json");
