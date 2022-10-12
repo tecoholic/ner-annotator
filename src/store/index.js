@@ -57,7 +57,8 @@ export const mutations = {
     state.currentClass = state.classes.find((c) => c.id === payload);
   },
   addAnnotation(state, payload) {
-    state.annotations.push(payload);
+    state.annotations[state.currentIndex] = payload;
+    state.currentAnnotation = payload;
   },
   setSeparator(state, payload) {
     state.separator = payload;
@@ -66,6 +67,15 @@ export const mutations = {
   },
   nextSentence(state) {
     state.currentIndex += 1;
+    state.currentAnnotation = {};
+  },
+  previousSentence(state) {
+    if (state.currentIndex > 0) {
+      state.currentIndex -= 1;
+      state.currentAnnotation = state.annotations[state.currentIndex];
+    } else {
+      alert("You are at the beginning of all sentences");
+    }
   },
   resetIndex(state) {
     state.currentIndex = 0;
@@ -113,13 +123,16 @@ const actions = {
 export default {
   state() {
     return {
-      originalText: "",
-      separator: "\n",
+      annotations: [],
       classes: LocalStorage.getItem("tags") || [],
       inputSentences: [],
-      annotations: [],
+      originalText: "",
+      separator: "\n",
+      // current state
+      currentAnnotation: {},
       currentClass: {},
       currentIndex: 0,
+      currentSentence: "",
     };
   },
   getters,
