@@ -12,6 +12,9 @@
         @click="$emit('remove-block', token.start)"
       />
     </span>
+    <q-tooltip :class="'bg-' + backgroundColor" class="text-black" anchor="top middle" :offset="[0, 25]">
+      {{ token.start }} - {{ token.end }}
+    </q-tooltip>
   </mark>
 </template>
 <script>
