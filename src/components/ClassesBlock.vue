@@ -17,7 +17,7 @@
             text-color="white"
             :icon="cl.id === currentClass.id ? 'fa fa-check' : ''"
           ></q-avatar>
-          {{ cl.name }}
+          {{ cl.name }} &nbsp; <sub>{{ cl.id }}</sub>
         </q-chip>
       </div>
       <q-space></q-space>
@@ -78,6 +78,9 @@ export default {
   computed: {
     ...mapState(["classes", "currentClass"]),
   },
+  created() {
+    document.addEventListener('keydown', this.keypress);
+  },
   watch: {
     newClassName(now, then) {
       if (now != then) {
@@ -88,6 +91,22 @@ export default {
   methods: {
     ...mapMutations(["setCurrentClass"]),
     ...mapActions(["createNewClass", "deleteClass"]),
+    keypress(event) {
+      const startkey = 49;
+      var setToClass = (event.keyCode - startkey) +1
+      if (setToClass >= 0 && setToClass < 8) {
+        if (event.keyCode == 48) {
+          setToClass = 9
+        }
+        if (setToClass > this.classes.length) {
+          console.log("Ignoring keypress for class", event.keyCode, setToClass);
+          return
+        }
+        console.log("setting current class to", setToClass);
+        this.setCurrentClass(setToClass);
+        return
+      }
+    },
     handleRemoveClass(class_id, className) {
       let sure = confirm(
         "Are you sure you want to remove the tag `" +

@@ -87,12 +87,28 @@ export default {
       this.tokenizeCurrentSentence();
     }
     document.addEventListener("mouseup", this.selectTokens);
+    document.addEventListener('keydown', this.keypress);
   },
   beforeUnmount() {
     document.removeEventListener("mouseup", this.selectTokens);
+    document.removeEventListener("keydown", this.keypress);
   },
   methods: {
     ...mapMutations(["nextSentence", "previousSentence", "resetIndex"]),
+    keypress(event) {
+      console.log(event);
+      if (event.keyCode == 32) { // Space
+        this.saveTags();
+      } else if (event.keyCode == 9 && !event.shiftKey) { // Tab
+        this.skipCurrentSentence();
+      } else if ((event.keyCode == 9 && event.shiftKey) || event.keyCode == 8) { // Shift Tab or Backspace
+        this.backOneSentence();
+      } else if (event.keyCode == 82 || event.keyCode == 27) { // r / R or ESC
+        this.resetBlocks();
+      }
+      // stop event from bubbling up
+      event.stopPropagation()
+    },
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
