@@ -61,8 +61,8 @@ yarn tauri:build
 
 ##### Version 0.1.1
 
-- [#14](issues/14) - Remembers tags across sessions
-- [#3](issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
+- [#14](../../issues/14) - Remembers tags across sessions
+- [#3](../../issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
 
 ##### Version 0.1.0
 
