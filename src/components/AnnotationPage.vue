@@ -128,7 +128,33 @@ export default {
     selectTokens() {
       let selection = document.getSelection();
 
-      this.tm.selectNewBlock(selection, this.currentClass);
+      if (
+        selection.anchorOffset === selection.focusOffset &&
+        selection.anchorNode === selection.focusNode
+      ) {
+        return;
+      }
+      
+      const range = selection.getRangeAt(0);
+      let start, end;
+      try {
+        start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
+        let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
+        end = offsetEnd + range.endOffset;
+      } catch {
+        console.log("selected text were not tokens");
+        return;
+      }
+
+      if (!this.classes.length && selection.anchorNode) {
+        alert(
+          "There are no Tags available. Kindly add some Tags before tagging."
+        );
+        selection.empty();
+        return;
+      }
+    
+      this.tm.addNewBlock(start, end, _class);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
