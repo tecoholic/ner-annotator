@@ -83,31 +83,6 @@ class TokenManager {
   }
 
   /**
-   * 
-   */
-  selectNewBlock(selection, _class) {
-    if (
-      selection.anchorOffset === selection.focusOffset &&
-      selection.anchorNode === selection.focusNode
-    ) {
-      return;
-    }
-    
-    const range = selection.getRangeAt(0);
-    let start, end;
-    try {
-      start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
-      let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
-      end = offsetEnd + range.endOffset;
-    } catch {
-      console.log("selected text were not tokens");
-      return;
-    }
-  
-    this.addNewBlock(start, end, _class);
-  }
-
-  /**
    * Removes a token block and puts back all the tokens in their original position
    *
    * @param {Number} blockStart 'start' value of the token block to remove
