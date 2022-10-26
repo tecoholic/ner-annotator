@@ -92,7 +92,7 @@ export default {
     document.removeEventListener("mouseup", this.selectTokens);
   },
   methods: {
-    ...mapMutations(["nextSentence", "previousSentence", "resetIndex",]),
+    ...mapMutations(["nextSentence", "previousSentence", "resetIndex"]),
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
@@ -118,12 +118,16 @@ export default {
       ) {
         return;
       }
-      
+
       const range = selection.getRangeAt(0);
       let start, end;
       try {
-        start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
-        let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
+        start = parseInt(
+          range.startContainer.parentElement.id.replace("t", "")
+        );
+        let offsetEnd = parseInt(
+          range.endContainer.parentElement.id.replace("t", "")
+        );
         end = offsetEnd + range.endOffset;
       } catch {
         console.log("selected text were not tokens");
@@ -137,8 +141,8 @@ export default {
         selection.empty();
         return;
       }
-    
-      this.tm.addNewBlock(start, end, _class);
+
+      this.tm.addNewBlock(start, end, this.currentClass);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
@@ -158,7 +162,7 @@ export default {
     saveTags() {
       this.$store.commit("addAnnotation", {
         text: this.currentSentence.text,
-        entities: this.tm.exportAsAnnotation()
+        entities: this.tm.exportAsAnnotation(),
       });
       this.nextSentence();
       this.tokenizeCurrentSentence();
