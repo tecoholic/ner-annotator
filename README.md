@@ -2,11 +2,9 @@
 
 NER Annotator for SpaCy allows you to create training data for creating a custome NER Model with custom tags. It can either be access as a web application directly from [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/) or can be installed in Linux systems as a desktop application.
 
-🚀 **You can now sponsor this project for specific features your need.** 
+🚀 **You can now sponsor this project for specific features your need.**
 
 💰 Click the sponsor button on the right. 👉
-
-
 
 ## Desktop application
 
@@ -53,6 +51,10 @@ yarn tauri:build
 1. App Icon - <a href="https://www.flaticon.com/free-icons/ornithology" title="ornithology icons">Ornithology icons created by Freepik - Flaticon</a>
 
 ## Changelog
+
+#### Version 1.1.0
+
+- Adds "Back" button that allows navigating back to sentences/text blocks that's already been tagged and make changes.
 
 #### Version 1.0.0
 
