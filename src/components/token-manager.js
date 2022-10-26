@@ -3,14 +3,26 @@ class TokenManager {
    *
    * @param {Array} tokens
    */
-  constructor(tokens) {
+  constructor(classes) {
+    this.classes = classes
+  }
+
+  setTokensAndAnnotation(tokens, currentAnnotation) {
     this.tokens = tokens.map((t) => ({
       type: "token",
       start: t[0],
       end: t[1],
       text: t[2],
     }));
-    this.words = tokens.map(t => t[2]); 
+    this.words = tokens.map(t => t[2]);
+
+    if (currentAnnotation != undefined) {
+      // reset prevoius annotation state
+      for (let i = 0; i < currentAnnotation.entities.length; i++) {
+        var entityClass = this.classes.find(c => c.name === currentAnnotation.entities[i][2])
+        this.addNewBlock(currentAnnotation.entities[i][0], currentAnnotation.entities[i][1], entityClass)
+      }
+    }
   }
 
   /**
@@ -25,16 +37,19 @@ class TokenManager {
     let selectedTokens = [];
     let newTokens = [];
 
-    let start = _end < _start ? _end : _start;
-    let end = _end > _start ? _end : _start;
+    let selectionStart = _end < _start ? _end : _start;
+    let selectionEnd = _end > _start ? _end : _start;
     
     for (let i = 0; i < this.tokens.length; i++) {
-      let t = this.tokens[i];
-      if (t.start < start) {
-        newTokens.push(t);
-      } else if (t.type == "token" && t.start >= start && t.start <= end) {
-        selectedTokens.push(t);
-      } else if (t.start > start && selectedTokens.length) {
+      let currentToken = this.tokens[i];
+      if (currentToken.start < selectionStart) {
+        // token is before the selection
+        newTokens.push(currentToken);
+      } else if (currentToken.type == "token" && currentToken.start >= selectionStart && currentToken.start < selectionEnd) {
+        // token is inside the selection
+        selectedTokens.push(currentToken);
+      } else if (currentToken.start >= selectionEnd && selectedTokens.length) {
+        // token is first after the selection
         newTokens.push({
           type: "token-block",
           start: selectedTokens[0].start,
@@ -45,22 +60,22 @@ class TokenManager {
           backgroundColor: _class && _class.color ? _class.color : null,
         });
         selectedTokens = [];
-        newTokens.push(t);
+        newTokens.push(currentToken);
       } else {
-        newTokens.push(t);
+        newTokens.push(currentToken);
       }
     }
 
     // Case if the selected tokens are at the end of the text and have not been added to the newTokens
     if (selectedTokens.length) {
-        newTokens.push({
-          type: "token-block",
-          start: selectedTokens[0].start,
-          end: selectedTokens[selectedTokens.length - 1].end,
-          tokens: selectedTokens,
-          label: _class && _class.name ? _class.name : "Unlabelled",
-          classId: _class && _class.id ? _class.id : 0,
-          backgroundColor: _class && _class.color ? _class.color : null,
+      newTokens.push({
+        type: "token-block",
+        start: selectedTokens[0].start,
+        end: selectedTokens[selectedTokens.length - 1].end,
+        tokens: selectedTokens,
+        label: _class && _class.name ? _class.name : "Unlabelled",
+        classId: _class && _class.id ? _class.id : 0,
+        backgroundColor: _class && _class.color ? _class.color : null,
       });
     }
 

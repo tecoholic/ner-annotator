@@ -24,6 +24,13 @@
       <q-btn
         class="q-mx-md"
         outline
+        @click="backOneSentence"
+        :disabled="!annotations.length"
+        label="Back"
+      />
+      <q-btn
+        class="q-mx-md"
+        outline
         @click="skipCurrentSentence"
         label="Skip"
       />
@@ -62,11 +69,11 @@ export default {
   },
   computed: {
     ...mapState([
-      "inputSentences",
-      "classes",
       "annotations",
+      "classes",
       "currentClass",
       "currentIndex",
+      "inputSentences",
     ]),
   },
   watch: {
@@ -85,7 +92,7 @@ export default {
     document.removeEventListener("mouseup", this.selectTokens);
   },
   methods: {
-    ...mapMutations(["nextSentence", "resetIndex"]),
+    ...mapMutations(["nextSentence", "previousSentence", "resetIndex",]),
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
@@ -93,11 +100,14 @@ export default {
         return;
       }
       this.currentSentence = this.inputSentences[this.currentIndex];
+      this.currentAnnotation = this.annotations[this.currentIndex];
 
       let tokens = this.tokenizer.tokenize(this.currentSentence.text);
       let spans = this.tokenizer.span_tokenize(this.currentSentence.text);
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
-      this.tm = new TokenManager(combined);
+
+      this.tm = new TokenManager(this.classes);
+      this.tm.setTokensAndAnnotation(combined, this.currentAnnotation);
     },
     selectTokens() {
       let selection = document.getSelection();
@@ -105,17 +115,17 @@ export default {
       if (
         selection.anchorOffset === selection.focusOffset &&
         selection.anchorNode === selection.focusNode
-      )
+      ) {
         return;
-      let startIdx, endIdx;
+      }
+      
+      const range = selection.getRangeAt(0);
+      let start, end;
       try {
-        startIdx = parseInt(
-          selection.anchorNode.parentElement.id.replace("t", "")
-        );
-        endIdx = parseInt(
-          selection.focusNode.parentElement.id.replace("t", "")
-        );
-      } catch (e) {
+        start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
+        let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
+        end = offsetEnd + range.endOffset;
+      } catch {
         console.log("selected text were not tokens");
         return;
       }
@@ -127,8 +137,8 @@ export default {
         selection.empty();
         return;
       }
-
-      this.tm.addNewBlock(startIdx, endIdx, this.currentClass);
+    
+      this.tm.addNewBlock(start, end, _class);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
@@ -141,11 +151,15 @@ export default {
       this.nextSentence();
       this.tokenizeCurrentSentence();
     },
+    backOneSentence() {
+      this.previousSentence();
+      this.tokenizeCurrentSentence();
+    },
     saveTags() {
-      this.$store.commit("addAnnotation", [
-        this.currentSentence.text,
-        { entities: this.tm.exportAsAnnotation() },
-      ]);
+      this.$store.commit("addAnnotation", {
+        text: this.currentSentence.text,
+        entities: this.tm.exportAsAnnotation()
+      });
       this.nextSentence();
       this.tokenizeCurrentSentence();
     },
