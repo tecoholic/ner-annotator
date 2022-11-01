@@ -2,11 +2,9 @@
 
 NER Annotator for SpaCy allows you to create training data for creating a custome NER Model with custom tags. It can either be access as a web application directly from [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/) or can be installed in Linux systems as a desktop application.
 
-🚀 **You can now sponsor this project for specific features your need.** 
+🚀 **You can now sponsor this project for specific features your need.**
 
 💰 Click the sponsor button on the right. 👉
-
-
 
 ## Desktop application
 
@@ -54,6 +52,10 @@ yarn tauri:build
 
 ## Changelog
 
+#### Version 1.1.0
+
+- Adds "Back" button that allows navigating back to sentences/text blocks that's already been tagged and make changes.
+
 #### Version 1.0.0
 
 - Rewritten UI using [Quasar](https://quasar.dev) framework
@@ -61,8 +63,8 @@ yarn tauri:build
 
 ##### Version 0.1.1
 
-- [#14](issues/14) - Remembers tags across sessions
-- [#3](issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
+- [#14](../../issues/14) - Remembers tags across sessions
+- [#3](../../issues/3) - Adds a button to enable/disable removing of tags to prevent accidental removal of tags
 
 ##### Version 0.1.0
 

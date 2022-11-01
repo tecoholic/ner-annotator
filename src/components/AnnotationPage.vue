@@ -153,8 +153,8 @@ export default {
         selection.empty();
         return;
       }
-    
-      this.tm.addNewBlock(start, end, _class);
+      
+      this.tm.addNewBlock(start, end, this.currentClass);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
@@ -174,7 +174,7 @@ export default {
     saveTags() {
       this.$store.commit("addAnnotation", {
         text: this.currentSentence.text,
-        entities: this.tm.exportAsAnnotation()
+        entities: this.tm.exportAsAnnotation(),
       });
       this.nextSentence();
       this.tokenizeCurrentSentence();
