@@ -74,6 +74,7 @@ export default {
       "currentClass",
       "currentIndex",
       "inputSentences",
+      "enableKeyboardShortcuts",
     ]),
   },
   watch: {
@@ -94,14 +95,17 @@ export default {
     document.removeEventListener("keydown", this.keypress);
   },
   methods: {
-    ...mapMutations(["nextSentence", "previousSentence", "resetIndex",]),
+    ...mapMutations(["nextSentence", "previousSentence", "resetIndex"]),
     keypress(event) {
+      if (!this.enableKeyboardShortcuts) {
+        return
+      }
       console.log(event);
       if (event.keyCode == 32) { // Space
         this.saveTags();
-      } else if (event.keyCode == 9 && !event.shiftKey) { // Tab
+      } else if (event.keyCode == 39) { // right arrow
         this.skipCurrentSentence();
-      } else if ((event.keyCode == 9 && event.shiftKey) || event.keyCode == 8) { // Shift Tab or Backspace
+      } else if (event.keyCode == 37) { // left arrow
         this.backOneSentence();
       } else if (event.keyCode == 82 || event.keyCode == 27) { // r / R or ESC
         this.resetBlocks();

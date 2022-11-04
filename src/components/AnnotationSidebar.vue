@@ -6,6 +6,7 @@
       :completed="currentIndex"
       :total="inputSentences.length"
     />
+    <keyboard-shortcuts />
   </nav>
 </template>
 
@@ -13,12 +14,14 @@
 import { mapState } from "vuex";
 import ProgressBar from "./sidebar/ProgressBar.vue";
 import SplitTypeSelector from "./sidebar/SplitTypeSelector.vue";
+import KeyboardShortcuts from "./sidebar/KeyboardShortcuts.vue";
 
 export default {
   name: "AnnotationSidebar",
   components: {
     ProgressBar,
     SplitTypeSelector,
+    KeyboardShortcuts,
   },
   computed: {
     ...mapState(["currentIndex", "inputSentences"]),

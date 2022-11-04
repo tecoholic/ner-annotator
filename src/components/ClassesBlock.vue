@@ -76,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["classes", "currentClass"]),
+    ...mapState(["classes", "currentClass", "enableKeyboardShortcuts"]),
   },
   created() {
     document.addEventListener('keydown', this.keypress);
@@ -92,20 +92,22 @@ export default {
     ...mapMutations(["setCurrentClass"]),
     ...mapActions(["createNewClass", "deleteClass"]),
     keypress(event) {
-      const startkey = 49;
-      var setToClass = (event.keyCode - startkey) +1
-      if (setToClass >= 0 && setToClass < 8) {
-        if (event.keyCode == 48) {
-          setToClass = 9
-        }
-        if (setToClass > this.classes.length) {
-          console.log("Ignoring keypress for class", event.keyCode, setToClass);
-          return
-        }
-        console.log("setting current class to", setToClass);
-        this.setCurrentClass(setToClass);
+      if (!this.enableKeyboardShortcuts) {
         return
       }
+      var key = parseInt(event.key)
+      if (!key) {
+        console.log("key not a number", key)
+        return
+      }
+      if (key > this.classes.length) {
+        console.log("key out of classes range", key)
+        return
+      }
+      
+      console.log("setting current class to", key);
+      this.setCurrentClass(key);
+      return
     },
     handleRemoveClass(class_id, className) {
       let sure = confirm(
