@@ -14,33 +14,33 @@
     "test": "jest"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/vue-fontawesome": "^3.0.0-2",
-    "@quasar/extras": "^1.0.0",
-    "@tauri-apps/api": "^1.0.0-beta.8",
-    "core-js": "^3.6.5",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/vue-fontawesome": "^3.0.2",
+    "@quasar/extras": "^1.15.5",
+    "@tauri-apps/api": "^1.2.0",
+    "core-js": "^3.26.1",
     "es6-promise": "^4.2.8",
-    "quasar": "^2.0.0",
+    "quasar": "^2.10.2",
     "treebank-tokenizer": "^0.0.1",
-    "vue": "^3.0.0",
-    "vuex": "^4.0.0-rc.1"
+    "vue": "^3.2.45",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.10",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0-0",
-    "jest": "^26.6.3",
-    "node-sass": "^5.0.0",
-    "sass": "1.32.12",
-    "sass-loader": "^10.1.0",
-    "vue-cli-plugin-quasar": "~4.0.4",
-    "vue-cli-plugin-tauri": "~1.0.0-beta.6"
+    "@tauri-apps/cli": "^1.2.0",
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/compiler-sfc": "^3.2.45",
+    "@babel/eslint-parser": "^7.19.1",
+    "eslint": "^8.27.0",
+    "eslint-plugin-vue": "^9.7.0",
+    "jest": "^29.3.1",
+    "node-sass": "^8.0.0",
+    "sass": "^1.56.1",
+    "sass-loader": "^13.2.0",
+    "vue-cli-plugin-quasar": "^5.0.1",
+    "vue-cli-plugin-tauri": "^1.0.0"
   },
   "eslintConfig": {
     "root": true,
@@ -52,10 +52,11 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "no-console": "off"
+      "no-console": "off",
+      "vue/multi-word-component-names": 0
     }
   },
   "browserslist": [
