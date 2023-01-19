@@ -40,6 +40,26 @@
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>
+          File
+        </span>
+        <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item clickable v-close-popup @click="$refs.file.click()">
+              <q-item-section>Open File</q-item-section>
+              <input
+                @change="openFile"
+                type="file"
+                ref="file"
+                accept=".txt"
+                style="display: none"
+              />
+            </q-item>
+          </q-list>
+        </q-menu>
+      </div>
+
+      <div class="q-ml-md cursor-pointer non-selectable">
+        <span>
           Annotations
         </span>
         <q-menu>
@@ -173,7 +193,7 @@ export default {
     ...mapState(["annotations", "classes"]),
   },
   methods: {
-    ...mapMutations(["loadClasses"]),
+    ...mapMutations(["loadClasses", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
     // Funtion that exports the tags to a JSON file
     exportTags: async function() {
       await exportFile(JSON.stringify(this.classes), "tags.json");
@@ -194,6 +214,16 @@ export default {
         }
       };
       filereader.readAsText(file);
+    },
+    openFile: function(e) {
+      let file = e.target.files[0];
+      let filereader = new FileReader();
+      filereader.onload = (ev) => {
+        this.setInputSentences(ev.target.result);
+        this.clearAllAnnotations();
+      };
+      filereader.readAsText(file);
+      this.resetIndex();
     },
   },
 };

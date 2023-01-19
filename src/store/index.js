@@ -60,6 +60,10 @@ export const mutations = {
     state.annotations[state.currentIndex] = payload;
     state.currentAnnotation = payload;
   },
+  clearAllAnnotations(state) {
+    state.annotations = [];
+    state.currentAnnotation = {};
+  },
   setSeparator(state, payload) {
     state.separator = payload;
     const sentences = state.originalText.split(state.separator);
