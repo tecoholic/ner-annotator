@@ -57,7 +57,7 @@ export const mutations = {
     state.currentClass = state.classes.find((c) => c.id === payload);
   },
   addAnnotation(state, payload) {
-    state.annotations.push(payload);
+    state.annotations[state.currentIndex] = payload;
   },
   setSeparator(state, payload) {
     state.separator = payload;
@@ -65,7 +65,11 @@ export const mutations = {
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
   nextSentence(state) {
-    state.currentIndex += 1;
+    if (state.currentIndex < state.inputSentences.length - 1) {
+      state.currentIndex += 1;
+    } else {
+      alert("You have completed all the sentences");
+    }
   },
   resetIndex(state) {
     state.currentIndex = 0;

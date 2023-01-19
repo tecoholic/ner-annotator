@@ -87,11 +87,6 @@ export default {
   methods: {
     ...mapMutations(["nextSentence", "resetIndex"]),
     tokenizeCurrentSentence() {
-      if (this.currentIndex >= this.inputSentences.length) {
-        // TODO show completed message
-        alert("You have completed all the sentences");
-        return;
-      }
       this.currentSentence = this.inputSentences[this.currentIndex];
 
       let tokens = this.tokenizer.tokenize(this.currentSentence.text);
