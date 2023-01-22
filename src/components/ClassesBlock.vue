@@ -99,6 +99,9 @@ export default {
       }
     },
     saveNewClass() {
+      if (!this.newClassName) {
+        return;
+      }
       const self = this;
       this.createNewClass(this.newClassName).then(() => {
         self.showNewClassInput = false;
