@@ -66,8 +66,12 @@ export const mutations = {
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
   nextSentence(state) {
-    state.currentIndex += 1;
-    state.currentAnnotation = {};
+    if (state.currentIndex < state.inputSentences.length - 1) {
+      state.currentIndex += 1;
+      state.currentAnnotation = {};
+    } else {
+      alert("You have completed all the sentences");
+    }
   },
   previousSentence(state) {
     if (state.currentIndex > 0) {
