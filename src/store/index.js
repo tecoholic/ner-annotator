@@ -126,15 +126,16 @@ const actions = {
 
 export default {
   state() {
+    let tags = LocalStorage.getItem("tags");
     return {
       annotations: [],
-      classes: LocalStorage.getItem("tags") || [],
+      classes: tags || [],
       inputSentences: [],
       originalText: "",
       separator: "\n",
       // current state
       currentAnnotation: {},
-      currentClass: {},
+      currentClass: tags || tags[0] || {},
       currentIndex: 0,
       currentSentence: "",
     };
