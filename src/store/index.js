@@ -101,6 +101,7 @@ export const mutations = {
       throw new Error("loadClasses: payload has invalid schema");
     }
     state.classes = payload;
+    state.currentClass = state.classes[0];
   },
 };
 
