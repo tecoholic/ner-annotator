@@ -1,7 +1,7 @@
 <template>
   <div>
     <classes-block />
-    <div class="q-pa-lg">
+    <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
         :id="'t' + t.start"
