@@ -102,6 +102,7 @@ export const mutations = {
     }
     state.classes = payload;
     state.currentClass = state.classes[0];
+    LocalStorage.set("tags", state.classes);
   },
 };
 
