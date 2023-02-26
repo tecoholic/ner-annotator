@@ -1,10 +1,11 @@
+## MAINTAINER WANTED
+
+As I (@tecoholic) hasn't worked on ML related projects in a long time, I am no longer invested in maintaining this project. If you would like to take up maintanence of this project kindly [ping here](https://github.com/tecoholic/ner-annotator/discussions/68)
+
 # NER Annotator for Spacy
 
 NER Annotator for SpaCy allows you to create training data for creating a custome NER Model with custom tags. It can either be access as a web application directly from [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/) or can be installed in Linux systems as a desktop application.
 
-🚀 **You can now sponsor this project for specific features your need.**
-
-💰 Click the sponsor button on the right. 👉
 
 ## Desktop application
 
