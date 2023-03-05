@@ -97,15 +97,12 @@ export default {
       }
       var key = parseInt(event.key)
       if (!key) {
-        console.log("key not a number", key)
         return
       }
       if (key > this.classes.length) {
-        console.log("key out of classes range", key)
         return
       }
       
-      console.log("setting current class to", key);
       this.setCurrentClass(key);
       return
     },

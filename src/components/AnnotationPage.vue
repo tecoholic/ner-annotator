@@ -100,7 +100,6 @@ export default {
       if (!this.enableKeyboardShortcuts) {
         return
       }
-      console.log(event);
       if (event.keyCode == 32) { // Space
         this.saveTags();
       } else if (event.keyCode == 39) { // right arrow
