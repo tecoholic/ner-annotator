@@ -141,7 +141,7 @@ export default {
       enableKeyboardShortcuts: false,
       // current state
       currentAnnotation: {},
-      currentClass: tags || tags[0] || {},
+      currentClass: tags && tags[0] || {},
       currentIndex: 0,
       currentSentence: "",
     };
