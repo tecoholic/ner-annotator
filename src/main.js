@@ -7,11 +7,8 @@ import store from "./store";
 import { Quasar } from "quasar";
 import quasarUserOptions from "./quasar-user-options";
 
-
-
-const app = createApp(App).use(Quasar, quasarUserOptions);
-
-app.use(createStore(store));
-
+const app = createApp(App)
+    .use(Quasar, quasarUserOptions)
+    .use(createStore(store));
 
 app.mount("#app");
