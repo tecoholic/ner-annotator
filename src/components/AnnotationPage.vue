@@ -74,6 +74,7 @@ export default {
       "currentClass",
       "currentIndex",
       "inputSentences",
+      "enableKeyboardShortcuts",
     ]),
   },
   watch: {
@@ -87,12 +88,30 @@ export default {
       this.tokenizeCurrentSentence();
     }
     document.addEventListener("mouseup", this.selectTokens);
+    document.addEventListener('keydown', this.keypress);
   },
   beforeUnmount() {
     document.removeEventListener("mouseup", this.selectTokens);
+    document.removeEventListener("keydown", this.keypress);
   },
   methods: {
     ...mapMutations(["nextSentence", "previousSentence", "resetIndex"]),
+    keypress(event) {
+      if (!this.enableKeyboardShortcuts) {
+        return
+      }
+      if (event.keyCode == 32) { // Space
+        this.saveTags();
+      } else if (event.keyCode == 39) { // right arrow
+        this.skipCurrentSentence();
+      } else if (event.keyCode == 37) { // left arrow
+        this.backOneSentence();
+      } else if (event.keyCode == 82 || event.keyCode == 27) { // r / R or ESC
+        this.resetBlocks();
+      }
+      // stop event from bubbling up
+      event.stopPropagation()
+    },
     tokenizeCurrentSentence() {
       if (this.currentIndex >= this.inputSentences.length) {
         // TODO show completed message
@@ -118,16 +137,12 @@ export default {
       ) {
         return;
       }
-
+      
       const range = selection.getRangeAt(0);
       let start, end;
       try {
-        start = parseInt(
-          range.startContainer.parentElement.id.replace("t", "")
-        );
-        let offsetEnd = parseInt(
-          range.endContainer.parentElement.id.replace("t", "")
-        );
+        start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
+        let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
         end = offsetEnd + range.endOffset;
       } catch {
         console.log("selected text were not tokens");
@@ -141,7 +156,7 @@ export default {
         selection.empty();
         return;
       }
-
+      
       this.tm.addNewBlock(start, end, this.currentClass);
       selection.empty();
     },

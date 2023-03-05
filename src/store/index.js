@@ -65,6 +65,9 @@ export const mutations = {
     const sentences = state.originalText.split(state.separator);
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
+  setKeyboardShortcuts(state, payload) {
+    state.enableKeyboardShortcuts = payload;
+  },
   nextSentence(state) {
     state.currentIndex += 1;
     state.currentAnnotation = {};
@@ -128,6 +131,7 @@ export default {
       inputSentences: [],
       originalText: "",
       separator: "\n",
+      enableKeyboardShortcuts: false,
       // current state
       currentAnnotation: {},
       currentClass: {},
