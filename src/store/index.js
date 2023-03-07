@@ -69,9 +69,16 @@ export const mutations = {
     const sentences = state.originalText.split(state.separator);
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
+  setKeyboardShortcuts(state, payload) {
+    state.enableKeyboardShortcuts = payload;
+  },
   nextSentence(state) {
-    state.currentIndex += 1;
-    state.currentAnnotation = {};
+    if (state.currentIndex < state.inputSentences.length - 1) {
+      state.currentIndex += 1;
+      state.currentAnnotation = {};
+    } else {
+      alert("You have completed all the sentences");
+    }
   },
   previousSentence(state) {
     if (state.currentIndex > 0) {
@@ -101,6 +108,37 @@ export const mutations = {
       throw new Error("loadClasses: payload has invalid schema");
     }
     state.classes = payload;
+    state.currentClass = state.classes[0];
+    LocalStorage.set("tags", state.classes);
+  },
+  loadAnnotations(state, payload) {
+    let isValid = typeof payload === "object" &&
+    "annotations" in payload &&
+    "classes" in payload;
+
+    if (!isValid) {
+      throw new Error("loadAnnotations: payload has invalid schema");
+    }
+
+    let annotations = payload.annotations;
+    if (!Array.isArray(annotations)) {
+      throw new Error("loadAnnotations: payload must be an array");
+    }
+
+    let newAnnotations = [];
+
+    for (var i = 0; i < annotations.length; i++) {
+      if (annotations[i] == null) {
+        newAnnotations.push(null);
+      } else {
+        newAnnotations.push({
+          'text': annotations[i][0],
+          'entities': annotations[i][1].entities,
+        })
+      }
+    }
+    state.annotations = newAnnotations;
+    state.currentAnnotation = state.annotations[state.currentIndex];
   },
 };
 
@@ -126,15 +164,17 @@ const actions = {
 
 export default {
   state() {
+    let tags = LocalStorage.getItem("tags");
     return {
       annotations: [],
-      classes: LocalStorage.getItem("tags") || [],
+      classes: tags || [],
       inputSentences: [],
       originalText: "",
       separator: "\n",
+      enableKeyboardShortcuts: false,
       // current state
       currentAnnotation: {},
-      currentClass: {},
+      currentClass: tags && tags[0] || {},
       currentIndex: 0,
       currentSentence: "",
     };

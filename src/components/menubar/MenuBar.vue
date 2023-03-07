@@ -65,6 +65,16 @@
         <q-menu>
           <q-list dense style="min-width: 100px">
             <export-annotations />
+            <q-item clickable v-close-popup @click="$refs.file.click()">
+              <q-item-section>Import</q-item-section>
+              <input
+                @change="importAnnotations"
+                type="file"
+                ref="file"
+                accept=".json"
+                style="display: none"
+              />
+            </q-item>
           </q-list>
         </q-menu>
       </div>
@@ -193,7 +203,7 @@ export default {
     ...mapState(["annotations", "classes"]),
   },
   methods: {
-    ...mapMutations(["loadClasses", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
+    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
     // Funtion that exports the tags to a JSON file
     exportTags: async function() {
       await exportFile(JSON.stringify(this.classes), "tags.json");
@@ -224,6 +234,23 @@ export default {
       };
       filereader.readAsText(file);
       this.resetIndex();
+    },
+    importAnnotations: function(e) {
+      let file = e.target.files[0];
+      let filereader = new FileReader();
+      filereader.onload = (ev) => {
+        try {
+          this.loadAnnotations(JSON.parse(ev.target.result));
+          this.notify(
+            "fa fa-check",
+            `Annotations imported successfully`,
+            "positive"
+          );
+        } catch (e) {
+          this.notify("fas fa-exclamation-circle", "Invalid file", "red-6");
+        }
+      };
+      filereader.readAsText(file);
     },
   },
 };
