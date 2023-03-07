@@ -75,7 +75,7 @@ export const mutations = {
   nextSentence(state) {
     if (state.currentIndex < state.inputSentences.length - 1) {
       state.currentIndex += 1;
-      state.currentAnnotation = {};
+      state.currentAnnotation = state.annotations[state.currentIndex] || {};
     } else {
       alert("You have completed all the sentences");
     }
