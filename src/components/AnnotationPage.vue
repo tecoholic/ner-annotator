@@ -82,6 +82,11 @@ export default {
       this.resetIndex();
       this.tokenizeCurrentSentence();
     },
+    annotations() {
+      if (this.currentAnnotation != this.annotations[this.currentIndex]) {
+        this.tokenizeCurrentSentence();
+      }
+    },
   },
   created() {
     if (this.inputSentences.length) {

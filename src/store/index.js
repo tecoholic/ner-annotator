@@ -107,6 +107,35 @@ export const mutations = {
     state.currentClass = state.classes[0];
     LocalStorage.set("tags", state.classes);
   },
+  loadAnnotations(state, payload) {
+    let isValid = typeof payload === "object" &&
+    "annotations" in payload &&
+    "classes" in payload;
+
+    if (!isValid) {
+      throw new Error("loadAnnotations: payload has invalid schema");
+    }
+
+    let annotations = payload.annotations;
+    if (!Array.isArray(annotations)) {
+      throw new Error("loadAnnotations: payload must be an array");
+    }
+
+    let newAnnotations = [];
+
+    for (var i = 0; i < annotations.length; i++) {
+      if (annotations[i] == null) {
+        newAnnotations.push(null);
+      } else {
+        newAnnotations.push({
+          'text': annotations[i][0],
+          'entities': annotations[i][1].entities,
+        })
+      }
+    }
+    state.annotations = newAnnotations;
+    state.currentAnnotation = state.annotations[state.currentIndex];
+  },
 };
 
 export const getters = {};
