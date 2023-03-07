@@ -1,7 +1,7 @@
 <template>
   <div>
     <classes-block />
-    <div class="q-pa-lg">
+    <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
         :id="'t' + t.start"
@@ -113,11 +113,6 @@ export default {
       event.stopPropagation()
     },
     tokenizeCurrentSentence() {
-      if (this.currentIndex >= this.inputSentences.length) {
-        // TODO show completed message
-        alert("You have completed all the sentences");
-        return;
-      }
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
 
