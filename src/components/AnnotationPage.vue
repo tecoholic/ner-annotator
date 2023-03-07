@@ -25,7 +25,7 @@
         class="q-mx-md"
         outline
         @click="backOneSentence"
-        :disabled="!annotations.length"
+        :disabled="currentIndex == 0"
         label="Back"
       />
       <q-btn
