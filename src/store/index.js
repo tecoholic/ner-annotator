@@ -162,6 +162,10 @@ const actions = {
   },
 };
 
+window.addEventListener('beforeunload', async (event) => {
+  event.returnValue = "Please make sure you export annotations before closing the file.";
+});
+
 export default {
   state() {
     let tags = LocalStorage.getItem("tags");

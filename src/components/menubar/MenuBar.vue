@@ -44,7 +44,7 @@
         </span>
         <q-menu>
           <q-list dense style="min-width: 100px">
-            <q-item clickable v-close-popup @click="$refs.file.click()">
+            <q-item clickable v-close-popup @click="pendingClick = $refs.file">
               <q-item-section>Open File</q-item-section>
               <input
                 @change="openFile"
@@ -65,7 +65,7 @@
         <q-menu>
           <q-list dense style="min-width: 100px">
             <export-annotations />
-            <q-item clickable v-close-popup @click="$refs.file.click()">
+            <q-item clickable v-close-popup @click="pendingClick = $refs.file">
               <q-item-section>Import</q-item-section>
               <input
                 @change="importAnnotations"
@@ -160,6 +160,8 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <exit-dialog :show="pendingClick != null" @hide="pendingClick = null" @confirm="pendingClick.click()"/>
 </template>
 
 <script>
@@ -168,9 +170,10 @@ import { mapState, mapMutations } from "vuex";
 import { exportFile } from "./utils";
 import { useQuasar } from "quasar";
 import AboutDialog from "../AboutDialog.vue";
+import ExitDialog from "../ExitDialog.vue";
 
 export default {
-  components: { ExportAnnotations, AboutDialog },
+  components: { ExportAnnotations, AboutDialog, ExitDialog },
   name: "MenuBar",
   setup() {
     const $q = useQuasar();
@@ -197,6 +200,7 @@ export default {
       promptForProject: false,
       newProjectName: "",
       showAbout: false,
+      pendingClick: null,
     };
   },
   computed: {
