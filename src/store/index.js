@@ -128,14 +128,12 @@ export const mutations = {
     let newAnnotations = [];
 
     for (var i = 0; i < annotations.length; i++) {
-      if (annotations[i] == null) {
-        newAnnotations.push(null);
-      } else {
-        newAnnotations.push({
-          'text': annotations[i][0],
-          'entities': annotations[i][1].entities,
-        })
+      if (annotations[i] == null) continue;
+      let annotation = {
+        'text': annotations[i][0],
+        'entities': annotations[i][1].entities,
       }
+      newAnnotations[i] = annotation;
     }
     state.annotations = newAnnotations;
     state.currentAnnotation = state.annotations[state.currentIndex];
