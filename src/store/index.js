@@ -38,11 +38,12 @@ export const mutations = {
     let lastIndex = state.classes.reduce((p, c) => {
       return c.id > p ? c.id : p;
     }, 0);
-    state.classes.push({
+    let newClass = {
       id: lastIndex + 1,
       name: payload,
       color: niceColors[lastIndex % niceColors.length],
-    });
+    }
+    state.classes = [...state.classes, newClass];
     if (state.classes.length === 1) {
       state.currentClass = state.classes[0];
     }

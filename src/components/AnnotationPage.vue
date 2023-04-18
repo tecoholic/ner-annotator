@@ -87,6 +87,9 @@ export default {
         this.tokenizeCurrentSentence();
       }
     },
+    classes() {
+      this.tokenizeCurrentSentence();
+    }
   },
   created() {
     if (this.inputSentences.length) {
