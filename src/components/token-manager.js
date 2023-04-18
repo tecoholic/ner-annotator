@@ -19,8 +19,14 @@ class TokenManager {
     if (currentAnnotation != undefined) {
       // reset prevoius annotation state
       for (let i = 0; i < currentAnnotation.entities.length; i++) {
-        var entityClass = this.classes.find(c => c.name === currentAnnotation.entities[i][2])
-        this.addNewBlock(currentAnnotation.entities[i][0], currentAnnotation.entities[i][1], entityClass)
+        var start = currentAnnotation.entities[i][0];
+        var end = currentAnnotation.entities[i][1];
+        var entityName = currentAnnotation.entities[i][2];
+        var entityClass = this.classes.find(c => c.name.toUpperCase() === entityName.toUpperCase())
+        if (!entityClass) {
+          entityClass = {"name": entityName};
+        }
+        this.addNewBlock(start, end, entityClass)
       }
     }
   }
