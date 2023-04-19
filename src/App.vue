@@ -3,7 +3,7 @@
     class="fullscreen"
     @dragover.prevent="onDragEnter"
     @dragenter="onDragEnter"
-    @dragleave="onDragLeave"
+    @dragleave.self="onDragLeave"
     @drop.stop.prevent="onDrop"
     style="overflow-y:scroll;"
   >
