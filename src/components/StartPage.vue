@@ -19,6 +19,9 @@
           <q-icon name="fas fa-upload" />
         </template>
       </q-file>
+      <p class="text-subtitle1 text-grey-7 q-my-sm">
+        Hint: You can also drag and drop files into this window!
+      </p>
     </div>
   </div>
   <q-separator />
