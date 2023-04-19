@@ -1,6 +1,12 @@
 <template>
   <mark :class="'bg-' + backgroundColor">
-    <Token :token="t" v-for="t in token.tokens" :key="t.start" />
+    <component
+      :is="'Token'"
+      :id="'t' + t.start"
+      v-for="t in token.tokens"
+      :token="t"
+      :key="t.start"
+    />
     <span class="tag">
       {{ token.label }}
       <q-btn

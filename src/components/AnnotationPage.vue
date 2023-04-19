@@ -141,12 +141,13 @@ export default {
         return;
       }
       
-      const range = selection.getRangeAt(0);
+      const rangeStart = selection.getRangeAt(0);
+      const rangeEnd = selection.getRangeAt(selection.rangeCount - 1);
       let start, end;
       try {
-        start = parseInt(range.startContainer.parentElement.id.replace("t", ""));
-        let offsetEnd = parseInt(range.endContainer.parentElement.id.replace("t", ""));
-        end = offsetEnd + range.endOffset;
+        start = parseInt(rangeStart.startContainer.parentElement.id.replace("t", ""));
+        let offsetEnd = parseInt(rangeEnd.endContainer.parentElement.id.replace("t", ""));
+        end = offsetEnd + rangeEnd.endOffset;
       } catch {
         console.log("selected text were not tokens");
         return;
