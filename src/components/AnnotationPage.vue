@@ -1,7 +1,7 @@
 <template>
   <div>
     <classes-block />
-    <div class="q-pa-lg">
+    <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
         :id="'t' + t.start"
@@ -25,7 +25,7 @@
         class="q-mx-md"
         outline
         @click="backOneSentence"
-        :disabled="!annotations.length"
+        :disabled="currentIndex == 0"
         label="Back"
       />
       <q-btn
@@ -74,6 +74,7 @@ export default {
       "currentClass",
       "currentIndex",
       "inputSentences",
+      "enableKeyboardShortcuts",
     ]),
   },
   watch: {
@@ -81,24 +82,45 @@ export default {
       this.resetIndex();
       this.tokenizeCurrentSentence();
     },
+    annotations() {
+      if (this.currentAnnotation != this.annotations[this.currentIndex]) {
+        this.tokenizeCurrentSentence();
+      }
+    },
+    classes() {
+      this.tokenizeCurrentSentence();
+    }
   },
   created() {
     if (this.inputSentences.length) {
       this.tokenizeCurrentSentence();
     }
     document.addEventListener("mouseup", this.selectTokens);
+    document.addEventListener('keydown', this.keypress);
   },
   beforeUnmount() {
     document.removeEventListener("mouseup", this.selectTokens);
+    document.removeEventListener("keydown", this.keypress);
   },
   methods: {
     ...mapMutations(["nextSentence", "previousSentence", "resetIndex"]),
-    tokenizeCurrentSentence() {
-      if (this.currentIndex >= this.inputSentences.length) {
-        // TODO show completed message
-        alert("You have completed all the sentences");
-        return;
+    keypress(event) {
+      if (!this.enableKeyboardShortcuts) {
+        return
       }
+      if (event.keyCode == 32) { // Space
+        this.saveTags();
+      } else if (event.keyCode == 39) { // right arrow
+        this.skipCurrentSentence();
+      } else if (event.keyCode == 37) { // left arrow
+        this.backOneSentence();
+      } else if (event.keyCode == 82 || event.keyCode == 27) { // r / R or ESC
+        this.resetBlocks();
+      }
+      // stop event from bubbling up
+      event.stopPropagation()
+    },
+    tokenizeCurrentSentence() {
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
 
@@ -118,17 +140,14 @@ export default {
       ) {
         return;
       }
-
-      const range = selection.getRangeAt(0);
+      
+      const rangeStart = selection.getRangeAt(0);
+      const rangeEnd = selection.getRangeAt(selection.rangeCount - 1);
       let start, end;
       try {
-        start = parseInt(
-          range.startContainer.parentElement.id.replace("t", "")
-        );
-        let offsetEnd = parseInt(
-          range.endContainer.parentElement.id.replace("t", "")
-        );
-        end = offsetEnd + range.endOffset;
+        start = parseInt(rangeStart.startContainer.parentElement.id.replace("t", ""));
+        let offsetEnd = parseInt(rangeEnd.endContainer.parentElement.id.replace("t", ""));
+        end = offsetEnd + rangeEnd.endOffset;
       } catch {
         console.log("selected text were not tokens");
         return;
@@ -141,7 +160,7 @@ export default {
         selection.empty();
         return;
       }
-
+      
       this.tm.addNewBlock(start, end, this.currentClass);
       selection.empty();
     },

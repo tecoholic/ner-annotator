@@ -1,17 +1,10 @@
 # NER Annotator for Spacy
 
-NER Annotator for SpaCy allows you to create training data for creating a custome NER Model with custom tags. It can either be access as a web application directly from [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/) or can be installed in Linux systems as a desktop application.
+NER Annotator for SpaCy allows you to create training data for creating a custom NER Model with custom tags.
 
-🚀 **You can now sponsor this project for specific features your need.**
-
-💰 Click the sponsor button on the right. 👉
-
-## Desktop application
-
-An experimental version of the annotator is also available for
-
-- Linux as a [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
-- Windows as a [x64 MSI Installer](https://github.com/tecoholic/ner-annotator/releases/download/v1.0.2/NER.Annotator_1.0.2_x64.msi)
+- Web Application: [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/)
+- Linux: [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
+- Windows: [x64 MSI Installer](https://github.com/tecoholic/ner-annotator/releases)
 
 ## Development
 
@@ -51,6 +44,17 @@ yarn tauri:build
 1. App Icon - <a href="https://www.flaticon.com/free-icons/ornithology" title="ornithology icons">Ornithology icons created by Freepik - Flaticon</a>
 
 ## Changelog
+
+#### Version 1.2.0
+- Import annotations.
+- Open a new file while one is already open.
+- Keyboard shortcuts. A future release will add instructions in the app itself, but for now:
+  - Num Keys (1 - 9) : Change classes
+  - Space Bar: Save and move to the next sentence
+  - Right Arrow Key: Skip and move to the next sentence
+  - Left Arrow Key: Go back to the previous sentence
+  - Esc: Discard changes to the current sentence
+- Lots and lots of bug fixes.
 
 #### Version 1.1.0
 

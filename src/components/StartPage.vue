@@ -9,6 +9,7 @@
       <q-file
         v-model="textFile"
         accept=".txt"
+        @rejected="fileSelectionError"
         filled
         @update:model-value="onFileSelected"
         label="Open a text file to begin"
@@ -18,6 +19,9 @@
           <q-icon name="fas fa-upload" />
         </template>
       </q-file>
+      <p class="text-subtitle1 text-grey-7 q-my-sm">
+        Hint: You can also drag and drop files into this window!
+      </p>
     </div>
   </div>
   <q-separator />
@@ -128,13 +132,27 @@ export default {
   methods: {
     ...mapMutations(["setInputSentences"]),
     onFileSelected(file) {
-      let reader = new FileReader();
-      reader.addEventListener("load", (event) => {
-        this.setInputSentences(event.target.result);
-        this.$emit("file-loaded");
-      });
-      reader.readAsText(file);
+      try {
+        let reader = new FileReader();
+        reader.addEventListener("load", (event) => {
+          this.setInputSentences(event.target.result);
+          this.$emit("file-loaded");
+        });
+        reader.readAsText(file);
+      } catch(e) {
+        this.fileSelectionError();
+      }
     },
+    fileSelectionError() {
+      this.$q.notify({
+        icon: "fas fa-exclamation-circle",
+        message: "Invalid file",
+        color: "red-6",
+        position: "top",
+        timeout: 2000,
+        actions: [{label: "Dismiss", color: "white"}],
+      });
+    }
   },
 };
 </script>

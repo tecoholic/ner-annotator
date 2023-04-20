@@ -40,11 +40,41 @@
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>
+          File
+        </span>
+        <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item clickable v-close-popup @click="pendingClick = $refs.file">
+              <q-item-section>Open File</q-item-section>
+              <input
+                @change="openFile"
+                type="file"
+                ref="file"
+                accept=".txt"
+                style="display: none"
+              />
+            </q-item>
+          </q-list>
+        </q-menu>
+      </div>
+
+      <div class="q-ml-md cursor-pointer non-selectable">
+        <span>
           Annotations
         </span>
         <q-menu>
           <q-list dense style="min-width: 100px">
             <export-annotations />
+            <q-item clickable v-close-popup @click="pendingClick = $refs.file">
+              <q-item-section>Import</q-item-section>
+              <input
+                @change="importAnnotations"
+                type="file"
+                ref="file"
+                accept=".json"
+                style="display: none"
+              />
+            </q-item>
           </q-list>
         </q-menu>
       </div>
@@ -130,6 +160,8 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <exit-dialog :show="pendingClick != null" @hide="pendingClick = null" @confirm="pendingClick.click()"/>
 </template>
 
 <script>
@@ -138,9 +170,10 @@ import { mapState, mapMutations } from "vuex";
 import { exportFile } from "./utils";
 import { useQuasar } from "quasar";
 import AboutDialog from "../AboutDialog.vue";
+import ExitDialog from "../ExitDialog.vue";
 
 export default {
-  components: { ExportAnnotations, AboutDialog },
+  components: { ExportAnnotations, AboutDialog, ExitDialog },
   name: "MenuBar",
   setup() {
     const $q = useQuasar();
@@ -167,13 +200,14 @@ export default {
       promptForProject: false,
       newProjectName: "",
       showAbout: false,
+      pendingClick: null,
     };
   },
   computed: {
     ...mapState(["annotations", "classes"]),
   },
   methods: {
-    ...mapMutations(["loadClasses"]),
+    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
     // Funtion that exports the tags to a JSON file
     exportTags: async function() {
       await exportFile(JSON.stringify(this.classes), "tags.json");
@@ -187,6 +221,33 @@ export default {
           this.notify(
             "fa fa-check",
             `${this.classes.length} Tags imported successfully`,
+            "positive"
+          );
+        } catch (e) {
+          this.notify("fas fa-exclamation-circle", "Invalid file", "red-6");
+        }
+      };
+      filereader.readAsText(file);
+    },
+    openFile: function(e) {
+      let file = e.target.files[0];
+      let filereader = new FileReader();
+      filereader.onload = (ev) => {
+        this.setInputSentences(ev.target.result);
+        this.clearAllAnnotations();
+      };
+      filereader.readAsText(file);
+      this.resetIndex();
+    },
+    importAnnotations: function(e) {
+      let file = e.target.files[0];
+      let filereader = new FileReader();
+      filereader.onload = (ev) => {
+        try {
+          this.loadAnnotations(JSON.parse(ev.target.result));
+          this.notify(
+            "fa fa-check",
+            `Annotations imported successfully`,
             "positive"
           );
         } catch (e) {
