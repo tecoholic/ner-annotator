@@ -6,6 +6,10 @@ NER Annotator for SpaCy allows you to create training data for creating a custom
 - Linux: [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
 - Windows: [x64 MSI Installer](https://github.com/tecoholic/ner-annotator/releases)
 
+## Screenshots
+
+![NER Annotator Screenshot](./assets/tagging-2.png)
+
 ## Development
 
 ### Requirements
