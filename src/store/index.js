@@ -55,7 +55,7 @@ export const mutations = {
     }
   },
   setCurrentClass(state, payload) {
-    state.currentClass = state.classes.find((c) => c.id === payload);
+    state.currentClass = state.classes[payload];
   },
   addAnnotation(state, payload) {
     state.annotations[state.currentIndex] = payload;

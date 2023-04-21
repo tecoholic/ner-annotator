@@ -3,21 +3,28 @@
     <div class="row">
       <div class="tags">
         <q-chip
-          v-for="cl in classes"
+          v-for="(cl, index) in classes"
           :key="cl.id"
           square
           :color="cl.id === currentClass.id ? cl.color : 'grey-3'"
           clickable
-          @click="setCurrentClass(cl.id)"
+          @click="setCurrentClass(index)"
           :removable="showDeleteButtons"
           @remove="handleRemoveClass(cl.id, cl.name)"
         >
           <q-avatar
+            v-if="cl.id === currentClass.id"
             :color="cl.color.replace('11', '12')"
             text-color="white"
-            :icon="cl.id === currentClass.id ? 'fa fa-check' : ''"
+            :icon="'fa fa-check'"
           ></q-avatar>
-          {{ cl.name }} &nbsp; <sub>{{ cl.id }}</sub>
+          <q-avatar
+            v-if="cl.id !== currentClass.id"
+            :color="cl.color.replace('11', '12')"
+            text-color="white"
+            font-size="16px"
+          >{{ index + 1 }}</q-avatar>
+          {{ cl.name }}
         </q-chip>
       </div>
       <q-space></q-space>
@@ -103,7 +110,7 @@ export default {
         return
       }
       
-      this.setCurrentClass(key);
+      this.setCurrentClass(key - 1);
       return
     },
     handleRemoveClass(class_id, className) {
