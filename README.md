@@ -49,15 +49,16 @@ yarn tauri:build
 
 ## Changelog
 
+#### Version 1.3.0
+- Drag and drop to upload files
+- Support for character level annotations
+- Added error messages and confirmation dialogs
+- Even more bug fixes
+
 #### Version 1.2.0
 - Import annotations.
 - Open a new file while one is already open.
-- Keyboard shortcuts. A future release will add instructions in the app itself, but for now:
-  - Num Keys (1 - 9) : Change classes
-  - Space Bar: Save and move to the next sentence
-  - Right Arrow Key: Skip and move to the next sentence
-  - Left Arrow Key: Go back to the previous sentence
-  - Esc: Discard changes to the current sentence
+- Keyboard shortcuts
 - Lots and lots of bug fixes.
 
 #### Version 1.1.0
