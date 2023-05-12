@@ -70,6 +70,9 @@ export const mutations = {
     const sentences = state.originalText.split(state.separator);
     state.inputSentences = sentences.map((s, i) => ({ id: i, text: s }));
   },
+  setAnnotationPrecision(state, payload) {
+    state.annotationPrecision = payload;
+  },
   setKeyboardShortcuts(state, payload) {
     state.enableKeyboardShortcuts = payload;
   },
@@ -175,6 +178,7 @@ export default {
       originalText: "",
       separator: "\n",
       enableKeyboardShortcuts: false,
+      annotationPrecision: "word",
       // current state
       currentAnnotation: {},
       currentClass: tags && tags[0] || {},

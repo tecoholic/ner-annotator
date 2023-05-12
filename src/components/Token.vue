@@ -1,6 +1,11 @@
 <template>
-  <span v-if="token.type === 'token'" :id="'t' + token.start" class="token">
-    {{ token.text }}
+  <span 
+  v-if="token.type === 'token'"
+  :id="'t' + token.start"
+  class="token"
+  :style="{'padding': this.$store.state.annotationPrecision == 'char' ? '0.25rem 0rem' : '0.25rem'}"
+  >
+    {{ token.text == " " ? "&nbsp;" : token.text }}
   </span>
 </template>
 <script>
@@ -18,7 +23,6 @@ export default {
   .token {
     font-size: large;
     display: inline-block;
-    padding: 0.25rem;
     line-height: 3;
   }
 </style>

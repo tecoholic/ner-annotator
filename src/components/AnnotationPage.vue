@@ -75,6 +75,7 @@ export default {
       "currentIndex",
       "inputSentences",
       "enableKeyboardShortcuts",
+      "annotationPrecision",
     ]),
   },
   watch: {
@@ -88,6 +89,9 @@ export default {
       }
     },
     classes() {
+      this.tokenizeCurrentSentence();
+    },
+    annotationPrecision() {
       this.tokenizeCurrentSentence();
     }
   },
@@ -124,8 +128,19 @@ export default {
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
 
-      let tokens = this.tokenizer.tokenize(this.currentSentence.text);
-      let spans = this.tokenizer.span_tokenize(this.currentSentence.text);
+      let tokens, spans;
+
+      if (this.$store.state.annotationPrecision == "char") {
+        tokens = this.currentSentence.text.split('');
+        spans = []
+        for (let i = 0; i < this.currentSentence.text.length; i++) {
+          spans.push([i, i + 1]);
+        }
+      } else {
+        tokens = this.tokenizer.tokenize(this.currentSentence.text);
+        spans = this.tokenizer.span_tokenize(this.currentSentence.text);
+      }
+
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
 
       this.tm = new TokenManager(this.classes);
