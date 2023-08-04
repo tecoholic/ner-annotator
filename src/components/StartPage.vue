@@ -1,11 +1,19 @@
 <template>
+  <q-icon
+    :name="$q.dark.isActive ? 'fas fa-sun' : 'fas fa-moon'"
+    :class="[
+      $q.dark.isActive ? 'text-white' : 'text-black',
+      'cursor-pointer fixed-top-right q-mx-xl q-my-lg text-h5',
+    ]"
+    @click="toggleDarkMode"
+  />
   <div class="q-mx-auto q-my-xl" style="max-width: 600px">
-    <h5 class="text-h5">NER Text Annotator</h5>
-    <p class="text-subtitle1 text-grey-7">
+    <h5 class="text-h4 q-mb-sm">NER Text Annotator</h5>
+    <p :class="['text-subtitle1', $q.dark.isActive ? 'text-grey-4' : 'text-grey-7']">
       Annotate text for spaCy NER Model training
     </p>
 
-    <div class="q-my-xl q-py-md">
+    <div class="q-my-xl q-py-md" style="margin-top: 7rem">
       <q-file
         v-model="textFile"
         accept=".txt"
@@ -13,19 +21,19 @@
         filled
         @update:model-value="onFileSelected"
         label="Open a text file to begin"
-        bg-color="light-blue-1"
+        :bg-color="$q.dark.isActive ? 'black-1' : 'light-blue-1'"
       >
         <template v-slot:prepend>
           <q-icon name="fas fa-upload" />
         </template>
       </q-file>
-      <p class="text-subtitle1 text-grey-7 q-my-sm">
+      <p :class="['text-subtitle1 q-my-md', $q.dark.isActive ? 'text-grey-4' : 'text-grey-7']">
         Hint: You can also drag and drop files into this window!
       </p>
     </div>
   </div>
   <q-separator />
-  <div class="bg-grey-1 q-pa-lg">
+  <div :class="[$q.dark.isActive ? 'bg-dark' : 'bg-grey-1', 'q-pa-lg']">
     <div class="q-mx-auto" style="max-width: 600px">
       <h4 class="text-h4">
         How to use the NER Annotator?
@@ -109,8 +117,13 @@
         >
           <p>
             See the spaCy documentation
-            <a href="https://spacy.io/api/data-formats#json-input">here</a> on
-            how to convert the annotations from JSON to DocBin format.
+            <a
+              :class="$q.dark.isActive ? 'text-light-blue-4' : 'text-dark-blue'"
+              href="https://spacy.io/api/data-formats#json-input"
+            >
+              here
+            </a>
+            on how to convert the annotations from JSON to DocBin format.
           </p>
         </q-timeline-entry>
       </q-timeline>
@@ -152,7 +165,10 @@ export default {
         timeout: 2000,
         actions: [{label: "Dismiss", color: "white"}],
       });
-    }
+    },
+    toggleDarkMode() {
+      this.$q.dark.toggle();
+    },
   },
 };
 </script>

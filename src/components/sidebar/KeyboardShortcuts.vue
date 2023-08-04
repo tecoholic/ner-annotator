@@ -7,8 +7,8 @@
       @click="enableKeyboardShortcutsChanged"
     />
     <q-icon
-      style="margin: 0px 5px"
-      color="grey-10"
+      style="margin-left: 5px; margin-top: 3px"
+      :color="$q.dark.isActive ? 'grey-4' : 'grey-10'"
       name="far fa-question-circle"
       @click="showShortcutHelp = true"
     />

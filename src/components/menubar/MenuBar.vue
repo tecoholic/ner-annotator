@@ -42,7 +42,7 @@
         <span>
           File
         </span>
-        <q-menu>
+        <q-menu style="border-radius: 0.5rem;">
           <q-list dense style="min-width: 100px">
             <q-item clickable v-close-popup @click="pendingClick = $refs.file">
               <q-item-section>Open File</q-item-section>
@@ -62,7 +62,7 @@
         <span>
           Annotations
         </span>
-        <q-menu>
+        <q-menu style="border-radius: 0.5rem;">
           <q-list dense style="min-width: 100px">
             <export-annotations />
             <q-item clickable v-close-popup @click="pendingClick = $refs.file">
@@ -83,7 +83,7 @@
         <span>
           Tags
         </span>
-        <q-menu>
+        <q-menu style="border-radius: 0.5rem;">
           <q-list dense style="min-width: 100px">
             <q-item clickable v-close-popup @click="exportTags()">
               <q-item-section>Export</q-item-section>
@@ -104,10 +104,18 @@
 
       <q-space />
 
+      <q-icon
+        style="margin-top: 5px"
+        color="white"
+        :name="$q.dark.isActive ? 'fas fa-sun' : 'fas fa-moon'"
+        class="cursor-pointer"
+        @click="toggleDarkMode"
+      />
+
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>Help</span>
 
-        <q-menu>
+        <q-menu style="border-radius: 0.5rem;">
           <q-list dense style="min-width: 100px">
             <q-item
               clickable
@@ -255,6 +263,9 @@ export default {
         }
       };
       filereader.readAsText(file);
+    },
+    toggleDarkMode: function() {
+      this.$q.dark.toggle();
     },
   },
 };

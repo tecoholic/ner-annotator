@@ -3,7 +3,7 @@
     <div class="q-px-md q-pb-md">
       <q-select
         outlined
-        bg-color="white"
+        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         v-model="precisionType"
         :options="precisionOptions"
         :map-options="true"

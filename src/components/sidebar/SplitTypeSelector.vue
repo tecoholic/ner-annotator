@@ -3,7 +3,7 @@
     <div class="q-pa-md">
       <q-select
         outlined
-        bg-color="white"
+        :bg-color="$q.dark.isActive ? 'dark' : 'white'"
         v-model="splitType"
         :options="splitOptions"
         :map-options="true"

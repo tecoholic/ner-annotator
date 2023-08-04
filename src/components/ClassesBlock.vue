@@ -5,8 +5,10 @@
         <q-chip
           v-for="(cl, index) in classes"
           :key="cl.id"
+          outline
           square
-          :color="cl.id === currentClass.id ? cl.color : 'grey-3'"
+          style="height: 2rem;"
+          :color="cl.color.replace('11', '12')"
           clickable
           @click="setCurrentClass(index)"
           :removable="showDeleteButtons"
@@ -15,16 +17,18 @@
           <q-avatar
             v-if="cl.id === currentClass.id"
             :color="cl.color.replace('11', '12')"
+            style="height: 2rem"
             text-color="white"
             :icon="'fa fa-check'"
           ></q-avatar>
           <q-avatar
             v-if="cl.id !== currentClass.id"
             :color="cl.color.replace('11', '12')"
+            style="height: 2rem"
             text-color="white"
             font-size="16px"
           >{{ index + 1 }}</q-avatar>
-          {{ cl.name }}
+          <p :class="['q-mb-none', $q.dark.isActive ? 'text-grey-3' : 'text-grey-9']">{{ cl.name }}</p>
         </q-chip>
       </div>
       <q-space></q-space>
@@ -58,14 +62,19 @@
         </q-input>
       </div>
       <div class="buttons">
-        <q-btn-group>
-          <q-btn outline @click="showNewClassInput = true" label="New Tag" />
-          <q-btn
-            outline
-            @click="showDeleteButtons = !showDeleteButtons"
-            :label="showDeleteButtons ? 'Lock Tags' : 'Edit Tags'"
-          />
-        </q-btn-group>
+        <q-btn
+          outline
+          @click="showNewClassInput = true"
+          label="New Tag"
+          class="q-mr-sm"
+          :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
+        />
+        <q-btn
+          outline
+          @click="showDeleteButtons = !showDeleteButtons"
+          :label="showDeleteButtons ? 'Lock Tags' : 'Edit Tags'"
+          :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
+        />
       </div>
     </div>
   </div>

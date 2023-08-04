@@ -17,26 +17,28 @@
       <q-btn
         color="red"
         outline
-        class="q-mx-md"
+        class="q-mx-sm"
         @click="resetBlocks"
         label="Reset"
       />
       <q-btn
-        class="q-mx-md"
+        class="q-mx-sm"
+        :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
         @click="backOneSentence"
         :disabled="currentIndex == 0"
         label="Back"
       />
       <q-btn
-        class="q-mx-md"
+        class="q-mx-sm"
+        :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
         @click="skipCurrentSentence"
         label="Skip"
       />
       <q-btn
-        class="q-mx-md"
-        color="green"
+        class="q-mx-sm"
+        color="green-7"
         outline
         @click="saveTags"
         label="Save"

@@ -52,12 +52,14 @@ mark {
   padding: 0.5rem;
   position: relative;
   background-color: burlywood;
-  border-radius: 4px;
+  border: 1px solid $grey-7;
+  border-radius: 0.35rem;
 }
 .tag {
   background-color: whitesmoke;
   padding: 4px 0 4px 8px;
-  border-radius: 2px;
+  border: 1px solid grey;
+  border-radius: 0.35rem;
   font-size: x-small;
 }
 .close-btn {

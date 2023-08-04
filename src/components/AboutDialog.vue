@@ -1,6 +1,6 @@
 <template>
   <q-dialog :model-value="show" @hide="$emit('hide')">
-    <q-card style="min-width: 400px">
+    <q-card style="min-width: 400px; padding: 10px; border-radius: 10px">
       <q-card-section>
         <div class="text-h6">NER Annotator</div>
       </q-card-section>
