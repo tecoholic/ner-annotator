@@ -64,7 +64,7 @@ class TokenManager {
             let oldTokens = currentToken.tokens;
             for (let j = 0; j < oldTokens.length; j++) {
               let oldToken = oldTokens[j];
-              if (oldToken.end < selectionStart) {
+              if (oldToken.end <= selectionStart) {
                 tokensBeforeSelection.push(oldToken);
               } else if (oldToken.end > selectionStart && oldToken.start < selectionEnd) {
                 selectedTokens.push(oldToken);
