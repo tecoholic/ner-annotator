@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md" style="border-bottom: 1px solid #ccc;">
+  <div class="q-pa-md" style="border-bottom: 1px solid #ccc">
     <div class="row">
       <div class="tags">
         <q-chip
@@ -7,7 +7,7 @@
           :key="cl.id"
           outline
           square
-          style="height: 2rem;"
+          style="height: 2rem"
           :color="cl.color.replace('11', '12')"
           clickable
           @click="setCurrentClass(index)"
@@ -27,8 +27,16 @@
             style="height: 2rem"
             text-color="white"
             font-size="16px"
-          >{{ index + 1 }}</q-avatar>
-          <p :class="['q-mb-none', $q.dark.isActive ? 'text-grey-3' : 'text-grey-9']">{{ cl.name }}</p>
+            >{{ index + 1 }}</q-avatar
+          >
+          <p
+            :class="[
+              'q-mb-none',
+              $q.dark.isActive ? 'text-grey-3' : 'text-grey-9',
+            ]"
+          >
+            {{ cl.name }}
+          </p>
         </q-chip>
       </div>
       <q-space></q-space>
@@ -95,7 +103,7 @@ export default {
     ...mapState(["classes", "currentClass", "enableKeyboardShortcuts"]),
   },
   created() {
-    document.addEventListener('keydown', this.keypress);
+    document.addEventListener("keydown", this.keypress);
   },
   watch: {
     newClassName(now, then) {
@@ -109,28 +117,34 @@ export default {
     ...mapActions(["createNewClass", "deleteClass"]),
     keypress(event) {
       if (!this.enableKeyboardShortcuts) {
-        return
+        return;
       }
-      var key = parseInt(event.key)
+      var key = parseInt(event.key);
       if (!key) {
-        return
+        return;
       }
       if (key > this.classes.length) {
-        return
+        return;
       }
-      
+
       this.setCurrentClass(key - 1);
-      return
+      return;
     },
-    handleRemoveClass(class_id, className) {
-      let sure = confirm(
-        "Are you sure you want to remove the tag `" +
-          className +
-          "`?\nNOTE: This will NOT affect previously tagged entities."
-      );
+    async handleRemoveClass(class_id, className) {
+      let sure = await this.confirmAction(className);
       if (sure) {
         this.deleteClass(class_id);
       }
+    },
+    async confirmAction(className) {
+      return new Promise((resolve) => {
+        const result = confirm(
+          "Are you sure you want to remove the tag `" +
+            className +
+            "`?\nNOTE: This will NOT affect previously tagged entities."
+        );
+        resolve(result);
+      });
     },
     saveNewClass() {
       if (!this.newClassName) {
