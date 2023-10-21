@@ -165,6 +165,16 @@ export default {
         start = parseInt(rangeStart.startContainer.parentElement.id.replace("t", ""));
         let offsetEnd = parseInt(rangeEnd.endContainer.parentElement.id.replace("t", ""));
         end = offsetEnd + rangeEnd.endOffset;
+        if(!end){
+          /* 
+            If last node of selected text contains tag name 
+            Fetch the previous node
+          */
+          const endContainerParent = rangeEnd.endContainer.parentNode;
+          const previousNode = endContainerParent.previousSibling;
+          offsetEnd = parseInt(previousNode.parentElement.id.replace("t",""))
+          end = offsetEnd + rangeEnd.endOffset;
+        }
       } catch {
         console.log("selected text were not tokens");
         return;
