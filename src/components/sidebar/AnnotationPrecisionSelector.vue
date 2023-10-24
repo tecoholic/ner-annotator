@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       precisionOptions: [
+        { label: "Token Level", value: "token" },
         { label: "Word Level", value: "word" },
         { label: "Character Level", value: "char" },
       ],
@@ -33,8 +34,10 @@ export default {
             return "word";
           case "char":
             return "char";
+          case "token":
+            return "token";
           default:
-            return "word";
+            return "token";
         }
       },
       set(option) {
@@ -45,8 +48,11 @@ export default {
           case "char":
             this.$store.commit("setAnnotationPrecision", "char");
             break;
+          case "token":
+            this.$store.commit("setAnnotationPrecision", "token");
+            break;
           default:
-            this.$store.commit("setAnnotationPrecision", "word");
+            this.$store.commit("setAnnotationPrecision", "token");
             break;
         }
       },
