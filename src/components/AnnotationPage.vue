@@ -140,19 +140,14 @@ export default {
           spans.push([i, i + 1]);
         }
       } else if (this.$store.state.annotationPrecision == "token") {  
-        console.log("this.currentSentence in tokens handling", this.currentSentence)
-        // tokens = this.currentSentence.tokens;
         tokens = this.currentSentence.spans.map(span => {
           return this.currentSentence.tokens.slice(span[0], span[1])
         })
-        // tokens = this.currentSentence.tokens.split('')
         spans = this.currentSentence.spans;
       } else {
         tokens = this.tokenizer.tokenize(this.currentSentence.text);
         spans = this.tokenizer.span_tokenize(this.currentSentence.text);
       }
-      console.log('tokens', tokens)
-      console.log('spans', spans)
 
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
 

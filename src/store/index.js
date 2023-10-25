@@ -28,14 +28,10 @@ export const mutations = {
       state.originalText = payload;
       payload = payload.split(state.separator);
     }
-    // if (state.annotationPrecision === "token") {
-    console.log(payload)
+
     const data = JSON.parse(payload)
-    console.log(data)
+
     state.inputSentences = data.map((s, i) => ({ id: i, text: s[0], tokens: s[0], spans: s[1]}))
-    console.log(state.inputSentences)
-    // }
-    // state.inputSentences = payload.map((s, i) => ({ id: i, text: s }));
   },
   addClass(state, payload) {
     let existing = state.classes.find((c) => c.name == payload);
@@ -178,7 +174,6 @@ window.addEventListener('beforeunload', async (event) => {
 export default {
   state() {
     let tags = LocalStorage.getItem("tags");
-    console.log('tags', tags)
     return {
       annotations: [],
       classes: tags || [],

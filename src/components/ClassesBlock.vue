@@ -115,7 +115,7 @@ export default {
       var key = event.key
       const results = this.classes.filter(tag => tag.key === key);
       if (results.length === 0) return;
-      console.log(results, results.length)
+
       this.setCurrentClass(results[0].id);
       return
     },
