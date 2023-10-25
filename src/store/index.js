@@ -1,25 +1,25 @@
 import { LocalStorage } from "quasar";
 
 const niceColors = [
-  "red-11",
-  "blue-11",
-  "light-green-11",
-  "deep-orange-11",
-  "pink-11",
-  "light-blue-11",
-  "lime-11",
-  "brown-11",
-  "purple-11",
-  "cyan-11",
-  "yellow-11",
-  "grey-11",
-  "deep-purple-11",
-  "teal-11",
-  "amber-11",
-  "blue-grey-11",
-  "indigo-11",
-  "green-11",
-  "orange-11",
+  "red-7",
+  "blue-7",
+  "light-green-7",
+  "deep-orange-7",
+  "pink-7",
+  "light-blue-7",
+  "lime-7",
+  "brown-7",
+  "purple-7",
+  "cyan-7",
+  "yellow-7",
+  "grey-7",
+  "deep-purple-7",
+  "teal-7",
+  "amber-7",
+  "blue-grey-7",
+  "indigo-7",
+  "green-7",
+  "orange-7",
 ];
 
 export const mutations = {
@@ -178,6 +178,7 @@ window.addEventListener('beforeunload', async (event) => {
 export default {
   state() {
     let tags = LocalStorage.getItem("tags");
+    console.log('tags', tags)
     return {
       annotations: [],
       classes: tags || [],

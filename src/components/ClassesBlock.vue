@@ -8,26 +8,26 @@
           outline
           square
           style="height: 2rem;"
-          :color="cl.color.replace('11', '12')"
+          :color="cl.color"
           clickable
-          @click="setCurrentClass(index)"
+          @click="setCurrentClass(cl.id)"
           :removable="showDeleteButtons"
           @remove="handleRemoveClass(cl.id, cl.name)"
         >
           <q-avatar
             v-if="cl.id === currentClass.id"
-            :color="cl.color.replace('11', '12')"
+            :color="cl.color"
             style="height: 2rem"
             text-color="white"
             :icon="'fa fa-check'"
           ></q-avatar>
           <q-avatar
             v-if="cl.id !== currentClass.id"
-            :color="cl.color.replace('11', '12')"
+            :color="cl.color"
             style="height: 2rem"
             text-color="white"
             font-size="16px"
-          >{{ index + 1 }}</q-avatar>
+          >{{ !!cl.key ? cl.key : index + 1 }}</q-avatar>
           <p :class="['q-mb-none', $q.dark.isActive ? 'text-grey-3' : 'text-grey-9']">{{ cl.name }}</p>
         </q-chip>
       </div>
@@ -111,15 +111,12 @@ export default {
       if (!this.enableKeyboardShortcuts) {
         return
       }
-      var key = parseInt(event.key)
-      if (!key) {
-        return
-      }
-      if (key > this.classes.length) {
-        return
-      }
-      
-      this.setCurrentClass(key - 1);
+      // can now be any key on the board
+      var key = event.key
+      const results = this.classes.filter(tag => tag.key === key);
+      if (results.length === 0) return;
+      console.log(results, results.length)
+      this.setCurrentClass(results[0].id);
       return
     },
     async handleRemoveClass(class_id, className) {
