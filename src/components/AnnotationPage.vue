@@ -120,7 +120,7 @@ export default {
         this.skipCurrentSentence();
       } else if (event.keyCode == 37) { // left arrow
         this.backOneSentence();
-      } else if (event.keyCode == 82 || event.keyCode == 27) { // r / R or ESC
+      } else if (event.keyCode == 27) { // ESC
         this.resetBlocks();
       }
       // stop event from bubbling up
