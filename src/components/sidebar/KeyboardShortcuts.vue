@@ -48,7 +48,7 @@ export default {
   name: "KeyboardShortcuts",
   data: function() {
     return {
-      enableKeyboardShortcuts: false,
+      enableKeyboardShortcuts: true,
       showShortcutHelp: false,
     };
   },

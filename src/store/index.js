@@ -180,7 +180,7 @@ export default {
       inputSentences: [],
       originalText: "",
       separator: "\n",
-      enableKeyboardShortcuts: false,
+      enableKeyboardShortcuts: true,
       annotationPrecision: "token",
       // current state
       currentAnnotation: {},
