@@ -133,7 +133,6 @@ export default {
 
       let tokens, spans;
 
-      // TODO HERE ADD TOKEN
       if (this.$store.state.annotationPrecision == "char") {
         tokens = this.currentSentence.text.split('');
         spans = []
