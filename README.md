@@ -8,7 +8,7 @@ NER Annotator for SpaCy allows you to create training data for creating a custom
 
 ## Screenshots
 
-![NER Annotator Screenshot](./assets/tagging-2.png)
+![NER Annotator Screenshot](./src/assets/step-2.png)
 
 ## Development
 
