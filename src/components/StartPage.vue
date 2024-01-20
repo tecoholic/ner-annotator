@@ -12,7 +12,7 @@
     <p :class="['text-subtitle1', $q.dark.isActive ? 'text-grey-4' : 'text-grey-7']">
       Annotate text for spaCy NER Model training
     </p>
-
+    <!-- TODO: modify accept to also accept json, change label text to match -->
     <div class="q-my-xl q-py-md" style="margin-top: 7rem">
       <q-file
         v-model="textFile"
@@ -36,7 +36,7 @@
   <div :class="[$q.dark.isActive ? 'bg-dark' : 'bg-grey-1', 'q-pa-lg']">
     <div class="q-mx-auto" style="max-width: 600px">
       <h4 class="text-h4">
-        How to use the NER Annotator?
+        How do I use the NER Annotator?
       </h4>
       <q-timeline>
         <q-timeline-entry

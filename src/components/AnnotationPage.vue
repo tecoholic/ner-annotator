@@ -10,6 +10,7 @@
         :key="t.start"
         :backgroundColor="t.backgroundColor"
         @remove-block="onRemoveBlock"
+        @replace-block-label="onReplaceBlockLabel"
       />
     </div>
 
@@ -18,6 +19,7 @@
         color="red"
         outline
         class="q-mx-sm"
+        title="Delete all annotations for all sentences/paragraphs"
         @click="resetBlocks"
         label="Reset"
       />
@@ -25,6 +27,7 @@
         class="q-mx-sm"
         :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
+        title="Go back one sentence/paragraph"
         @click="backOneSentence"
         :disabled="currentIndex == 0"
         label="Back"
@@ -33,6 +36,7 @@
         class="q-mx-sm"
         :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
+        title="Go forward one sentence/paragraph"
         @click="skipCurrentSentence"
         label="Skip"
       />
@@ -40,6 +44,7 @@
         class="q-mx-sm"
         color="green-7"
         outline
+        title="Go forward one sentence/paragraph"
         @click="saveTags"
         label="Save"
       />
@@ -146,6 +151,8 @@ export default {
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
 
       this.tm = new TokenManager(this.classes);
+      // console.log("Current Sentence in tokenizeCurrentSentence: ", this.inputSentences[this.currentIndex])
+      // console.log("Current index in tokenizeCurrentSentence: ", this.annotations[this.currentIndex])
       this.tm.setTokensAndAnnotation(combined, this.currentAnnotation);
     },
     selectTokens() {
@@ -183,6 +190,21 @@ export default {
     },
     onRemoveBlock(blockStart) {
       this.tm.removeBlock(blockStart);
+    },
+    // Replaces a token-block's class with the currently selected class
+    onReplaceBlockLabel(blockStart) {
+      // Get the start and end positions of the existing block before deleting it
+      const existingBlock = this.tm.getBlockByStart(blockStart);
+      const start = existingBlock.start;
+      const end = existingBlock.end;
+
+      // Remove the existing block
+      this.tm.removeBlock(blockStart);
+
+      // Create a new block with the same start and end, but with the current tag/label/class
+      if (start !== undefined && end !== undefined) {
+        this.tm.addNewBlock(start, end, this.currentClass);
+      }
     },
     resetBlocks() {
       this.tm.resetBlocks();

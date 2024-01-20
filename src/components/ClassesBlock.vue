@@ -1,3 +1,5 @@
+<!--defines a Vue.js component responsible for managing and displaying
+   the list of classes (or tags)-->
 <template>
   <div class="q-pa-md" style="border-bottom: 1px solid #ccc;">
     <div class="row">

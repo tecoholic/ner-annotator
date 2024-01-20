@@ -23,6 +23,7 @@ const niceColors = [
 ];
 
 export const mutations = {
+  // loads in text
   setInputSentences(state, payload) {
     if (!Array.isArray(payload)) {
       state.originalText = payload;

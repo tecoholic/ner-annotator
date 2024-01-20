@@ -196,6 +196,19 @@ class TokenManager {
     }
     return entities;
   }
+
+  // Returns a token-block given its starting index, else returns null
+  getBlockByStart(start) {
+    for (let i = 0; i < this.tokens.length; i++) {
+      const token = this.tokens[i];
+  
+      if (token.type === "token-block" && token.start === start) {
+        return token;
+      }
+    }
+    console.log("Error, Unable to get block by start in token-manager.js");
+    return null;
+  }  
 }
 
 export default TokenManager;

@@ -1,3 +1,6 @@
+<!--A token is a word. A token block is an annotation.
+    When annotations are created, they replace the tokens
+    within them in token-manager.js's tokens list. -->
 <template>
   <span 
   v-if="token.type === 'token'"
