@@ -16,11 +16,11 @@
     <div class="q-my-xl q-py-md" style="margin-top: 7rem">
       <q-file
         v-model="textFile"
-        accept=".txt"
+        accept=".txt,.json"
         @rejected="fileSelectionError"
         filled
         @update:model-value="onFileSelected"
-        label="Open a text file to begin"
+        label="Open a text or json file to begin"
         :bg-color="$q.dark.isActive ? 'black-1' : 'light-blue-1'"
       >
         <template v-slot:prepend>
@@ -145,6 +145,7 @@ export default {
   methods: {
     ...mapMutations(["setInputSentences"]),
     onFileSelected(file) {
+      console.log("test121")
       try {
         let reader = new FileReader();
         reader.addEventListener("load", (event) => {

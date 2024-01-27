@@ -1,4 +1,6 @@
-<template>
+ <!-- TODO: I have only updated the drag method and click method on start page. I haven't hardly touched this file. -->
+
+ <template>
   <div class="field">
     <div class="file is-centered is-primary has-name is-boxed my-4">
       <label class="file-label">
@@ -6,7 +8,7 @@
           class="file-input"
           type="file"
           name="textfile"
-          accept=".txt"
+          accept=".txt, .json"
           @change="onFileSelected"
         />
         <span class="file-cta">
@@ -27,17 +29,19 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "LoadTextFile",
-  emits: ["file-loaded"],
+  emits: ["text-file-loaded", "json-file-loaded"],
   methods: {
     ...mapMutations(["setInputSentences"]),
+    // TODO: UPDATE THIS function based off of StartPage.vue's function onFileSelected()
     onFileSelected(e) {
+      console.log("OnFileSelected in LoadTextFile.vue")
       let files = e.target.files;
       if (!files.length) return;
 
       let reader = new FileReader();
       reader.addEventListener("load", (event) => {
         this.setInputSentences(event.target.result);
-        this.$emit("file-loaded");
+        this.$emit("text-file-loaded");
       });
       reader.readAsText(files[0]);
     },
