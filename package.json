@@ -34,30 +34,16 @@
     "@vue/compiler-sfc": "^3.2.47",
     "@babel/eslint-parser": "^7.21.3",
     "eslint": "^8.38.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-vue": "^9.11.0",
     "jest": "^29.5.0",
     "node-sass": "^8.0.0",
+    "prettier": "^3.1.1",
     "sass": "^1.62.0",
     "sass-loader": "^13.2.2",
     "vue-cli-plugin-quasar": "^5.0.2",
     "vue-cli-plugin-tauri": "~1.0.0-beta.6"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {
-      "no-console": "off",
-      "vue/multi-word-component-names": 0
-    }
   },
   "browserslist": [
     "> 1%",
