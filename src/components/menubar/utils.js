@@ -30,6 +30,6 @@ export const exportFile = async (content, filename) => {
           .then((msg) => alert(msg))
           .catch((e) => alert(e));
       })
-      .catch((e) => console.log("Save cancelled.", e));
+      .catch(() => {});
   }
 };
