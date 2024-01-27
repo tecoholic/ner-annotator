@@ -182,7 +182,6 @@ export default {
           end = offsetEnd + rangeEnd.endOffset;
         }
       } catch {
-        console.log("selected text were not tokens");
         return;
       }
 

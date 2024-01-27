@@ -93,14 +93,12 @@ export default {
       this.currentPage = page;
     },
     onDragEnter() {
-      console.log("Here");
       this.overlayActive = true;
     },
     onDragLeave() {
       this.overlayActive = false;
     },
     onDrop(event) {
-      console.log(event);
       this.overlayActive = false;
       this.pendingFileDrop = event.dataTransfer.files[0]
       if (this.currentPage == "start")  this.processFileDrop();
