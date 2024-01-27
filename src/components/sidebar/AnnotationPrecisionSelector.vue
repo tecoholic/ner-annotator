@@ -2,9 +2,9 @@
   <section>
     <div class="q-px-md q-pb-md">
       <q-select
+        v-model="precisionType"
         outlined
         :bg-color="$q.dark.isActive ? 'dark' : 'white'"
-        v-model="precisionType"
         :options="precisionOptions"
         :map-options="true"
         label="Annotation Precision"

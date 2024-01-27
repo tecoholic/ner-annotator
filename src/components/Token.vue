@@ -1,9 +1,9 @@
 <template>
   <span 
-  v-if="token.type === 'token'"
-  :id="'t' + token.start"
-  class="token"
-  :style="{'padding': this.$store.state.annotationPrecision == 'char' ? '0.25rem 0rem' : '0.25rem'}"
+    v-if="token.type === 'token'"
+    :id="'t' + token.start"
+    class="token"
+    :style="{'padding': $store.state.annotationPrecision == 'char' ? '0.25rem 0rem' : '0.25rem'}"
   >
     {{ token.text == " " ? "&nbsp;" : token.text }}
   </span>

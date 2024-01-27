@@ -1,8 +1,13 @@
 <template>
-  <q-dialog :model-value="show" @hide="$emit('hide')">
+  <q-dialog
+    :model-value="show"
+    @hide="$emit('hide')"
+  >
     <q-card style="min-width: 400px; padding: 10px; border-radius: 10px">
       <q-card-section>
-        <div class="text-h6">NER Annotator</div>
+        <div class="text-h6">
+          NER Annotator
+        </div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
@@ -21,7 +26,12 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="OK" color="primary" v-close-popup />
+        <q-btn
+          v-close-popup
+          flat
+          label="OK"
+          color="primary"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -30,13 +40,13 @@
 <script>
 export default {
   name: "AboutDialog",
-  emits: ["hide"],
   props: {
     show: {
       type: Boolean,
       default: false,
     },
   },
+  emits: ["hide"],
   data: function() {
     return {
       // eslint-disable-next-line no-undef

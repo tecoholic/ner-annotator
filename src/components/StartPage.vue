@@ -7,23 +7,31 @@
     ]"
     @click="toggleDarkMode"
   />
-  <div class="q-mx-auto q-my-xl" style="max-width: 600px">
-    <h5 class="text-h4 q-mb-sm">NER Text Annotator</h5>
+  <div
+    class="q-mx-auto q-my-xl"
+    style="max-width: 600px"
+  >
+    <h5 class="text-h4 q-mb-sm">
+      NER Text Annotator
+    </h5>
     <p :class="['text-subtitle1', $q.dark.isActive ? 'text-grey-4' : 'text-grey-7']">
       Annotate text for spaCy NER Model training
     </p>
 
-    <div class="q-my-xl q-py-md" style="margin-top: 7rem">
+    <div
+      class="q-my-xl q-py-md"
+      style="margin-top: 7rem"
+    >
       <q-file
         v-model="textFile"
         accept=".txt"
-        @rejected="fileSelectionError"
         filled
-        @update:model-value="onFileSelected"
         label="Open a text file to begin"
         :bg-color="$q.dark.isActive ? 'black-1' : 'light-blue-1'"
+        @rejected="fileSelectionError"
+        @update:model-value="onFileSelected"
       >
-        <template v-slot:prepend>
+        <template #prepend>
           <q-icon name="fas fa-upload" />
         </template>
       </q-file>
@@ -34,7 +42,10 @@
   </div>
   <q-separator />
   <div :class="[$q.dark.isActive ? 'bg-dark' : 'bg-grey-1', 'q-pa-lg']">
-    <div class="q-mx-auto" style="max-width: 600px">
+    <div
+      class="q-mx-auto"
+      style="max-width: 600px"
+    >
       <h4 class="text-h4">
         How to use the NER Annotator?
       </h4>
@@ -51,11 +62,13 @@
             class="rounded-borders"
             style="border: 1px solid #ccc; width: 80%"
           />
-          <p class="text-subtitle1 q-my-md">Tips to prepare the text file</p>
+          <p class="text-subtitle1 q-my-md">
+            Tips to prepare the text file
+          </p>
           <ul>
             <li>Break your content in paragraphs or passages</li>
             <li>
-              Maintain a consistent seperator between the passages. <br />
+              Maintain a consistent seperator between the passages. <br>
               Eg., newline, empty line or a text seperator like <code>---</code>
             </li>
             <li>
