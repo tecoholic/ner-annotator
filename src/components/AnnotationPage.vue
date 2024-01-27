@@ -1,47 +1,53 @@
 <template>
   <div>
     <classes-block />
-    <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
+    <div
+      class="q-pa-lg"
+      style="height:60vh; overflow-y:scroll;"
+    >
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
-        :id="'t' + t.start"
         v-for="t in tm.tokens"
-        :token="t"
+        :id="'t' + t.start"
         :key="t.start"
-        :backgroundColor="t.backgroundColor"
+        :token="t"
+        :background-color="t.backgroundColor"
         @remove-block="onRemoveBlock"
       />
     </div>
 
-    <div class="q-pa-md" style="border-top: 1px solid #ccc">
+    <div
+      class="q-pa-md"
+      style="border-top: 1px solid #ccc"
+    >
       <q-btn
         color="red"
         outline
         class="q-mx-sm"
-        @click="resetBlocks"
         label="Reset"
+        @click="resetBlocks"
       />
       <q-btn
         class="q-mx-sm"
         :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
-        @click="backOneSentence"
         :disabled="currentIndex == 0"
         label="Back"
+        @click="backOneSentence"
       />
       <q-btn
         class="q-mx-sm"
         :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
         outline
-        @click="skipCurrentSentence"
         label="Skip"
+        @click="skipCurrentSentence"
       />
       <q-btn
         class="q-mx-sm"
         color="green-7"
         outline
-        @click="saveTags"
         label="Save"
+        @click="saveTags"
       />
     </div>
   </div>
@@ -56,6 +62,11 @@ import TreebankTokenizer from "treebank-tokenizer";
 
 export default {
   name: "AnnotationPage",
+  components: {
+    Token,
+    TokenBlock,
+    ClassesBlock,
+  },
   data: function() {
     return {
       tm: new TokenManager([]),
@@ -63,11 +74,6 @@ export default {
       redone: "",
       tokenizer: new TreebankTokenizer(),
     };
-  },
-  components: {
-    Token,
-    TokenBlock,
-    ClassesBlock,
   },
   computed: {
     ...mapState([

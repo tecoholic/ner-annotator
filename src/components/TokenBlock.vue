@@ -2,10 +2,10 @@
   <mark :class="'bg-' + backgroundColor">
     <component
       :is="'Token'"
-      :id="'t' + t.start"
       v-for="t in token.tokens"
-      :token="t"
+      :id="'t' + t.start"
       :key="t.start"
+      :token="t"
     />
     <span class="tag">
       {{ token.label }}
@@ -25,11 +25,8 @@ import Token from "./Token";
 
 export default {
   name: "TokenBlock",
-  emits: ["remove-block"],
-  data: function() {
-    return {
-      showClose: false,
-    };
+  components: {
+    Token,
   },
   props: {
     token: {
@@ -41,8 +38,11 @@ export default {
       required: false,
     },
   },
-  components: {
-    Token,
+  emits: ["remove-block"],
+  data: function() {
+    return {
+      showClose: false,
+    };
   },
 };
 </script>

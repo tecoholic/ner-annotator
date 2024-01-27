@@ -1,5 +1,8 @@
 <template>
-  <div class="q-pa-md" style="border-bottom: 1px solid #ccc;">
+  <div
+    class="q-pa-md"
+    style="border-bottom: 1px solid #ccc;"
+  >
     <div class="row">
       <div class="tags">
         <q-chip
@@ -10,8 +13,8 @@
           style="height: 2rem;"
           :color="cl.color.replace('11', '12')"
           clickable
-          @click="setCurrentClass(index)"
           :removable="showDeleteButtons"
+          @click="setCurrentClass(index)"
           @remove="handleRemoveClass(cl.id, cl.name)"
         >
           <q-avatar
@@ -20,28 +23,32 @@
             style="height: 2rem"
             text-color="white"
             :icon="'fa fa-check'"
-          ></q-avatar>
+          />
           <q-avatar
             v-if="cl.id !== currentClass.id"
             :color="cl.color.replace('11', '12')"
             style="height: 2rem"
             text-color="white"
             font-size="16px"
-          >{{ index + 1 }}</q-avatar>
-          <p :class="['q-mb-none', $q.dark.isActive ? 'text-grey-3' : 'text-grey-9']">{{ cl.name }}</p>
+          >
+            {{ index + 1 }}
+          </q-avatar>
+          <p :class="['q-mb-none', $q.dark.isActive ? 'text-grey-3' : 'text-grey-9']">
+            {{ cl.name }}
+          </p>
         </q-chip>
       </div>
-      <q-space></q-space>
+      <q-space />
       <div class="q-mx-md">
         <q-input
-          bottom-slots
-          v-model="newClassName"
           v-if="showNewClassInput || classes.length === 0"
+          v-model="newClassName"
+          bottom-slots
           hint="Enter a NER Tag and click [+] to add it"
           dense
           autofocus
         >
-          <template v-slot:append>
+          <template #append>
             <q-btn
               round
               dense
@@ -64,16 +71,16 @@
       <div class="buttons">
         <q-btn
           outline
-          @click="showNewClassInput = true"
           label="New Tag"
           class="q-mr-sm"
           :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
+          @click="showNewClassInput = true"
         />
         <q-btn
           outline
-          @click="showDeleteButtons = !showDeleteButtons"
           :label="showDeleteButtons ? 'Lock Tags' : 'Edit Tags'"
           :color="$q.dark.isActive ? 'grey-3' : 'grey-9'"
+          @click="showDeleteButtons = !showDeleteButtons"
         />
       </div>
     </div>
@@ -94,15 +101,15 @@ export default {
   computed: {
     ...mapState(["classes", "currentClass", "enableKeyboardShortcuts"]),
   },
-  created() {
-    document.addEventListener('keydown', this.keypress);
-  },
   watch: {
     newClassName(now, then) {
       if (now != then) {
         this.newClassName = now.toUpperCase();
       }
     },
+  },
+  created() {
+    document.addEventListener('keydown', this.keypress);
   },
   methods: {
     ...mapMutations(["setCurrentClass"]),

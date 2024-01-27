@@ -1,5 +1,9 @@
 <template>
-  <q-item clickable v-close-popup @click="generateJSONExport()">
+  <q-item
+    v-close-popup
+    clickable
+    @click="generateJSONExport()"
+  >
     <q-item-section>Export</q-item-section>
   </q-item>
 </template>

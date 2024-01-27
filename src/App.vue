@@ -1,17 +1,21 @@
 <template>
   <div
     class="fullscreen"
+    style="overflow-y:scroll;"
     @dragover.prevent="onDragEnter"
     @dragenter="onDragEnter"
     @dragleave.self="onDragLeave"
     @drop.stop.prevent="onDrop"
-    style="overflow-y:scroll;"
   >
     <div :style="{'pointer-events': overlayActive ? 'none' : 'auto'}">
       <q-layout view="hHh lpR fFf">
         <menu-bar v-if="currentPage !== 'start'" />
 
-        <q-drawer :model-value="currentPage !== 'start'" bordered :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'">
+        <q-drawer
+          :model-value="currentPage !== 'start'"
+          bordered
+          :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'"
+        >
           <annotation-sidebar />
         </q-drawer>
 
@@ -23,8 +27,12 @@
           <annotation-page v-if="currentPage === 'annotate'" />
         </q-page-container>
       </q-layout>
-      <drag-n-drop-overlay :style="{'visibility': overlayActive && pendingFileDrop == null ? 'visible' : 'hidden'}"/>
-      <exit-dialog :show="pendingFileDrop != null && currentPage != 'start'" @hide="pendingFileDrop = null" @confirm="processFileDrop()"/>
+      <drag-n-drop-overlay :style="{'visibility': overlayActive && pendingFileDrop == null ? 'visible' : 'hidden'}" />
+      <exit-dialog
+        :show="pendingFileDrop != null && currentPage != 'start'"
+        @hide="pendingFileDrop = null"
+        @confirm="processFileDrop()"
+      />
     </div>
   </div>
 </template>
@@ -41,6 +49,14 @@ import { useQuasar } from "quasar";
 
 export default {
   name: "LayoutDefault",
+  components: {
+    MenuBar,
+    StartPage,
+    AnnotationPage,
+    AnnotationSidebar,
+    DragNDropOverlay,
+    ExitDialog
+  },
   setup() {
     const $q = useQuasar();
     return {
@@ -67,14 +83,6 @@ export default {
       overlayActive: false,
       pendingFileDrop: null,
     };
-  },
-  components: {
-    MenuBar,
-    StartPage,
-    AnnotationPage,
-    AnnotationSidebar,
-    DragNDropOverlay,
-    ExitDialog
   },
   computed: {
     ...mapState(["annotations", "classes"]),
