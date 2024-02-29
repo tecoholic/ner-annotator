@@ -2,73 +2,74 @@
   <mark :class="'bg-' + backgroundColor">
     <component
       :is="'Token'"
-      :id="'t' + t.start"
       v-for="t in token.tokens"
-      :token="t"
+      :id="'t' + t.start"
       :key="t.start"
+      :token="t"
     />
-    <span class="tag">
+    <span class="tag" @click="toggleSymbol">
+      <i :class="symbolClass"></i>
       {{ token.label }}
-      <!-- Replace label button (double arrows) -->
-      <q-btn
-        icon="fa fa-exchange-alt"
-        round
-        flat
-        size="xs"
-        text-color="grey-7"
-        title="Change label to currently selected label"
-        @click="$emit('replace-block-label', token.start)"
-      />
-      <!-- Delete label button (X) -->
       <q-btn
         icon="fa fa-times-circle"
         round
         flat
         size="xs"
         text-color="grey-7"
-        title="Delete annotation"
         @click="$emit('remove-block', token.start)"
       />
     </span>
   </mark>
 </template>
+
 <script>
 import Token from "./Token";
 
 export default {
   name: "TokenBlock",
-  emits: ["remove-block", "replace-block-label"],
-  data: function() {
-    return {
-      showClose: false,
-    };
+  components: {
+    Token,
   },
   props: {
     token: {
       type: Object,
-      requried: true,
+      required: true,
     },
     backgroundColor: {
       type: String,
       required: false,
     },
   },
-  components: {
-    Token,
+  emits: ["remove-block"],
+  data() {
+    return {
+      showClose: false,
+      isSymbolActive: false,
+      humanOpinion: false, 
+    };
+  },
+  computed: {
+    symbolClass() {
+      return this.isSymbolActive ? "fas fa-times-circle" : "fas fa-check-circle";
+    },
+  },
+  methods: {
+    toggleSymbol() {
+      this.isSymbolActive = !this.isSymbolActive;
+      this.humanOpinion = !this.humanOpinion; 
+    },
   },
 };
 </script>
 
 <style lang="scss">
-// mark is the highlight behind an annotated section of text
 mark {
-  padding: .5rem;
+  padding: 0.5rem;
   position: relative;
   background-color: burlywood;
   border: 1px solid $grey-7;
   border-radius: 0.35rem;
 }
-// tag is the label/class tag on an annotated section of text
 .tag {
   background-color: whitesmoke;
   padding: 4px 0 4px 8px;
