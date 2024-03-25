@@ -44,7 +44,7 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, name = this.getDefaultName()) {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, name = "name") {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
@@ -54,6 +54,8 @@ class TokenManager {
       label: _class.name,
       humanOpinion: humanOpinion, 
       initiallyNLP: initiallyNLP, 
+      userHasToggled: false, // Default value
+      isSymbolActive: false,
       // Assuming tokens property will hold the tokens covered by this block
       tokens: this.tokens.filter(token => token.start >= _start && token.end <= _end),
       backgroundColor: _class.color || null, // Apply a default or use _class.color if available
@@ -208,8 +210,9 @@ class TokenManager {
     const time = timeFormatter.format(currentDate);
     for (let i = 0; i < this.tokens.length; i++) {
       if (this.tokens[i].type === "token-block") {
+        console.log("export As annotations this is ", this);
         let b = this.tokens[i];
-        entities.push([b.name, date, time, b.start, b.end, b.label]);
+        entities.push([b.name, date, time, b.start, b.end, b.label, b.initiallyNLP, b.isSymbolActive, b.userHasToggled]);
       }
     }
     return entities;
