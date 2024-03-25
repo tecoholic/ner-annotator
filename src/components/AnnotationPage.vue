@@ -155,20 +155,20 @@ export default {
     },
     */
    // Inside AnnotationPage.vue
-    applyAnnotationHistory() {
-      const annotationHistory = this.annotationHistory;
-      if (annotationHistory && annotationHistory.length > 0) {
-        // Existing logic to apply annotations
+   applyAnnotationHistory() {
+    const annotationHistory = this.annotationHistory;
+    if (annotationHistory && annotationHistory.length > 0) {
         annotationHistory.forEach((annotation) => {
-          const [labelName, start, end, , name] = annotation;
-          const humanOpinion = name !== "nlp";
-          const initiallyNLP = name === "nlp";
-          const _class = this.classes.find(cls => cls.name === labelName);
-          if (_class) {
-            this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP);
-          } else {
-            console.warn(`Label "${labelName}" not found in classes.`);
-          }
+            const [labelName, start, end, , name] = annotation;
+            const humanOpinion = name !== "nlp";
+            const initiallyNLP = name === "nlp";
+            const _class = this.classes.find(cls => cls.name === labelName);
+            if (_class) {
+                // Notice the last true argument for isLoaded
+                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true);
+            } else {
+                console.warn(`Label "${labelName}" not found in classes.`);
+            }
         });
 
         // New logic to adjust humanOpinion based on 'nlp' name
@@ -241,7 +241,7 @@ export default {
         return;
       }
       console.log("adding manual block ", start, end, this.currentClass);
-      this.tm.addNewBlock(start, end, this.currentClass, true);
+      this.tm.addNewBlock(start, end, this.currentClass, true, false);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
