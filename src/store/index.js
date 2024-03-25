@@ -47,12 +47,10 @@ export const mutations = {
   setInputSentences(state, payload) {
     try {
       let jsonData;
-  
       if (typeof payload === 'string') {
         // Check if the payload is a JSON string
         try {
           jsonData = JSON.parse(payload);
-  
           // If successful, continue with the JSON data processing
         } catch (jsonError) {
           // If JSON parsing fails, assume it's a text file and proceed to read its content
@@ -111,7 +109,8 @@ export const mutations = {
           : [];
   
         console.log('Adding classes:', annotationClassIds);
-  
+        // Store the history of annotations to export to review page 
+        let annotationHistory = [];
         // Set the current class for the preceding two indices of each entity
         if (annotationClassIds.length > 0) {
           annotationEntities.entities.forEach(entity => {
@@ -120,14 +119,17 @@ export const mutations = {
               const start = entity[0];
               const end = entity[1];
               const type = entity[3];
-              console.log(label, start, end, type);
-  
+              const name = type[0][3];
+              console.log("label: ",label, "start: ",start, "end: ",end, "type: ",type, "name: ", name);
+              annotationHistory.push([label, start, end, type, name]);
               const textSnippet = annotationText.slice(start, end);
               const textIndices = [start - 1, start - 2]; // Adjust indices as needed
   
               console.log(state, label, textSnippet, textIndices);
             }
           });
+          state.annotationHistory = annotationHistory;
+          console.log("Updated state.annotationHistory:", state.annotationHistory);
         }
   
         return { id: i, text: annotationText };
@@ -278,6 +280,7 @@ export default {
     let tags = LocalStorage.getItem("tags");
     return {
       annotations: [],
+      annotationHistory: [],
       classes: tags || [],
       inputSentences: [],
       originalText: "",

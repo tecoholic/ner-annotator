@@ -5,14 +5,17 @@ class TokenManager {
    */
   constructor(classes) {
     this.classes = classes
+    this.tokens = []; // Initialize tokens array
   }
 
   setTokensAndAnnotation(tokens, currentAnnotation) {
+    // Initialize tokens with provided annotation data
     this.tokens = tokens.map((t) => ({
       type: "token",
       start: t[0],
       end: t[1],
       text: t[2],
+      humanOpinion: true, // Default humanOpinion to true for all initial tokens
     }));
     this.words = tokens.map(t => t[2]);
 
@@ -26,7 +29,7 @@ class TokenManager {
         if (!entityClass) {
           entityClass = {"name": entityName};
         }
-        this.addNewBlock(start, end, entityClass)
+        this.addNewBlock(start, end, entityClass, true, name === "nlp");
       }
     }
   }
@@ -38,8 +41,24 @@ class TokenManager {
    * @param {Number} start 'start' value of the token forming the start of the token block
    * @param {Number} end 'start' value of the token forming the end of the token block
    * @param {Number} _class the id of the class to highlight
+   * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
+
    */
-  addNewBlock(_start, _end, _class) {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, name = this.getDefaultName()) {
+    // Directly apply humanOpinion to the block structure
+    let block = {
+      type: "token-block",
+      start: _start,
+      end: _end,
+      name: name,
+      label: _class.name,
+      humanOpinion: humanOpinion, 
+      initiallyNLP: initiallyNLP, 
+      // Assuming tokens property will hold the tokens covered by this block
+      tokens: this.tokens.filter(token => token.start >= _start && token.end <= _end),
+      backgroundColor: _class.color || null, // Apply a default or use _class.color if available
+    };
+    console.log("addNewBlock's opinion: ", humanOpinion);
     let selectedTokens = [];
     let newTokens = [];
 
@@ -47,7 +66,7 @@ class TokenManager {
     let selectionEnd = _end > _start ? _end : _start;
     
     for (let i = 0; i < this.tokens.length; i++) {
-      let currentToken = this.tokens[i];
+      let currentToken = this.tokens[i];  
       if (currentToken.end < selectionStart) {
         // token is before the selection
         newTokens.push(currentToken);
@@ -134,17 +153,11 @@ class TokenManager {
 
     // Case if the selected tokens are at the end of the text and have not been added to the newTokens
     if (selectedTokens.length) {
-      newTokens.push({
-        type: "token-block",
-        start: selectedTokens[0].start,
-        end: selectedTokens[selectedTokens.length - 1].end,
-        tokens: selectedTokens,
-        label: _class && _class.name ? _class.name : "Unlabelled",
-        classId: _class && _class.id ? _class.id : 0,
-        backgroundColor: _class && _class.color ? _class.color : null,
-      });
+      block.tokens = selectedTokens; // Ensure newBlock has the correct tokens
+      newTokens.push(block); // Add newBlock to the array of new tokens
     }
-
+    
+    // After finishing the loop and handling all tokens
     this.tokens = newTokens;
   }
 
@@ -188,10 +201,15 @@ class TokenManager {
    */
   exportAsAnnotation() {
     let entities = [];
+    const currentDate = new Date();
+    const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    const timeFormatter = new Intl.DateTimeFormat('en', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const date = dateFormatter.format(currentDate);
+    const time = timeFormatter.format(currentDate);
     for (let i = 0; i < this.tokens.length; i++) {
       if (this.tokens[i].type === "token-block") {
         let b = this.tokens[i];
-        entities.push([b.start, b.end, b.label]);
+        entities.push([b.name, date, time, b.start, b.end, b.label]);
       }
     }
     return entities;

@@ -16,7 +16,7 @@
         flat
         size="xs"
         text-color="grey-7"
-        @click="$emit('remove-block', token.start)"
+        @click.stop="$emit('remove-block', token.start)"
       />
     </span>
   </mark>
@@ -31,34 +31,44 @@ export default {
     Token,
   },
   props: {
-    token: {
-      type: Object,
-      required: true,
-    },
-    backgroundColor: {
-      type: String,
-      required: false,
-    },
+    token: Object,
+    backgroundColor: String,
+    humanOpinion: Boolean,
   },
-  emits: ["remove-block"],
   data() {
     return {
-      showClose: false,
-      isSymbolActive: false,
-      humanOpinion: false, 
-    };
-  },
-  computed: {
-    symbolClass() {
-      return this.isSymbolActive ? "fas fa-times-circle" : "fas fa-check-circle";
+        // Initial state
+        isSymbolActive: false,
+        userHasToggled: false, // Tracks if the user has interacted with the token
+      };
     },
-  },
-  methods: {
-    toggleSymbol() {
-      this.isSymbolActive = !this.isSymbolActive;
-      this.humanOpinion = !this.humanOpinion; 
+    computed: {
+      symbolClass() {
+        if (!this.userHasToggled)  {
+          console.log("After loading symbolClass is human? ",this)
+          // Initial icon state: circle only if humanOpinion is false, otherwise cross
+          return !this.humanOpinion ? "fas fa-circle" : "fas fa-times-circle";
+        } else {
+          // Once toggled, switch between checkmark and cross
+          return this.isSymbolActive ? "fas fa-check-circle" : "fas fa-times-circle";
+        }
+      },
     },
-  },
+    methods: {
+      toggleSymbol() {
+        if (this.token.initiallyNLP && !this.userHasToggled) {
+          // If initially set by NLP and user hasn't toggled yet, allow toggle to false
+          this.isSymbolActive = false;
+        } else {
+          // Normal toggle behavior
+          this.isSymbolActive = !this.isSymbolActive;
+        }
+        this.userHasToggled = true;
+      },
+    },
+    created() {
+  console.log("TokenBlock created with humanOpinion:", this.humanOpinion);
+},
 };
 </script>
 
