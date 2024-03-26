@@ -13,7 +13,16 @@
         @replace-block-label="onReplaceBlockLabel"
       />
     </div>
-
+    <div class="q-pa-md" style="border-top: 1px solid #ccc">
+      <q-btn
+        class="q-mx-sm"
+        color="primary"
+        outline
+        title="Undo"
+        @click="undo"
+        label="Undo"
+      />
+    </div>
     <div class="q-pa-md" style="border-top: 1px solid #ccc">
       <q-btn
         color="red"
@@ -67,6 +76,7 @@ export default {
       currentSentence: {},
       redone: "",
       tokenizer: new TreebankTokenizer(),
+      addedTokensStack: [],
     };
   },
   components: {
@@ -132,6 +142,9 @@ export default {
       // stop event from bubbling up
       event.stopPropagation()
     },
+    undo() {
+      console.log("Undo Stack:", this.addedTokensStack);
+    },
     /*
     // Load history of annotations from input file 
     applyAnnotationHistory() {
@@ -164,8 +177,7 @@ export default {
             const initiallyNLP = name === "nlp";
             const _class = this.classes.find(cls => cls.name === labelName);
             if (_class) {
-                // Notice the last true argument for isLoaded
-                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true);
+                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name);
             } else {
                 console.warn(`Label "${labelName}" not found in classes.`);
             }
@@ -242,6 +254,7 @@ export default {
       }
       console.log("adding manual block ", start, end, this.currentClass);
       this.tm.addNewBlock(start, end, this.currentClass, true, false);
+      this.addedTokensStack.push(start);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
@@ -259,11 +272,13 @@ export default {
 
       // Create a new block with the same start and end, but with the current tag/label/class
       if (start !== undefined && end !== undefined) {
+        this.addedTokensStack.push(start);
         this.tm.addNewBlock(start, end, this.currentClass);
       }
     },
     resetBlocks() {
       this.tm.resetBlocks();
+      this.addedTokensStack = [];
     },
     skipCurrentSentence() {
       this.nextSentence();

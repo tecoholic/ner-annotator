@@ -44,7 +44,7 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name = "name") {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name") {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
@@ -129,6 +129,7 @@ class TokenManager {
           type: "token-block",
           start: tokens[0].start,
           end: tokens[tokens.length - 1].end,
+          name: name,
           tokens: tokens,
           label: _class.name,
           classId: _class.id || 0,
@@ -205,7 +206,6 @@ class TokenManager {
   getBlockByStart(start) {
     for (let i = 0; i < this.tokens.length; i++) {
       const token = this.tokens[i];
-  
       if (token.type === "token-block" && token.start === start) {
         return token;
       }
