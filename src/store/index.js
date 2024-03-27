@@ -120,8 +120,9 @@ export const mutations = {
               const end = entity[1];
               const type = entity[3];
               const name = type[0][3];
-              console.log("label: ",label, "start: ",start, "end: ",end, "type: ",type, "name: ", name);
-              annotationHistory.push([label, start, end, type, name]);
+              const status = type[0][4];
+              console.log("label: ",label, "start: ",start, "end: ",end, "type: ",type, "name: ", name, "status: ", status);
+              annotationHistory.push([label, start, end, type, name, status]);
               const textSnippet = annotationText.slice(start, end);
               const textIndices = [start - 1, start - 2]; // Adjust indices as needed
   

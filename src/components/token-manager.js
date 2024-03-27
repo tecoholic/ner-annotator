@@ -44,7 +44,7 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name") {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested") {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
@@ -58,6 +58,7 @@ class TokenManager {
       isSymbolActive: false, // Ensure it's set for the new block
       isSuggested: false,
       isLoaded: isLoaded,
+      status: status,
       tokens: this.tokens.filter(token => token.start >= _start && token.end <= _end),
       backgroundColor: _class.color || null,
     };
@@ -139,6 +140,7 @@ class TokenManager {
           userHasToggled: false,
           isSymbolActive: false,
           isLoaded: isLoaded,
+          status: status,
         };
         tokensArray.push(newBlock);
       }
@@ -196,7 +198,7 @@ class TokenManager {
       if (this.tokens[i].type === "token-block") {
         let b = this.tokens[i];
         console.log("export As annotations this is ", b);
-        entities.push([b.name, date, time, b.start, b.end, b.label, b.initiallyNLP, b.isSymbolActive, b.userHasToggled, b.isLoaded]);
+        entities.push([b.name, date, time, b.start, b.end, b.label, b.initiallyNLP, b.isSymbolActive, b.userHasToggled, b.isLoaded,b.status]);
       }
     }
     return entities;
@@ -216,3 +218,9 @@ class TokenManager {
 }
 
 export default TokenManager;
+
+
+
+/// Make toggle between open/close/reject
+/// Update it so previous / loadable 
+/// 

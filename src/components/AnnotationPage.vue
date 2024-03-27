@@ -177,7 +177,7 @@ export default {
             const initiallyNLP = name === "nlp";
             const _class = this.classes.find(cls => cls.name === labelName);
             if (_class) {
-                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name);
+                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name, status);
             } else {
                 console.warn(`Label "${labelName}" not found in classes.`);
             }
