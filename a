@@ -1,0 +1,524 @@
+[33mcommit ddc467f112183751f24e6d80b8f50ba2e5c63578[m[33m ([m[1;36mHEAD -> [m[1;32mdev-wb[m[33m)[m
+Merge: c3d4251 480e8d3
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Wed Mar 27 16:34:05 2024 -0400
+
+    Merge remote-tracking branch 'origin/main' into dev-wb
+
+[33mcommit c3d42514e90568f92e2c0a736bf7d4806c971c90[m[33m ([m[1;31morigin/dev-wb[m[33m)[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Wed Mar 27 16:30:36 2024 -0400
+
+    updating ideas
+
+[33mcommit 9456c7ddfb4899447989c3d6db09e80cbcaff50c[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Tue Mar 26 11:43:52 2024 -0400
+
+    Added undo button , added OG name to output json
+
+[33mcommit 865ccff41ea235863897b93b9821a7f70b744e09[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Mon Mar 25 16:40:59 2024 -0400
+
+    Export shows if user made changes, was annotation loaded in
+
+[33mcommit 6ba334b0ad0d02d1a4fb105d2a7977c31d0e4cc7[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Mon Mar 25 15:35:17 2024 -0400
+
+    updating export
+
+[33mcommit 237596caad3e147c563ae7d3be094efe6ede1f24[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Mon Mar 25 10:32:14 2024 -0400
+
+    auto load annotations
+
+[33mcommit be8cdc3eff347d0a6a8a71fe57636bd53959361e[m
+Author: Darien <darien.orethun@gmail.com>
+Date:   Thu Feb 29 15:06:23 2024 -0500
+
+    Update TokenBlock.vue
+    
+    Added symbols
+    Added accept/reject data for tags
+
+[33mcommit 480e8d321ffc5ee02740b1095a05b3d5daa50042[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: wildercb <73315944+wildercb@users.noreply.github.com>
+Date:   Mon Jan 29 18:42:47 2024 -0500
+
+    Update LoadTextFile.vue
+
+[33mcommit a54c160e6abe525a4038aea53de87e3de3513324[m
+Author: Sam Waggoner <samwags3@gmail.com>
+Date:   Mon Jan 29 17:12:08 2024 -0500
+
+    copied src/store/index.js from dev_wb branch
+
+[33mcommit 32938561257f6485e3ff042e47898011dc6f7460[m
+Author: wildercb <baldwinwilder@gmail.com>
+Date:   Sat Jan 27 13:44:04 2024 -0500
+
+    updated to load in json annotation text and classes , log the entities.
+
+[33mcommit 0ee29220c28a49c496e700184f9838ef0d5f5efa[m
+Author: Sam Waggoner <samwags3@gmail.com>
+Date:   Mon Jan 22 18:30:26 2024 -0500
+
+    made json uploads take you to ReviewPage.vue. fixed bug that allowed dragging in different file types.
+
+[33mcommit fcb4e814d1700ccd15be5e4c5a1334471c282c82[m
+Author: Sam Waggoner <samwags3@gmail.com>
+Date:   Sat Jan 20 12:09:32 2024 -0500
+
+    added replace button and explanatory titles
+
+[33mcommit d66fa770b8d852b71789f40c9dc91ee47aa221d6[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:55:10 2023 -0500
+
+    Add unsigned SDD
+
+[33mcommit 935e0d21eea7e5ca13373acba859d0260ce0bcc6[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:54:28 2023 -0500
+
+    Delete documentation/SEWDO_SDD_unsigned.pdf
+    
+    File has been edited
+
+[33mcommit b05ae3105655cd52e9a135a88fa46b6ff02df808[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:22:35 2023 -0500
+
+    Add unsigned SDD
+
+[33mcommit f5a60446ce1072aa957658744e9f227088f7b577[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:13:34 2023 -0500
+
+    Delete documentation/SEWDO_SDD.pdf
+    
+    Errant upload
+
+[33mcommit 6ba8c0a70e2ad84fca875413d9d7be97733752c5[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:11:42 2023 -0500
+
+    Delete SEWDO_SDD.pdf
+    
+    Errant upload
+
+[33mcommit c7799ee2503c8595633e69485940915fd25dfa1d[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:05:01 2023 -0500
+
+    Add files via upload
+    
+    Add unsigned SDD
+
+[33mcommit 3232c44d5e28e9ff145b177a8d2baced2d46bcd5[m
+Author: Darien <75684361+Doortune@users.noreply.github.com>
+Date:   Wed Nov 15 23:03:22 2023 -0500
+
+    Add files via upload
+    
+    Add unsigned SDD
+
+[33mcommit 5a3845f7e78384b863ee0ff4d0fe242ebba6545a[m
+Author: Sam Waggoner <79596351+SamWaggoner@users.noreply.github.com>
+Date:   Wed Nov 1 16:33:02 2023 -0400
+
+    Add unsigned SRS
+    
+    As per submission instructions
+
+[33mcommit e0833d05f9e1e5419bd2b2fadfde9f44146b5a9c[m
+Merge: 442a43e f97497c
+Author: Sam Waggoner <79596351+SamWaggoner@users.noreply.github.com>
+Date:   Wed Nov 1 16:30:16 2023 -0400
+
+    Merge pull request #1 from SamWaggoner/patch-1
+    
+    Added folder for documentation
+
+[33mcommit f97497c2feb69f38b349c8d4773d6739a490c9d8[m
+Author: Sam Waggoner <79596351+SamWaggoner@users.noreply.github.com>
+Date:   Wed Nov 1 16:22:22 2023 -0400
+
+    Added folder for documentation
+
+[33mcommit 442a43e3e542b53da94d0834204b70d1af6a29e6[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Aug 13 06:16:09 2023 +0600
+
+    Update token creation logic. Fixes #95.
+
+[33mcommit 3409e79d6c465a092374c1d9b4caf23726819c27[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sat Aug 5 03:30:36 2023 +0600
+
+    Added dark mode.
+
+[33mcommit 70e11490b5d8228ecfba961c8084fa12e6660f6f[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri May 12 17:01:43 2023 +0600
+
+    Updated README.md.
+
+[33mcommit e864d98367908e16f154e3ec5ae048d3299c25c3[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri May 12 16:16:34 2023 +0600
+
+    Production Build v1.3.0.
+
+[33mcommit 29f74d8ede66e7d543a04cc009cdd9247985ce5d[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri May 12 15:52:48 2023 +0600
+
+    Added annotation precision selection. Closes #53.
+
+[33mcommit 9e2ade5d035887442a6ef67a890098f4c4baa58d[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sat Apr 22 04:30:44 2023 +0600
+
+    Added screenshot to README.
+
+[33mcommit 7a0d2b9a8f1df26eda14b0c9c11435b0fec94ed9[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri Apr 21 06:07:36 2023 +0600
+
+    Reworked class selection to use class positions.
+
+[33mcommit 566dc26214181411db53ec80d3456c31a6001960[m
+Author: Leon Kunert <info@leonkunert.de>
+Date:   Fri Apr 21 01:17:05 2023 +0200
+
+    Updated dependencies. (#56)
+
+[33mcommit 6b80298da452eac500e9090b56766b53c2337e96[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Thu Apr 20 03:08:33 2023 +0600
+
+    Added drag and drop support for Tauri builds. Closes #4.
+
+[33mcommit 58188d6dd4c8066066cb0e0bfe724d45bdc1802a[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Thu Apr 20 02:22:05 2023 +0600
+
+    Implemented drag and drop file upload for web. Refer to #4.
+
+[33mcommit d572527c0baa335184969dd841966ec3390cd761[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Wed Apr 19 18:13:12 2023 +0600
+
+    Fixed overlapping token selection. Closes #85.
+
+[33mcommit 4fae2e418a10ed1f1aa601fdf7087652f0372ad4[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Wed Apr 19 05:48:09 2023 +0600
+
+    Fixed issue with labels not updating correctly on tag import. Closes #79.
+
+[33mcommit 6805ed0e4280946c23f7e34ac9f8d817ed77c2b3[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Wed Apr 19 05:29:25 2023 +0600
+
+    Fixed #78.
+
+[33mcommit 6ffdbc89804c06fc46b0b807cea030de108d21c9[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Apr 16 23:54:12 2023 +0600
+
+    Fixed #84.
+    
+    Annotation import process was adding null values at empty slots. This prevented the imported annotations from being exported again.
+
+[33mcommit f18ca917ad6b2ea5b1b7d4865792acc4f2cc107a[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 12 05:05:27 2023 +0600
+
+    Added invalid file type error on start page. Closes #77.
+
+[33mcommit 8e0d515d213c4ea0f6637b89c24f30174f88ef3b[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 12 04:05:45 2023 +0600
+
+    Added confirmation dialog when closing a file. Closes #75.
+
+[33mcommit ef29ed188991c603ddd8bbe8f21a470a1c9a535b[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sat Mar 11 17:33:48 2023 +0600
+
+    Added instructions for keyboard shortcuts. Closes #76.
+
+[33mcommit bc01dc6d83d72ba0932c4c39f69efd0cb7b172fe[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri Mar 10 19:51:05 2023 +0600
+
+    Production Build v1.2.0.
+
+[33mcommit 69c2726761c06643eb1eb282a92865d12d4957eb[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Fri Mar 10 18:47:25 2023 +0600
+
+    Updated README.md
+
+[33mcommit 6b0eb86f3a02230ed9fede62c65f86eb4f33d248[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Wed Mar 8 02:35:50 2023 +0600
+
+    Fixed back button disable logic. Closes #74.
+
+[33mcommit ab004cea535a551664fd89b5a3a55d48e1bb780e[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Wed Mar 8 02:33:04 2023 +0600
+
+    Fixed state update issue when moving to next sentence.
+    
+    Closes #73.
+
+[33mcommit 1602e8ede5987fd95cedf1a3c0686350d8f11456[m
+Merge: d41f972 8723e70
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 23:07:02 2023 +0600
+
+    Merge pull request #72 from alvi-khan/open-file
+    
+    Added option to open a new file.
+
+[33mcommit 8723e702a3957d611b711a5389be17528d6dca22[m
+Merge: 3f4bd59 d41f972
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 22:20:36 2023 +0600
+
+    Merge branch 'main' into pr/64
+
+[33mcommit d41f9724b1e19c07e5e6f2fe0f7997ab0c5c5e0f[m
+Merge: 923ff56 6f5a23b
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 21:48:40 2023 +0600
+
+    Merge pull request #62 from alvi-khan/import-annotations
+    
+    Added option to import annotations.
+
+[33mcommit 923ff565e2800a1be9b158157ff88d1455b355cd[m
+Merge: cc035e3 d2a5502
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 20:12:49 2023 +0600
+
+    Merge pull request #71 from tecoholic/fix-actions
+    
+    Added fixes for broken workflows.
+
+[33mcommit cc035e3f4229681ac63476624c13c85b520d4c9e[m
+Merge: 9482585 46ff88f
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 19:51:25 2023 +0600
+
+    Merge pull request #70 from alvi-khan/bug-fixes
+    
+    Bug fixes for #58, #59, #60, #65, #66 and #67.
+
+[33mcommit d2a55024b6cf433d3bcc96beffb49804009344e4[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Mar 7 01:52:09 2023 +0600
+
+    Added fixes for broken workflows.
+
+[33mcommit 46ff88f186d1bb2cc79d5b4a99d59d8816d37bd0[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 5 18:27:03 2023 +0600
+
+    Fixed minor issue in imported tag auto-selection.
+
+[33mcommit 99b5bf14d782ba2de797ba76fbc6497c6aac47ae[m
+Merge: fe4c2af 9482585
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 5 17:49:35 2023 +0600
+
+    Merge branch 'main' into pr/61
+
+[33mcommit 948258590d4f299ab3aed8bdfaf151fe8d96e25e[m
+Merge: f67ede2 7208ff2
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 5 17:45:00 2023 +0600
+
+    Merge pull request #52 from leonkunert/keyboard-shortcuts
+    
+    Added  keyboard shortcuts.
+
+[33mcommit 7208ff2bd34f1f620bb73d7f2871b9b44e2ca91d[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Mar 5 14:56:45 2023 +0600
+
+    Removed debug tooltip and console logs.
+
+[33mcommit f67ede27480f390a61fc75cc4c0346e0df69d1fe[m
+Author: Arunmozhi <tecoholic@users.noreply.github.com>
+Date:   Sun Feb 26 12:44:03 2023 +0530
+
+    docs: add maintainer wanted notice to readme
+
+[33mcommit fe4c2af500190159af43afbcd505d1f7e093c651[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sat Jan 28 15:15:04 2023 +0600
+
+    Saved imported tags to local storage. Closes #67.
+
+[33mcommit fe692db0d9b05ebfbefd8a5a67df618c3ac48464[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sat Jan 28 15:05:01 2023 +0600
+
+    Fixed scroll issue for large text. Closes #66 and #19.
+
+[33mcommit d0b4e47ea76d4ca8ca394e4d15cf8b43437b584a[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Tue Jan 24 10:26:24 2023 +0600
+
+    Fixed update of current class on tag import.
+
+[33mcommit 3f4bd59ad8d982152ead577f7722b5804fa773d3[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Jan 22 17:42:39 2023 +0600
+
+    Added option to open a new file.
+
+[33mcommit 019ec3beabbe3e11d404e73c1c3f38391fbaa2f8[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Jan 22 17:37:08 2023 +0600
+
+    Added auto-selection of first tag from local storage as default.
+
+[33mcommit 2c93ec64b71708c5863c3d75c73861f717e9428a[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Jan 22 17:36:04 2023 +0600
+
+    Fixed indexing issue at last sample.
+
+[33mcommit 6b652df2a23744dea3011b8fa0964554c2818378[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Sun Jan 22 17:33:30 2023 +0600
+
+    Added check for empty tag name before adding.
+
+[33mcommit 6f5a23b5f3f96d5fe3b3c7d3dd12cac82a154b23[m
+Author: Alvi Khan <55395950+alvi-khan@users.noreply.github.com>
+Date:   Thu Jan 19 23:32:49 2023 +0600
+
+    Added option to import annotations.
+
+[33mcommit bcfd2748ca2da1ccad0975e4b06e3da6059b1cbc[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Fri Nov 4 16:31:58 2022 +0100
+
+    Updated keyboard shortcuts.
+    Added option to enable/disable.
+    Changed keys.
+    Simplified classes keyboard shortcuts.
+
+[33mcommit 6786be0011f09bc359c39562b0a29396e1885baf[m
+Merge: 91002fa f05faae
+Author: Arunmozhi <tecoholic@users.noreply.github.com>
+Date:   Tue Nov 1 08:43:43 2022 +0530
+
+    Merge branch 'main' into keyboard-shortcuts
+
+[33mcommit f05faae4527aa52549cdfef5d1aad39c67f55b7b[m
+Author: Arunmozhi <arunmozhi@opencraft.com>
+Date:   Wed Oct 26 20:22:17 2022 +0530
+
+    fix: set the language code for windows bundler
+
+[33mcommit 8e89273aab3aeb04169c066d8b42f31f86049044[m
+Author: Arunmozhi <arunmozhi@opencraft.com>
+Date:   Wed Oct 26 19:47:21 2022 +0530
+
+    fix: set the tauri build workflow to main branch
+
+[33mcommit 5cf8d4a3167110811e09405c6b7b025c20485767[m
+Author: Arunmozhi <arunmozhi@opencraft.com>
+Date:   Wed Oct 26 19:46:31 2022 +0530
+
+    feat: adds tauri workflows
+
+[33mcommit 77d4cea6faf629422496a03239ac07e982f790fc[m
+Author: Arunmozhi <arunmozhi@opencraft.com>
+Date:   Wed Oct 26 19:46:15 2022 +0530
+
+    chore: version bump and changelog update
+
+[33mcommit 948d701800cc41d50695df8bad65cfcd72472c38[m
+Author: Arunmozhi <arunmozhi@opencraft.com>
+Date:   Wed Oct 26 19:31:08 2022 +0530
+
+    fix: fix missed _class instance from refactor
+
+[33mcommit acb922d3a451098c0b99e9ba38f00ca7661cc226[m
+Author: Leon Kunert <info@leonkunert.de>
+Date:   Wed Oct 26 15:55:24 2022 +0200
+
+    Adds Back button to move between text blocks(#47)
+    
+    Authored-by: Leon Kunert <leon.kunert@spiegel.de>
+
+[33mcommit 91002fafe2321535ecf0ac78cb8433f603393e01[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Mon Oct 24 16:26:48 2022 +0200
+
+    Moving stuff back to AnnotationPage.
+
+[33mcommit d50c484a88a84f376953a3b017d1d29869514879[m
+Merge: 2e59582 e625201
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Mon Oct 17 13:45:21 2022 +0200
+
+    Merge branch 'optimize-debugging' into keyboard-shortcuts
+    
+    * optimize-debugging:
+      Adding debug tooltip.
+
+[33mcommit f3e5a4be14b4a2c622f53a6c32ad0d892ae59960[m
+Merge: 18acf0b c71a888
+Author: Arunmozhi <tecoholic@users.noreply.github.com>
+Date:   Mon Oct 17 14:32:58 2022 +0530
+
+    Merge pull request #48 from LelViLamp/main
+    
+    Fixed Links to Issues in README.md
+
+[33mcommit 2e595822a8ca65613a35534acf01ebd3857db12d[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Mon Oct 17 01:33:33 2022 +0200
+
+    Adding keyboard shortcuts.
+
+[33mcommit c71a88816a0f90dde04de84e5000f4078d2459ac[m
+Author: Daniel Göller <61782325+LelViLamp@users.noreply.github.com>
+Date:   Thu Oct 13 14:18:47 2022 +0200
+
+    fixed links to issues in README.md
+    
+    followed https://stackoverflow.com/a/20829706/13044791 for relative link
+
+[33mcommit eabf487bba00a2eea86f234d5dd3dc2e9da02306[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Thu Oct 13 01:40:59 2022 +0200
+
+    Updated export function to be compatible to old version.
+
+[33mcommit e6252018903456ac3a86db117eae19556e6f14bf[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Thu Oct 13 01:14:40 2022 +0200
+
+    Adding debug tooltip.
+
+[33mcommit 121de1b3a9b73ff79170b5b4d26871c82484eed8[m
+Author: Leon Kunert <leon.kunert@spiegel.de>
+Date:   Thu Oct 13 01:11:03 2022 +0200
+
+    Reworking state management.
+    Updated token manager to work with previous state.
+    Added back button.

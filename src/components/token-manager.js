@@ -24,7 +24,7 @@ class TokenManager {
       for (let i = 0; i < currentAnnotation.entities.length; i++) {
         var start = currentAnnotation.entities[i][0];
         var end = currentAnnotation.entities[i][1];
-        var entityName = currentAnnotation.entities[i][2];
+        var entityName = currentAnnotation.entities[i][4];
         var entityClass = this.classes.find(c => c.name.toUpperCase() === entityName.toUpperCase())
         if (!entityClass) {
           entityClass = {"name": entityName};
@@ -44,10 +44,11 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested") {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested", annotationHistory) {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
+      annotationHistory: annotationHistory,
       start: _start,
       end: _end,
       name: name,
@@ -62,6 +63,7 @@ class TokenManager {
       tokens: this.tokens.filter(token => token.start >= _start && token.end <= _end),
       backgroundColor: _class.color || null,
     };
+    console.log("TOKEN-MANAGER-MARKER: ", _class, humanOpinion, initiallyNLP, true, name, status);
     console.log("addNewBlock's opinion: ", humanOpinion);
     let selectedTokens = [];
     let newTokens = [];
@@ -141,6 +143,7 @@ class TokenManager {
           isSymbolActive: false,
           isLoaded: isLoaded,
           status: status,
+          annotationHistory: annotationHistory,
         };
         tokensArray.push(newBlock);
       }
@@ -198,7 +201,7 @@ class TokenManager {
       if (this.tokens[i].type === "token-block") {
         let b = this.tokens[i];
         console.log("export As annotations this is ", b);
-        entities.push([b.name, date, time, b.start, b.end, b.label, b.initiallyNLP, b.isSymbolActive, b.userHasToggled, b.isLoaded,b.status]);
+        entities.push([b.name, date + " " + time, b.start, b.end, b.label, b.initiallyNLP, b.isSymbolActive, b.userHasToggled, b.isLoaded,b.status,b.annotationHistory]);
       }
     }
     return entities;

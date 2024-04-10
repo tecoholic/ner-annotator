@@ -5,6 +5,7 @@
 </template>
 
 <script>
+/*
 import { mapState } from "vuex";
 import { exportFile } from "./utils";
 
@@ -43,4 +44,95 @@ export default {
     },
   },
 };
+
+
+*/
+
+import { mapState } from 'vuex'
+import { exportFile } from './utils'
+
+export default {
+  name: 'ExportAnnotations',
+  computed: {
+    ...mapState(['annotations', 'classes']),
+  },
+  methods: {
+    promptForNameAndExport() {
+      const annotator = prompt('Please enter your name for the annotations export:')
+      if (annotator) {
+        this.generateJSONExport(annotator)
+      } else {
+        console.log('Export cancelled or name not provided.')
+      }
+    },
+
+    async generateJSONExport(annotator) {
+      // Class colors mapping
+      const classColors = {
+        CHEMICAL: 'red-11',
+        MATERIAL: 'blue-11',
+        MATERIAL_STRUCTURE: 'light-green-11',
+        APPLICATION: 'deep-orange-11',
+        PROCESS_OR_TECHNIQUE: 'pink-11',
+        PROPERTY: 'light-blue-11',
+        MEASUREMENT: 'lime-11',
+        ABBREVIATION: 'brown-11',
+        COMPOUND: 'red-11',
+      }
+
+      // Transform classes to include id and color
+      const transformedClasses = this.classes.map((className, index) => ({
+        id: index + 1,
+        name: className,
+        color: classColors[className] || 'grey-11', // Default color if not specified
+      }))
+
+      // Transform annotations to match the desired structure
+      // Transform annotations to match the desired structure
+    const transformedAnnotations = this.annotations.map(annotation => {
+      return [
+        annotation.text,
+        {
+          entities: annotation.entities.map(entity => {
+            // Copy the existing history
+            let history = [...entity[10]]; // Assuming entity[10] is the full history list
+            
+            // Check if entity[9] is true and add a new history entry if so
+            if (entity[8]) {
+              const newHistoryEntry = [
+                entity[9], // Status from entity[7] // Just an example action, adjust as needed
+                new Date().toISOString(), // Current date-time in ISO format
+                annotator, // The annotator's name provided earlier
+                entity[4], // The class or identifier from entity[5]
+              ];
+              history.push(newHistoryEntry); // Append the new entry to the history
+            }
+            
+            return [
+              entity[2], // Including entity[2] as it was part of the initial structure
+              entity[3], // Start position
+              entity[4], // End position
+              history // The updated history including the new entry where applicable
+            ];
+          })
+        }
+      ];
+    });
+
+
+
+      const output = {
+        classes: transformedClasses,
+        annotations: transformedAnnotations,
+      }
+
+      const jsonStr = JSON.stringify(output, null, 2) // Pretty print JSON
+      await exportFile(jsonStr, `${annotator}-annotations.json`)
+    },
+  },
+}
 </script>
+
+
+
+

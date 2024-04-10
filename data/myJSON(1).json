@@ -1,0 +1,43 @@
+{
+    "classes": [
+        {"id":1, "name":"COMPOUND", "color":"red-11"},
+        {"id":2, "name":"PROCESS_OR_TECHNIQUE", "color":"blue-11"},
+        {"id":3, "name":"MEASUREMENT", "color":"light-green-11"}
+    ],
+    "annotations": [
+        [
+            "Cellulose is an organic compound with the formula (C6H10O5)n, a polysaccharide consisting of a linear chain of several hundred to many thousands of linked D-glucose units.\r",
+            {
+                "entities": [
+                    [
+                        0,
+                        9,
+                        [["Created", "2023-10-01", "Mohammad", "COMPOUND"],
+                         ["Accepted","2023-10-08", "Andrew", "COMPOUND"]]
+                    ],
+                    [
+                        16,
+                        32,
+                        [["Created", "2023-10-01", "Mohammad", "PROCESS_OR_TECHNIQUE"],
+                         ["Rejected","2023-10-08", "Andrew", "PROCESS_OR_TECHNIQUE"]]
+                    ],
+                    [
+                        64,
+                        78,
+                        [["Predicted", "2023-09-25", "NLP Model", "PROCESS_OR_TECHNIQUE"],
+                         ["Rejected","2023-10-01", "Mohammad", "PROCESS_OR_TECHNIQUE"],
+                         ["Rejected","2023-10-08", "Andrew", "PROCESS_OR_TECHNIQUE"]]
+                    ],
+                    [
+                        148,
+                        170,
+                        [["Predicted", "2023-09-25", "NLP Model", "PROCESS_OR_TECHNIQUE"],
+                         ["Rejected","2023-10-01", "Mohammad", "PROCESS_OR_TECHNIQUE"],
+                         ["Accepted","2023-10-08", "Andrew", "PROCESS_OR_TECHNIQUE"],
+                         ["Suggested","2023-10-16", "Henry", "COMPOUND"]]
+                    ]
+                ]
+            }
+        ]
+    ]
+}

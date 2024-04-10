@@ -1,0 +1,23 @@
+{
+  "classes": [
+    {"id":1,"name":"CHEMICAL","color":"red-11"},
+	{"id":2,"name":"MATERIAL","color":"blue-11"},
+	{"id":3,"name":"MATERIAL_STRUCTURE","color":"light-green-11"},
+	{"id":4,"name":"APPLICATION","color":"deep-orange-11"},
+	{"id":5,"name":"PROCESS_OR_TECHNIQUE","color":"pink-11"},
+	{"id":6,"name":"PROPERTY","color":"light-blue-11"},
+	{"id":7,"name":"MEASUREMENT","color":"lime-11"},
+	{"id":8,"name":"ABBREVIATION","color":"brown-11"}
+  ],
+  "annotations": [
+    [
+      "But there are few limitations associated with bacterial cellulose like the production cost is high, use of expensive culture media, poor yields, downstream processing, and operating costs."
+    ],
+	[
+      "This is the second paragraph ..."
+    ],
+	[
+      "Here goes the conclusion of our findings about bacterial cellulose."
+    ]
+  ]
+}
