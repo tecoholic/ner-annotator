@@ -45,7 +45,6 @@ export default {
     computed: {
       symbolClass() {
         if (!this.userHasToggled)  {
-          console.log("After loading symbolClass is human? ",this)
           // Initial icon state: circle only if humanOpinion is false, otherwise cross
           return !this.humanOpinion ? "fas fa-circle" : "fas fa-times-circle";
         } else {
@@ -67,7 +66,6 @@ export default {
       },
     },
     created() {
-  console.log("TokenBlock created with humanOpinion:", this.humanOpinion);
 },
 };
 </script>

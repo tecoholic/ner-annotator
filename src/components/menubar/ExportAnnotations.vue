@@ -94,24 +94,26 @@ export default {
         annotation.text,
         {
           entities: annotation.entities.map(entity => {
+            console.log("ENTITY to transform:" ,entity);
             // Copy the existing history
-            let history = [...entity[10]]; // Assuming entity[10] is the full history list
-            
-            // Check if entity[9] is true and add a new history entry if so
-            if (entity[8]) {
+            let history = [...entity[9]]; // Assuming entity[11] is the full history list
+            console.log("ENTITY 8=",entity[8]);
+            console.log("ENTITY 9 =",entity[9]);
+            // Check if userHasToggles is true and add a new history entry if so
+            if (entity[6]) {
               const newHistoryEntry = [
-                entity[9], // Status from entity[7] // Just an example action, adjust as needed
+                entity[8], // Status from entity[9] 
                 new Date().toISOString(), // Current date-time in ISO format
                 annotator, // The annotator's name provided earlier
-                entity[4], // The class or identifier from entity[5]
+                entity[3], // The class or label from entity[5]
               ];
               history.push(newHistoryEntry); // Append the new entry to the history
             }
             
             return [
-              entity[2], // Including entity[2] as it was part of the initial structure
-              entity[3], // Start position
-              entity[4], // End position
+              entity[1], 
+              entity[2], // Start position
+              entity[3], // End position
               history // The updated history including the new entry where applicable
             ];
           })

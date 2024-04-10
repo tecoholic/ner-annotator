@@ -177,7 +177,7 @@ export default {
             const initiallyNLP = ogNLP
             const _class = this.classes.find(cls => cls.name === labelName);
             if (_class) {
-                console.log("Loading: ",start, end, _class, humanOpinion, initiallyNLP, true, name, status,types);
+                //console.log("Loading: ",start, end, _class, humanOpinion, initiallyNLP, true, name, status,types);
                 this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name, status,types);
             } else {
                 console.warn(`Label "${labelName}" not found in classes.`);
@@ -219,7 +219,6 @@ export default {
 
       this.tm = new TokenManager(this.classes);
       this.tm.setTokensAndAnnotation(combined, this.currentAnnotation);
-
       // Call applyAnnotationHistory after setting up tokens and annotations
       this.applyAnnotationHistory();
     },
