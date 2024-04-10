@@ -4,16 +4,25 @@
     <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
-        :id="'t' + t.start"
         v-for="t in tm.tokens"
-        :token="t"
         :key="t.start"
+        :token="t"
         :backgroundColor="t.backgroundColor"
+        :humanOpinion="t.humanOpinion"        
         @remove-block="onRemoveBlock"
         @replace-block-label="onReplaceBlockLabel"
       />
     </div>
-
+    <div class="q-pa-md" style="border-top: 1px solid #ccc">
+      <q-btn
+        class="q-mx-sm"
+        color="primary"
+        outline
+        title="Undo"
+        @click="undo"
+        label="Undo"
+      />
+    </div>
     <div class="q-pa-md" style="border-top: 1px solid #ccc">
       <q-btn
         color="red"
@@ -60,13 +69,14 @@ import TokenManager from "./token-manager";
 import TreebankTokenizer from "treebank-tokenizer";
 
 export default {
-  name: "AnnotationPage",
+  name: "ReviewPage",
   data: function() {
     return {
       tm: new TokenManager([]),
       currentSentence: {},
       redone: "",
       tokenizer: new TreebankTokenizer(),
+      addedTokensStack: [],
     };
   },
   components: {
@@ -77,6 +87,7 @@ export default {
   computed: {
     ...mapState([
       "annotations",
+      "annotationHistory",
       "classes",
       "currentClass",
       "currentIndex",
@@ -131,6 +142,62 @@ export default {
       // stop event from bubbling up
       event.stopPropagation()
     },
+    undo() {
+      console.log("Undo Stack:", this.addedTokensStack);
+    },
+    /*
+    // Load history of annotations from input file 
+    applyAnnotationHistory() {
+      const annotationHistory = this.annotationHistory;
+      if (annotationHistory && annotationHistory.length > 0) {
+        annotationHistory.forEach((annotation) => {
+          const [labelName, start, end, , name] = annotation;
+          // Set humanOpinion to false ONLY if the name is "nlp"
+          const humanOpinion = name !== "nlp";
+          // Find the matching class object
+          const _class = this.classes.find(cls => cls.name === labelName);
+          if (_class) {
+            // Pass humanOpinion to the addNewBlock method of TokenManager
+            console.log("THE OPINION IS HUMAN? ", humanOpinion)
+            this.tm.addNewBlock(start, end, _class, humanOpinion);
+          } else {
+            console.warn(`Label "${labelName}" not found in classes.`);
+          }
+        });
+      }
+    },
+    */
+   // Inside AnnotationPage.vue
+   applyAnnotationHistory() {
+    const annotationHistory = this.annotationHistory;
+    if (annotationHistory && annotationHistory.length > 0) {
+        annotationHistory.forEach((annotation) => {
+            const [labelName, start, end, , name, , ogNLP,types ] = annotation;
+            const humanOpinion = name !== "nlp";
+            const initiallyNLP = ogNLP
+            const _class = this.classes.find(cls => cls.name === labelName);
+            if (_class) {
+                //console.log("Loading: ",start, end, _class, humanOpinion, initiallyNLP, true, name, status,types);
+                this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name, status,types);
+            } else {
+                console.warn(`Label "${labelName}" not found in classes.`);
+            }
+        });
+
+        // New logic to adjust humanOpinion based on 'nlp' name
+        this.tm.tokens.forEach(token => {
+          if (token.type === "token-block") {
+            // Determine if this block's annotations came from 'nlp'
+            const isNLP = annotationHistory.some(annotation => {
+              const [, start, end, , name] = annotation;
+              return name === "nlp" && token.start === start && token.end === end;
+            });
+            token.humanOpinion = !isNLP;
+          }
+        });
+      }
+    },
+
     tokenizeCurrentSentence() {
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
@@ -139,7 +206,7 @@ export default {
 
       if (this.$store.state.annotationPrecision == "char") {
         tokens = this.currentSentence.text.split('');
-        spans = []
+        spans = [];
         for (let i = 0; i < this.currentSentence.text.length; i++) {
           spans.push([i, i + 1]);
         }
@@ -151,10 +218,11 @@ export default {
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
 
       this.tm = new TokenManager(this.classes);
-      // console.log("Current Sentence in tokenizeCurrentSentence: ", this.inputSentences[this.currentIndex])
-      // console.log("Current index in tokenizeCurrentSentence: ", this.annotations[this.currentIndex])
       this.tm.setTokensAndAnnotation(combined, this.currentAnnotation);
+      // Call applyAnnotationHistory after setting up tokens and annotations
+      this.applyAnnotationHistory();
     },
+
     selectTokens() {
       let selection = document.getSelection();
 
@@ -184,8 +252,9 @@ export default {
         selection.empty();
         return;
       }
-      
-      this.tm.addNewBlock(start, end, this.currentClass);
+      console.log("adding manual block ", start, end, this.currentClass);
+      this.tm.addNewBlock(start, end, this.currentClass, true, false);
+      this.addedTokensStack.push(start);
       selection.empty();
     },
     onRemoveBlock(blockStart) {
@@ -203,11 +272,13 @@ export default {
 
       // Create a new block with the same start and end, but with the current tag/label/class
       if (start !== undefined && end !== undefined) {
+        this.addedTokensStack.push(start);
         this.tm.addNewBlock(start, end, this.currentClass);
       }
     },
     resetBlocks() {
       this.tm.resetBlocks();
+      this.addedTokensStack = [];
     },
     skipCurrentSentence() {
       this.nextSentence();

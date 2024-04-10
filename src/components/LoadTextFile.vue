@@ -1,5 +1,3 @@
- <!-- TODO: I have only updated the drag method and click method on start page. I haven't hardly touched this file. -->
-
  <template>
   <div class="field">
     <div class="file is-centered is-primary has-name is-boxed my-4">
@@ -32,18 +30,41 @@ export default {
   emits: ["text-file-loaded", "json-file-loaded"],
   methods: {
     ...mapMutations(["setInputSentences"]),
-    // TODO: UPDATE THIS function based off of StartPage.vue's function onFileSelected()
-    onFileSelected(e) {
-      console.log("OnFileSelected in LoadTextFile.vue")
-      let files = e.target.files;
-      if (!files.length) return;
-
-      let reader = new FileReader();
-      reader.addEventListener("load", (event) => {
-        this.setInputSentences(event.target.result);
-        this.$emit("text-file-loaded");
+    onFileSelected(file) {
+      // onFileSelected() is called if the user clicks and manually
+      //    selects a file. If they drag and drop, that is handled in
+      //    App.vue. If you modify this function, you may also want to
+      //    modify App#onDrop(), App#processFileDrop(), and
+      //    StartPage#onFileSelected() to match
+      let fileType = file.name.split('.').pop();
+      try {
+        let reader = new FileReader();
+        reader.addEventListener("load", (event) => {
+          this.setInputSentences(event.target.result);
+          reader.readAsText(file);
+          if (fileType === "txt") {
+            this.$emit("text-file-loaded");
+          }
+          else if (fileType === "json") {
+            this.$emit("json-file-loaded")
+          }
+          else {
+            alert('Please upload either a .txt or a .json file.');
+          }
+        });
+      } catch(e) {
+        this.fileSelectionError();
+      }
+    },
+    fileSelectionError() {
+      this.$q.notify({
+        icon: "fas fa-exclamation-circle",
+        message: "Invalid file",
+        color: "red-6",
+        position: "top",
+        timeout: 2000,
+        actions: [{label: "Dismiss", color: "white"}],
       });
-      reader.readAsText(files[0]);
     },
   },
 };

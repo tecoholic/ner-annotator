@@ -11,33 +11,19 @@
           </strong>
         </span>
       </div>
-      <!-- 
-      <div class="cursor-pointer non-selectable">
-        <span>
-          Project
+      <div>
+        <span class="q-ml-sm">
+          <strong v-if="$store.state.currentPage === 'annotate'" style="color: rgb(207, 255, 207)">
+            | Annotation Mode |
+          </strong>
+          <strong v-else-if="$store.state.currentPage === 'review'" style="color: rgb(255, 255, 128)">
+            | Review Mode |
+          </strong>
+          <strong v-else style="color: rgb(207, 255, 207)">
+            | ISSUE WITH MENU BAR AND CURENT PAGE  |
+          </strong>
         </span>
-        <q-menu>
-          <q-list dense style="min-width: 100px">
-            <q-item clickable v-close-popup @click="promptForProject = true">
-              <q-item-section>New Project</q-item-section>
-            </q-item>
-            <q-item clickable v-close-popup>
-              <q-item-section>Open Project</q-item-section>
-            </q-item>
-            <q-item clickable v-close-popup>
-              <q-item-section>Save Project</q-item-section>
-            </q-item>
-
-            <q-separator />
-
-            <q-item clickable v-close-popup>
-              <q-item-section>Quit</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
       </div>
-      -->
-
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>
           File

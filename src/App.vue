@@ -18,9 +18,11 @@
         <q-page-container>
           <start-page
             v-if="currentPage === 'start'"
-            @file-loaded="switchToPage('annotate')"
+            @text-file-loaded="switchToPage('annotate')"
+            @json-file-loaded="switchToPage('review')"
           />
           <annotation-page v-if="currentPage === 'annotate'" />
+          <review-page v-if="currentPage === 'review'" />
         </q-page-container>
       </q-layout>
       <drag-n-drop-overlay :style="{'visibility': overlayActive && pendingFileDrop == null ? 'visible' : 'hidden'}"/>
@@ -33,6 +35,7 @@
 import MenuBar from "./components/menubar/MenuBar.vue";
 import StartPage from "./components/StartPage.vue";
 import AnnotationPage from "./components/AnnotationPage.vue";
+import ReviewPage from "./components/ReviewPage.vue";
 import AnnotationSidebar from "./components/AnnotationSidebar.vue";
 import DragNDropOverlay from "./components/DragNDropOverlay.vue";
 import ExitDialog from "./components/ExitDialog.vue";
@@ -63,7 +66,6 @@ export default {
   },
   data() {
     return {
-      currentPage: "start",
       overlayActive: false,
       pendingFileDrop: null,
     };
@@ -72,17 +74,20 @@ export default {
     MenuBar,
     StartPage,
     AnnotationPage,
+    ReviewPage,
     AnnotationSidebar,
     DragNDropOverlay,
     ExitDialog
   },
   computed: {
-    ...mapState(["annotations", "classes"]),
+    ...mapState(["annotations", "classes", "currentPage"]),
   },
   methods: {
-    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
+    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex", "setCurrentPage"]),
     switchToPage(page) {
-      this.currentPage = page;
+      console.log("Changing current page to", page)
+      this.setCurrentPage(page);
+      console.log("Current page is now", this.currentPage)
     },
     onDragEnter() {
       console.log("Here");
@@ -98,36 +103,21 @@ export default {
       if (this.currentPage == "start")  this.processFileDrop();
     },
     processFileDrop() {
+      let fileType = this.pendingFileDrop.name.split('.').pop();
       let reader = new FileReader();
-      reader.onload = (ev) => {
-        let file = ev.target.result;
-        try {
-          if (this.currentPage == "start")  throw new Error("Not a text file.");
-          this.loadAnnotations(JSON.parse(file));
-          this.notify(
-            "fa fa-check",
-            `Annotations imported successfully`,
-            "positive"
-          );
-        } catch (e) {
-          try {
-            if (this.currentPage == "start")  throw new Error("Not a text file.");
-            this.loadClasses(JSON.parse(file));
-            this.notify(
-              "fa fa-check",
-              `${this.classes.length} Tags imported successfully`,
-              "positive"
-            );
-          } catch (e) {
-            try {
-              this.setInputSentences(file);
-              this.clearAllAnnotations();
-              this.resetIndex();
-              this.switchToPage('annotate');
-            } catch (e) {
-              this.notify("fas fa-exclamation-circle", "Invalid file", "red-6");
-            }
-          }
+      reader.onload = (event) => {
+        let file = event.target.result;
+        this.setInputSentences(file);
+        this.clearAllAnnotations();
+        this.resetIndex();
+        if (fileType === "txt") {
+          this.switchToPage('annotate');
+        }
+        else if (fileType === "json") {
+          this.switchToPage('review');
+        }
+        else {
+          alert('Please upload either a .txt or a .json file.');
         }
       };
       reader.readAsText(this.pendingFileDrop);

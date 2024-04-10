@@ -7,16 +7,30 @@
       :key="t.start"
       :token="t"
     />
-    <span class="tag" @click="toggleSymbol">
-      <i :class="symbolClass"></i>
+    <span class="tag">
+      <!-- Toggle status cycle button -->
+      <i v-if="this.currentPage==='review'" :class="symbolClass" @click="toggleSymbol"></i>
       {{ token.label }}
+      <!-- Replace label button (double arrows) -->
+      <q-btn v-if="this.currentPage==='annotate'"
+        icon="fa fa-exchange-alt"
+        round
+        flat
+        size="xs"
+        text-color="grey-7"
+        title="Change label to currently selected label"
+        @click="$emit('replace-block-label', token.start)"
+      />
+      <!-- Delete label button (X) -->
+      <!-- Note: changed from @click to @click.stop -->
       <q-btn
         icon="fa fa-times-circle"
         round
         flat
         size="xs"
         text-color="grey-7"
-        @click.stop="$emit('remove-block', token.start)"
+        title="Delete annotation"
+        @click.stop="$emit('remove-block', token.start)" 
       />
     </span>
   </mark>
@@ -24,6 +38,7 @@
 
 <script>
 import Token from "./Token";
+import { mapState } from "vuex";
 
 export default {
   name: "TokenBlock",
@@ -42,7 +57,8 @@ export default {
         userHasToggled: false, // Tracks if the user has interacted with the token
       };
     },
-    computed: {
+  computed: {
+      ...mapState(["currentPage"]),
       symbolClass() {
         if (!this.userHasToggled)  {
           // Initial icon state: circle only if humanOpinion is false, otherwise cross

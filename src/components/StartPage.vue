@@ -12,7 +12,6 @@
     <p :class="['text-subtitle1', $q.dark.isActive ? 'text-grey-4' : 'text-grey-7']">
       Annotate text for spaCy NER Model training
     </p>
-    <!-- TODO: modify accept to also accept json, change label text to match -->
     <div class="q-my-xl q-py-md" style="margin-top: 7rem">
       <q-file
         v-model="textFile"
@@ -136,7 +135,7 @@ import { mapMutations } from "vuex";
 
 export default {
   name: "StartPage",
-  emits: ["file-loaded"],
+  emits: ["text-file-loaded", "json-file-loaded"],
   data() {
     return {
       textFile: null,
@@ -145,15 +144,30 @@ export default {
   methods: {
     ...mapMutations(["setInputSentences"]),
     onFileSelected(file) {
-      console.log("test121")
+      // onFileSelected() is called if the user clicks and manually
+      //    selects a file. If they drag and drop, that is handled in
+      //    App.vue. If you modify this function, you may also want to
+      //    modify App#onDrop(), App#processFileDrop(), and
+      //    LoadTextFile#onFileSelected() to match
+      let fileType = file.name.split('.').pop();
       try {
         let reader = new FileReader();
+        reader.readAsText(file);
         reader.addEventListener("load", (event) => {
           this.setInputSentences(event.target.result);
-          this.$emit("file-loaded");
+          if (fileType === "txt") {
+            this.$emit("text-file-loaded");
+          }
+          else if (fileType === "json") {
+            console.log("Emitting json-file-loaded");
+            this.$emit("json-file-loaded");
+          }
+          else {
+            alert('Please upload either a .txt or a .json file.');
+          }
         });
-        reader.readAsText(file);
-      } catch(e) {
+      } catch (e) {
+        console.log("Catch reached")
         this.fileSelectionError();
       }
     },

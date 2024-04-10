@@ -23,6 +23,12 @@ const niceColors = [
 ];
 
 export const mutations = {
+  setCurrentPage(state, page) {
+    // console.log("From index.js, changing currentpage to", page)
+    state.currentPage = page;
+    // console.log("From index.js, current page is now", state.currentPage)
+  },
+
   loadClasses(state, payload) {
     if (!Array.isArray(payload)) {
       throw new Error("loadClasses: payload must be an array");
@@ -305,6 +311,7 @@ export default {
       currentClass: tags && tags[0] || {},
       currentIndex: 0,
       currentSentence: "",
+      currentPage: "start"
     };
   },
   getters,
