@@ -27,7 +27,6 @@ class TokenManager {
         var entityName = currentAnnotation.entities[i][3];
         console.log("ENTITYNAME: ",entityName, currentAnnotation.entities[i]);
         var entityClass = this.classes.find(c => c.name.toUpperCase() === entityName.toUpperCase());        
-        entityClass = entityClass.name;
         console.log("SETTOKENENTITYCLSAS: ",entityClass);
         if (!entityClass) {
           entityClass = {"name": entityName};
@@ -47,7 +46,7 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested", annotationHistory) {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested", annotationHistory, userHasToggled = false,) {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
@@ -58,7 +57,7 @@ class TokenManager {
       label: _class.name,
       humanOpinion: humanOpinion,
       initiallyNLP: initiallyNLP,
-      userHasToggled: false, // Ensure it's set for the new block
+      userHasToggled: userHasToggled, // Ensure it's set for the new block
       isSymbolActive: false, // Ensure it's set for the new block
       isSuggested: false,
       isLoaded: isLoaded,

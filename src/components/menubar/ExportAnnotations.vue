@@ -96,11 +96,11 @@ export default {
           entities: annotation.entities.map(entity => {
             console.log("ENTITY to transform:" ,entity);
             // Copy the existing history
-            let history = [...entity[9]]; // Assuming entity[11] is the full history list
+            let history = [entity[9]]; // Assuming entity[11] is the full history list
             console.log("ENTITY 8=",entity[8]);
             console.log("ENTITY 9 =",entity[9]);
             // Check if userHasToggles is true and add a new history entry if so
-            if (entity[6]) {
+            if (entity[7]) {
               const newHistoryEntry = [
                 entity[8], // Status from entity[9] 
                 new Date().toISOString(), // Current date-time in ISO format

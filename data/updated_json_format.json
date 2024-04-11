@@ -12,7 +12,7 @@
   ],
     "annotations": [
         [
-            "Cellulose is an organic compound with the formula (C6H10O5)n, a polysaccharide consisting of a linear chain of several hundred to many thousands of linked D-glucose units.\r",
+            "Cellulose is an organic compound with the formula (C6H10O5)n, a polysaccharide consisting of \n a linear chain of several hundred to many thousands of linked D-glucose units.\r",
             {
                 "entities": [
                     [

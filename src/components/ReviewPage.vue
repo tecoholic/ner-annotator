@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <classes-block />
     <div class="q-pa-lg" style="height:60vh; overflow-y:scroll;">
       <component
@@ -143,7 +144,13 @@ export default {
       event.stopPropagation()
     },
     undo() {
-      console.log("Undo Stack:", this.addedTokensStack);
+      if (this.addedTokensStack.length > 0) {
+        const lastAddedTokenStart = this.addedTokensStack.pop();
+        this.onRemoveBlock(lastAddedTokenStart);
+        console.log("Undo operation: Removed last added token", lastAddedTokenStart);
+      } else {
+        console.log("Undo Stack is empty");
+      }
     },
     /*
     // Load history of annotations from input file 

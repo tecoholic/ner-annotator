@@ -22,11 +22,37 @@ const niceColors = [
   "orange-11",
 ];
 
+
+
 export const mutations = {
   setCurrentPage(state, page) {
     // console.log("From index.js, changing currentpage to", page)
     state.currentPage = page;
     // console.log("From index.js, current page is now", state.currentPage)
+  },
+  addToUndoStack(state, { undoAction, actionDescription }) {
+    state.undoStack.push({ undoAction, actionDescription });
+  },
+  undoAction(state, action) {
+    // This mutation will dynamically call other mutations based on action.type and action.payload
+    if(action && typeof action.type === 'string' && typeof this._mutations[action.type] === 'function') {
+      this._mutations[action.type][0](state, action.payload);
+    }
+  },
+  // Mutation to undo the last action
+  undoLastAction(state) {
+    if (state.undoStack.length > 0) {
+      const lastAction = state.undoStack.pop();
+      lastAction.undoAction();
+      console.log(`Undid action: ${lastAction.actionDescription}`);
+    } else {
+      console.warn("Undo stack is empty.");
+    }
+  },
+  
+  // Mutation to clear the undo stack
+  clearUndoStack(state) {
+    state.undoStack = [];
   },
 
   loadClasses(state, payload) {
@@ -300,6 +326,7 @@ export default {
     return {
       annotations: [],
       annotationHistory: [],
+      undoStack: [],
       classes: tags || [],
       inputSentences: [],
       originalText: "",

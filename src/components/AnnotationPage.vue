@@ -172,12 +172,11 @@
       const annotationHistory = this.annotationHistory;
       if (annotationHistory && annotationHistory.length > 0) {
           annotationHistory.forEach((annotation) => {
-              const [labelName, start, end, , name] = annotation;
+              const [labelName, start, end, , name,, ogNLP] = annotation;
               const humanOpinion = name !== "nlp";
-              const initiallyNLP = name === "nlp";
               const _class = this.classes.find(cls => cls.name === labelName);
               if (_class) {
-                  this.tm.addNewBlock(start, end, _class, humanOpinion, initiallyNLP, true, name, status);
+                  this.tm.addNewBlock(start, end, _class, humanOpinion, ogNLP, true, name, status);
               } else {
                   console.warn(`Label "${labelName}" not found in classes.`);
               }

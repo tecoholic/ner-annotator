@@ -71,6 +71,7 @@ export default {
     },
     methods: {
       toggleSymbol() {
+        const previousState = this.isSymbolActive;
         if (this.token.initiallyNLP && !this.userHasToggled) {
           // If initially set by NLP and user hasn't toggled yet, allow toggle to false
           this.isSymbolActive = false;
@@ -79,6 +80,10 @@ export default {
           this.isSymbolActive = !this.isSymbolActive;
         }
         this.userHasToggled = true;
+        this.$emit('toggle-symbol', {
+        tokenStart: this.token.start,
+        previousState: previousState,
+        });
       },
     },
     created() {
