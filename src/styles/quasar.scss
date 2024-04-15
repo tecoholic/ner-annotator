@@ -1,0 +1,53 @@
+@import "./quasar.variables.scss";
+@import "~quasar-styl";
+// @import '~quasar-addon-styl';
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body.body--dark {
+  background: #1D1D1D;
+}
+
+.q-btn--outline::before {
+  border: 0.1rem solid currentColor;
+}
+
+.q-btn--rectangle {
+  border-radius: 0.5rem;
+}
+
+.q-chip--square {
+  border-radius: 0.35rem;
+  border-width: 0.1rem;
+}
+
+.q-chip--square .q-avatar {
+  border-radius: 0.35rem 0 0 0.35rem;
+}
+
+.q-card {
+  box-shadow: none;
+}
+
+.q-field--outlined .q-field__control {
+  border-radius: 0.75rem;
+}
+
+.q-field--outlined .q-field__control::before {
+  border-width: 0.1rem;
+  border-radius: 0.75rem;
+}
+
+.q-field--outlined .q-field__control:hover::before {
+  border-color: $grey-7;
+}
+
+.q-menu {
+  box-shadow: none;
+  border: 0.1rem solid $grey-5;
+  border-radius: 0.75rem;
+  margin-top: 0.2rem !important;
+}
