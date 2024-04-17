@@ -8,6 +8,10 @@ class TokenManager {
     this.tokens = []; // Initialize tokens array
   }
 
+  getTokenByStart(start) {
+      return this.tokens.find(token => token.start === start);
+  }
+
   setTokensAndAnnotation(tokens, currentAnnotation) {
     // Initialize tokens with provided annotation data
     this.tokens = tokens.map((t) => ({
@@ -47,7 +51,7 @@ class TokenManager {
    * @param {Boolean} isHumanOpinion Seperate nlp vs human made annotation
 
    */
-  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested", annotationHistory, userHasToggled = false,isSymbolActive = 0) {
+  addNewBlock(_start, _end, _class, humanOpinion, initiallyNLP = false, isLoaded, name="name", status ="suggested", annotationHistory, userHasToggled = true,isSymbolActive = 0) {
     // Directly apply humanOpinion to the block structure
     let block = {
       type: "token-block",
@@ -140,7 +144,7 @@ class TokenManager {
           backgroundColor: _class.color || null,
           // Set these attributes for all token-blocks, updating existing blocks as needed
           initiallyNLP: updateAttributes ? initiallyNLP : false,
-          userHasToggled: false,
+          userHasToggled: true,
           isSymbolActive: isSymbolActive,
           isLoaded: isLoaded,
           status: status,

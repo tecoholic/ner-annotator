@@ -1,9 +1,7 @@
 <template>
-  <mark :class="'bg-' + backgroundColor">
-    <component
-      :is="'Token'"
+  <mark :class="['bg-' + backgroundColor, {'shadow-unreviewed': !userHasToggled, 'bg-red': !token.humanOpinion}]">
+    <Token
       v-for="t in token.tokens"
-      :id="'t' + t.start"
       :key="t.start"
       :token="t"
     />
@@ -12,7 +10,6 @@
       <i v-if="this.currentPage==='review'" :class="symbolClass" @click="toggleSymbol"></i>
       {{ token.label }}
       <!-- Replace label button (double arrows) -->
-      <!-- v-if="this.currentPage==='annotate'" -->
       <q-btn
         icon="fa fa-exchange-alt"
         round
@@ -20,10 +17,9 @@
         size="xs"
         text-color="grey-7"
         title="Change label to currently selected label"
-        @click="$emit('replace-block-label', token.start)"
+        @click="recordActionAndEmit('replace-block-label', token.start)"
       />
       <!-- Delete label button (X) -->
-      <!-- Note: changed from @click to @click.stop -->
       <q-btn
         icon="fa fa-times-circle"
         round
@@ -31,7 +27,7 @@
         size="xs"
         text-color="grey-7"
         title="Delete annotation"
-        @click.stop="$emit('remove-block', token.start)" 
+        @click.stop="recordActionAndEmit('remove-block', token.start)" 
       />
       <q-btn
         v-if="this.currentPage==='review'"
@@ -57,55 +53,65 @@ export default {
     Token,
   },
   props: {
-  token: Object,
-  backgroundColor: String,
-  humanOpinion: Boolean,
-  isSymbolActive: {
-    type: Number,
-    default: 0  // Default to 0 which should correspond to 'Suggested'
-  }
-},
-data() {
-  return {
-    userHasToggled: false,
-    suggestedState: false, 
-    isReviewed: false,
-  };
-},
-  computed: {
-      ...mapState(["currentPage"]),
-      symbolClass() {
-    // Correct the mapping of states to icons
-    switch (this.isSymbolActive) {
-      case 0: return "fas fa-minus-circle";  // Suggested
-      case 1: return "fas fa-check-circle"; // Accepted
-      case 2: return "fas fa-times-circle"; // Rejected
-      default: return "fas fa-question-circle";  // Default or unknown state
+    token: Object,
+    backgroundColor: String,
+    humanOpinion: Boolean,
+    isSymbolActive: {
+      type: Number,
+      default: 0
     }
+  },
+  data() {
+    return {
+      userHasToggled: false,
+      suggestedState: false,
+      isReviewed: false,
+    };
+  },
+  computed: {
+    ...mapState(["currentPage"]),
+    symbolClass() {
+      switch (this.isSymbolActive) {
+        case 0: return "fas fa-minus-circle";
+        case 1: return "fas fa-check-circle";
+        case 2: return "fas fa-times-circle";
+        default: return "fas fa-question-circle";
+      }
     },
     reviewedIconClass() {
-        if (this.userHasToggled) {
-          return 'fas fa-square'
-        } else {
-          return this.isReviewed ? 'fas fa-square' : 'far fa-square';
-        }
-      },
+      return this.userHasToggled ? 'fas fa-square' : 'far fa-square';
     },
-    methods: {
-  toggleSymbol() {
-    let nextState = (this.isSymbolActive + 1) % 3;
-    this.userHasToggled = true;
-    this.$emit('update-symbol-state', {
-      tokenStart: this.token.start,
-      newSymbolState: nextState
-    });
   },
-  toggleReviewed() {
-        this.isReviewed = !this.isReviewed;
-      }
-},
-    created() {
-},
+  methods: {
+    toggleSymbol() {
+      this.recordAction('symbol-state', this.isSymbolActive);
+      let nextState = (this.isSymbolActive + 1) % 3;
+      this.userHasToggled = true;
+      this.$emit('update-symbol-state', {
+        tokenStart: this.token.start,
+        newSymbolState: nextState
+      });
+    },
+    toggleReviewed() {
+      this.recordAction('review-state', this.isReviewed);
+      this.isReviewed = !this.isReviewed;
+      this.userHasToggled = true;  // Set userHasToggled to true when review state is toggled
+    },
+    recordAction(actionType, previousState) {
+      const action = {
+        type: actionType,
+        tokenStart: this.token.start,
+        previousState: previousState,
+        newState: this[actionType === 'symbol-state' ? 'isSymbolActive' : 'isReviewed'],
+        timestamp: Date.now()
+      };
+      this.$emit('record-undo', action);
+    },
+    recordActionAndEmit(action, payload) {
+      this.recordAction(action, this.token);
+      this.$emit(action, payload);
+    },
+  },
 };
 </script>
 
@@ -124,18 +130,10 @@ mark {
   border-radius: 0.35rem;
   font-size: x-small;
 }
-.close-btn {
-  cursor: pointer;
-  font-size: small;
-  position: absolute;
-  width: 1rem;
-  height: 1rem;
-  padding-left: 0.2rem;
-  border-radius: 50%;
-  background-color: black;
-  color: white;
+.shadow-unreviewed {
+  box-shadow: 0 0 10px 4px goldenrod;
 }
-.delete {
-  margin-left: 10px;
+.bg-red {
+  box-shadow: 0 0 10px 4px red;
 }
 </style>
