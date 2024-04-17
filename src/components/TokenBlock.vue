@@ -33,6 +33,16 @@
         title="Delete annotation"
         @click.stop="$emit('remove-block', token.start)" 
       />
+      <q-btn
+        v-if="this.currentPage==='review'"
+        :icon="reviewedIconClass"
+        round
+        flat
+        size="xs"
+        text-color="grey-9"
+        title="Dark indicates that you have reviewed this annotation, light means you have not."
+        @click.stop="toggleReviewed"
+      />
     </span>
   </mark>
 </template>
@@ -58,7 +68,8 @@ export default {
 data() {
   return {
     userHasToggled: false,
-    suggestedState: false, // This can be kept if it's used elsewhere in your component
+    suggestedState: false, 
+    isReviewed: false,
   };
 },
   computed: {
@@ -72,6 +83,13 @@ data() {
       default: return "fas fa-question-circle";  // Default or unknown state
     }
     },
+    reviewedIconClass() {
+        if (this.userHasToggled) {
+          return 'fas fa-square'
+        } else {
+          return this.isReviewed ? 'fas fa-square' : 'far fa-square';
+        }
+      },
     },
     methods: {
   toggleSymbol() {
@@ -81,7 +99,10 @@ data() {
       tokenStart: this.token.start,
       newSymbolState: nextState
     });
-  }
+  },
+  toggleReviewed() {
+        this.isReviewed = !this.isReviewed;
+      }
 },
     created() {
 },
