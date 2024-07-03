@@ -124,6 +124,11 @@ export const mutations = {
       throw new Error("loadAnnotations: payload has invalid schema");
     }
 
+    let classes = payload.classes;
+    if (!Array.isArray(classes)) {
+      throw new Error("loadAnnotations: payload must be an array");
+    }
+
     let annotations = payload.annotations;
     if (!Array.isArray(annotations)) {
       throw new Error("loadAnnotations: payload must be an array");
@@ -141,6 +146,11 @@ export const mutations = {
     }
     state.annotations = newAnnotations;
     state.currentAnnotation = state.annotations[state.currentIndex];
+
+    for(let c of classes) {
+      this.commit("addClass", c);
+    }
+    LocalStorage.set("tags", state.classes);
   },
 };
 
