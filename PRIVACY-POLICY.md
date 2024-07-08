@@ -5,6 +5,10 @@ Your documents and annotations are stored either on your device for the desktop 
 
 The tool does not include any form of analytics or usage tracking software that could transmit your data to third-party servers. It does not collect any metadata such as IP addresses, browser versions, etc. It does not use cookies.
 
-This privacy policy is effective as of 05 July, 2024 and will remain in effect until any changes are made.
+If you have further concerns about the how the tool manages your data, you are requested to review the code or build the tool from scratch following the instructions provided in the [README file](./README.md). This is an open source tool.
+
+It should be noted that this tool is released under the [MIT license](./LICENSE). The license grants you permission to use this tool without restrictions. The tool is provided "as is" without any warranty. The authors of the tool cannot be held liable for any claims arising from the use of the tool.
+
+This privacy policy is effective as of 09 July, 2024 and will remain in effect until any changes are made.
 
 If you have any questions or concerns, please feel free to [contact us](https://github.com/tecoholic/ner-annotator/discussions/114).
