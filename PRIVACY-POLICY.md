@@ -1,5 +1,10 @@
 # Privacy Policy
-This tool does not collect any data.
+
+NER Annotator is designed to be a "tool" and not a "service". The tools is designed to be used without any external dependencies, including any dependency on network communication or data (including private data). The privacy policy is included for the sole purpose of making this explicit, as a version of the tool is hosted as a web-application at https://tecoholic.github.io/ner-annotator/, which might be seen as a "service". This is NOT the only way to use this tool. NER Annotator can also be built into a desktop application which doesn't require any hosting. It is strongly recommended to build and/or host a copy of this on your infrastructure.
+
+## Terms
+
+NER Annotator does not collect any data.
 
 Your documents and annotations are stored either on your device for the desktop version or in your browser's local storage for the web version. They never leave your device. The tool does not transmit your data elsewhere.
 
