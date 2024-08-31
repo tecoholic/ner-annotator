@@ -4,6 +4,7 @@
     <div
       class="q-pa-lg"
       style="height:60vh; overflow-y:scroll;"
+      dir="auto"
     >
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
