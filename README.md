@@ -6,9 +6,32 @@ NER Annotator for SpaCy allows you to create training data for creating a custom
 - Linux: [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
 - Windows: [x64 MSI Installer](https://github.com/tecoholic/ner-annotator/releases)
 
+## Features
+
+- Easy to use UI for labelling entities in text
+- Custom labels with color-coding
+- Word-level and character-level annotation
+- Keyboard shortcuts
+- Import existing annotations for review
+- Light and dark themes
+
 ## Screenshots
 
 ![NER Annotator Screenshot](./src/assets/step-2.png)
+
+## FAQ
+
+#### How do I import the annotations to spaCy?
+
+A guide is available [here](https://github.com/tecoholic/ner-annotator/issues/44#issuecomment-1159235765).
+
+#### I have multiple exported annotations. How do I combined them into one file?
+
+A guide is available [here](https://github.com/tecoholic/ner-annotator/discussions/81#discussioncomment-5287891).
+
+#### What tagging format does the tool use?
+
+The JSON file created by the tool is generic and simply lists the start and end of each entity. As such, the annotations are independent of the tagging format you intend to use (IO, IOB, IOBES, etc.).
 
 ## Development
 
