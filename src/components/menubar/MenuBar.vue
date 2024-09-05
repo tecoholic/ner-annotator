@@ -3,7 +3,7 @@
     <div class="q-pa-sm q-pl-md row items-center">
       <div>
         <q-avatar size="xs">
-          <img src="@/assets/icon_32.png">
+          <img src="/assets/icon_32.png">
         </q-avatar>
         <span class="q-ml-sm">
           <strong>
@@ -11,32 +11,6 @@
           </strong>
         </span>
       </div>
-      <!-- 
-      <div class="cursor-pointer non-selectable">
-        <span>
-          Project
-        </span>
-        <q-menu>
-          <q-list dense style="min-width: 100px">
-            <q-item clickable v-close-popup @click="promptForProject = true">
-              <q-item-section>New Project</q-item-section>
-            </q-item>
-            <q-item clickable v-close-popup>
-              <q-item-section>Open Project</q-item-section>
-            </q-item>
-            <q-item clickable v-close-popup>
-              <q-item-section>Save Project</q-item-section>
-            </q-item>
-
-            <q-separator />
-
-            <q-item clickable v-close-popup>
-              <q-item-section>Quit</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
-      </div>
-      -->
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>

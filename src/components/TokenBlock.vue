@@ -21,7 +21,7 @@
   </mark>
 </template>
 <script>
-import Token from "./Token";
+import Token from "./Token.vue";
 
 export default {
   name: "TokenBlock",
@@ -48,6 +48,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import 'quasar/src/css/variables';
+
 mark {
   padding: 0.5rem;
   position: relative;

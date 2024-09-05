@@ -84,7 +84,7 @@
           color="yellow-8"
         >
           <q-img
-            src="@/assets/step-1.png"
+            src="/assets/step-1.png"
             spinner-color="white"
             class="rounded-borders"
             style="border: 1px solid #ccc; width: 80%"
@@ -111,7 +111,7 @@
           color="orange-6"
         >
           <q-img
-            src="@/assets/step-2.png"
+            src="/assets/step-2.png"
             spinner-color="white"
             class="rounded-borders"
             style="border: 1px solid #ccc"
@@ -142,7 +142,7 @@
           color="red-6"
         >
           <q-img
-            src="@/assets/step-3.png"
+            src="/assets/step-3.png"
             spinner-color="white"
             class="rounded-borders"
             style="border: 1px solid #ccc; width: 70%"
