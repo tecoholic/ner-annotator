@@ -54,8 +54,8 @@
 </template>
 <script>
 import { mapState, mapMutations } from "vuex";
-import Token from "./Token";
-import TokenBlock from "./TokenBlock";
+import Token from "./Token.vue";
+import TokenBlock from "./TokenBlock.vue";
 import ClassesBlock from "./ClassesBlock.vue";
 import TokenManager from "./token-manager";
 import TreebankTokenizer from "treebank-tokenizer";
