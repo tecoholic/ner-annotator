@@ -7,7 +7,10 @@
       :key="t.start"
       :token="t"
     />
-    <span class="tag">
+    <span
+      class="tag"
+      :dir="selectedTextDirection"
+    >
       {{ token.label }}
       <q-btn
         icon="fa fa-times-circle"
@@ -43,6 +46,11 @@ export default {
     return {
       showClose: false,
     };
+  },
+  computed:{
+    selectedTextDirection(){
+      return this.$store.state.textDirection;
+    }
   },
 };
 </script>

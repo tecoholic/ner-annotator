@@ -39,8 +39,8 @@
       </div>
       <div class="row items-center">
         <q-file
-          class="col-5 q-mx-sm"
           v-model="textFile"
+          class="col-5 q-mx-sm"
           accept=".txt"
           filled
           label="Text file"
@@ -52,8 +52,8 @@
           </template>
         </q-file>
         <q-file
-          class="col-5 q-mx-sm"
           v-model="annotationFile"
+          class="col-5 q-mx-sm"
           accept=".json"
           filled
           label="(Optional) Annotations"
