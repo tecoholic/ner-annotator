@@ -73,6 +73,9 @@ export const mutations = {
   setAnnotationPrecision(state, payload) {
     state.annotationPrecision = payload;
   },
+  setTextDirection(state, payload) {
+    state.textDirection = payload;
+  },
   setKeyboardShortcuts(state, payload) {
     state.enableKeyboardShortcuts = payload;
   },
@@ -189,6 +192,7 @@ export default {
       separator: "\n",
       enableKeyboardShortcuts: false,
       annotationPrecision: "word",
+      textDirection: "ltr",
       // current state
       currentAnnotation: {},
       currentClass: tags && tags[0] || {},

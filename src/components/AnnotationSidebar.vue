@@ -2,6 +2,7 @@
   <nav class="px-3">
     <split-type-selector class="mt-4 mb-5" />
     <annotation-precision-selector class="mt-4 mb-5" />
+    <text-direction-selector class="mt-4 mb-5" />
     <progress-bar
       class="mb-5"
       :completed="currentIndex"
@@ -17,6 +18,7 @@ import ProgressBar from "./sidebar/ProgressBar.vue";
 import SplitTypeSelector from "./sidebar/SplitTypeSelector.vue";
 import AnnotationPrecisionSelector from "./sidebar/AnnotationPrecisionSelector.vue";
 import KeyboardShortcuts from "./sidebar/KeyboardShortcuts.vue";
+import TextDirectionSelector from "@/components/sidebar/TextDirectionSelector.vue";
 
 export default {
   name: "AnnotationSidebar",
@@ -25,6 +27,7 @@ export default {
     SplitTypeSelector,
     AnnotationPrecisionSelector,
     KeyboardShortcuts,
+    TextDirectionSelector,
   },
   computed: {
     ...mapState(["currentIndex", "inputSentences"]),

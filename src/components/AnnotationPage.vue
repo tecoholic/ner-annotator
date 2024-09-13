@@ -3,7 +3,8 @@
     <classes-block />
     <div
       class="q-pa-lg"
-      style="height:60vh; overflow-y:scroll;"
+      style="height:60vh; overflow-y:scroll;unicode-bidi: isolate;"
+      :dir="textDirection"
     >
       <component
         :is="t.type === 'token' ? 'Token' : 'TokenBlock'"
@@ -59,6 +60,7 @@ import TokenBlock from "./TokenBlock";
 import ClassesBlock from "./ClassesBlock.vue";
 import TokenManager from "./token-manager";
 import TreebankTokenizer from "treebank-tokenizer";
+import {direction} from 'direction'
 
 export default {
   name: "AnnotationPage",
@@ -84,6 +86,7 @@ export default {
       "inputSentences",
       "enableKeyboardShortcuts",
       "annotationPrecision",
+      "textDirection",
     ]),
   },
   watch: {
@@ -100,6 +103,9 @@ export default {
       this.tokenizeCurrentSentence();
     },
     annotationPrecision() {
+      this.tokenizeCurrentSentence();
+    },
+    textDirection() {
       this.tokenizeCurrentSentence();
     }
   },
@@ -135,7 +141,6 @@ export default {
     tokenizeCurrentSentence() {
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
-
       let tokens, spans;
 
       if (this.$store.state.annotationPrecision == "char") {
@@ -149,10 +154,46 @@ export default {
         spans = this.tokenizer.span_tokenize(this.currentSentence.text);
       }
 
+      tokens = this.handleRtlAndLtrMix(tokens);
+
       let combined = tokens.map((t, i) => [spans[i][0], spans[i][1], t]);
 
       this.tm = new TokenManager(this.classes);
       this.tm.setTokensAndAnnotation(combined, this.currentAnnotation);
+    },
+
+    /*if ltr and rtl text both exist in the same file
+    then the tokens are generated in one direction based on users input
+    which causes one direction(ltr or rtl) of the texts to be in reverse.
+    To handle that the tokens that should be in the opposite direction is reversed*/
+    handleRtlAndLtrMix(tokens){
+      /* initialize an empty map where key will be start index
+      and the value will be total number of consecutive opposite direction texts*/
+      const indexMap = new Map();
+
+      for(let i = 0; i<tokens.length; i++){
+        const tokenDirection = direction(tokens[i]);
+        // if different text direction is found start counting the total number of consecutive opposite direction texts
+        if(this.textDirection !== tokenDirection && tokenDirection !== 'neutral') {
+          indexMap.set(i, 1);
+          let j = i + 1
+          while (direction(tokens[j]) !== this.textDirection && j < tokens.length) {
+            indexMap.set(i, indexMap.get(i) + 1);
+            j += 1
+          }
+          i = j - 1
+        }
+      }
+
+      /* for every start index in the map
+      reverse the tokens in array based on the total number of opposite direction
+      texts that come after it and reverse that part in token array */
+      for(let startIndex of indexMap.keys()){
+        const endIndex = startIndex + indexMap.get(startIndex) - 1
+        let reversedPart = tokens.slice(startIndex, endIndex + 1).reverse();
+        tokens.splice(startIndex, endIndex - startIndex + 1, ...reversedPart);
+      }
+      return tokens
     },
     selectTokens() {
       let selection = document.getSelection();

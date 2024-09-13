@@ -20,6 +20,7 @@
     "@quasar/extras": "^1.16.2",
     "@tauri-apps/api": "^1.0.0-beta.8",
     "core-js": "^3.30.1",
+    "direction": "^2.0.1",
     "es6-promise": "^4.2.8",
     "quasar": "^2.11.10",
     "treebank-tokenizer": "^0.0.1",
@@ -27,12 +28,12 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.21.3",
     "@tauri-apps/cli": "^1.0.0-beta.10",
     "@vue/cli-plugin-babel": "~5.0.8",
     "@vue/cli-plugin-eslint": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.2.47",
-    "@babel/eslint-parser": "^7.21.3",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
