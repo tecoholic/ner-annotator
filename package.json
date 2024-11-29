@@ -5,10 +5,6 @@
   "type": "module",
   "scripts": {
     "tauri": "tauri",
-    "tauri:build": "tauri:build",
-    "tauri:serve": "tauri:serve",
-    "tauri:build-win": "SET NODE_OPTIONS=--openssl-legacy-provider && tauri:build",
-    "tauri:serve-win": "SET NODE_OPTIONS=--openssl-legacy-provider && tauri:serve",
     "test": "jest",
     "dev": "vite",
     "build": "vite build",

@@ -2,7 +2,7 @@
   "productName": "NER Annotator",
   "mainBinaryName": "NER Annotator",
   "version": "1.5.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "in.arunmozhi.ner-annotator",
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
