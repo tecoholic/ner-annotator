@@ -1,12 +1,7 @@
 <template>
   <div class="q-mx-auto q-my-xl" style="max-width: 600px">
-    <h5 class="text-h4 q-mb-sm">NER Text Annotator</h5>
-    <p
-      :class="[
-        'text-subtitle1',
-        $q.dark.isActive ? 'text-grey-4' : 'text-grey-7',
-      ]"
-    >
+    <h1 class="text-h4 q-mb-sm text-center">NER Text Annotator</h1>
+    <p class="text-caption text-center">
       Annotate text for spaCy NER Model training
     </p>
 

@@ -9,7 +9,7 @@ import { createStore } from "vuex";
 import store from "./store";
 
 import quasarUserOptions from "./quasar-user-options";
-import "./assets/styles.scss";
+import "@fontsource-variable/nunito";
 import "./styles/quasar.scss";
 
 const app = createApp(App)
