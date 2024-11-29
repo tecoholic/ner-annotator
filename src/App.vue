@@ -1,21 +1,17 @@
 <template>
   <div
     class="fullscreen"
-    style="overflow-y:scroll;"
+    style="overflow-y: scroll"
     @dragover.prevent="onDragEnter"
     @dragenter="onDragEnter"
     @dragleave.self="onDragLeave"
     @drop.stop.prevent="onDrop"
   >
-    <div :style="{'pointer-events': overlayActive ? 'none' : 'auto'}">
+    <div :style="{ 'pointer-events': overlayActive ? 'none' : 'auto' }">
       <q-layout view="hHh lpR fFf">
-        <menu-bar v-if="currentPage !== 'start'" />
+        <menu-bar />
 
-        <q-drawer
-          :model-value="currentPage !== 'start'"
-          bordered
-          :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'"
-        >
+        <q-drawer bordered :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'">
           <annotation-sidebar />
         </q-drawer>
 
@@ -27,7 +23,12 @@
           <annotation-page v-if="currentPage === 'annotate'" />
         </q-page-container>
       </q-layout>
-      <drag-n-drop-overlay :style="{'visibility': overlayActive && pendingFileDrop == null ? 'visible' : 'hidden'}" />
+      <drag-n-drop-overlay
+        :style="{
+          visibility:
+            overlayActive && pendingFileDrop == null ? 'visible' : 'hidden',
+        }"
+      />
       <exit-dialog
         :show="pendingFileDrop != null && currentPage != 'start'"
         @hide="pendingFileDrop = null"
@@ -55,7 +56,7 @@ export default {
     AnnotationPage,
     AnnotationSidebar,
     DragNDropOverlay,
-    ExitDialog
+    ExitDialog,
   },
   setup() {
     const $q = useQuasar();
@@ -88,7 +89,13 @@ export default {
     ...mapState(["annotations", "classes"]),
   },
   methods: {
-    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
+    ...mapMutations([
+      "loadClasses",
+      "loadAnnotations",
+      "setInputSentences",
+      "clearAllAnnotations",
+      "resetIndex",
+    ]),
     switchToPage(page) {
       this.currentPage = page;
     },
@@ -100,15 +107,15 @@ export default {
     },
     onDrop(event) {
       this.overlayActive = false;
-      this.pendingFileDrop = event.dataTransfer.files[0]
-      if (this.currentPage == "start")  this.processFileDrop();
+      this.pendingFileDrop = event.dataTransfer.files[0];
+      if (this.currentPage == "start") this.processFileDrop();
     },
     processFileDrop() {
       let reader = new FileReader();
       reader.onload = (ev) => {
         let file = ev.target.result;
         try {
-          if (this.currentPage == "start")  throw new Error("Not a text file.");
+          if (this.currentPage == "start") throw new Error("Not a text file.");
           this.loadAnnotations(JSON.parse(file));
           this.notify(
             "fa fa-check",
@@ -117,7 +124,8 @@ export default {
           );
         } catch (e) {
           try {
-            if (this.currentPage == "start")  throw new Error("Not a text file.");
+            if (this.currentPage == "start")
+              throw new Error("Not a text file.");
             this.loadClasses(JSON.parse(file));
             this.notify(
               "fa fa-check",
@@ -129,7 +137,7 @@ export default {
               this.setInputSentences(file);
               this.clearAllAnnotations();
               this.resetIndex();
-              this.switchToPage('annotate');
+              this.switchToPage("annotate");
             } catch (e) {
               this.notify("fas fa-exclamation-circle", "Invalid file", "red-6");
             }
