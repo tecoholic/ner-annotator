@@ -35,4 +35,4 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          path: ${{ join(steps.tauri_build.outputs.artifactPaths, "\n") }}
+          path: ${{join(steps.tauri_build.outputs.artifactPaths,'\n')}}
