@@ -1,5 +1,6 @@
-@import "./quasar.variables.scss";
-@import "~quasar-styl";
+// @import "./quasar.variables.scss";
+// @import 'quasar/src/css/variables';
+// @import "~quasar-styl";
 // @import '~quasar-addon-styl';
 
 * {
@@ -8,7 +9,7 @@
 }
 
 body.body--dark {
-  background: #1D1D1D;
+  background: #1d1d1d;
 }
 
 .q-btn--outline::before {

@@ -1,5 +1,5 @@
-import { save } from "@tauri-apps/api/dialog";
-import { invoke } from "@tauri-apps/api/tauri";
+import { save } from "@tauri-apps/plugin-dialog";
+import { invoke } from "@tauri-apps/api/core";
 import { documentDir } from "@tauri-apps/api/path";
 
 export const exportFile = async (content, filename) => {
