@@ -33,7 +33,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Linux build artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.platform == 'ubuntu-22.04'
         with:
-          path: |
-            ${{join(fromJSON(steps.tauri_build.outputs.artifactPaths),'\n')}}
+          path: ${{ github.workspace }}/ner-annotator/ner-annotator/src-tauri/target/release/bundle/**/*.(deb|rpm|AppImage)
+
+      - name: Upload Windows build artifacts
+        uses: actions/upload-artifact@v4
+        if: matrix.platform == 'windows-latest'
+        with:
+          path: ${{ github.workspace }}\ner-annotator\ner-annotator\src-tauri\target\release\bundle\**\*.(msi|exe)
