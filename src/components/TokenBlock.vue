@@ -39,7 +39,7 @@ export default {
     },
   },
   emits: ["remove-block"],
-  data: function() {
+  data: function () {
     return {
       showClose: false,
     };
@@ -48,20 +48,19 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'quasar/src/css/variables';
+@import "quasar/src/css/variables";
 
 mark {
   padding: 0.5rem;
   position: relative;
   background-color: burlywood;
-  border: 1px solid $grey-7;
-  border-radius: 0.35rem;
+  box-shadow: 2px 2px 4px rgba(180, 180, 180, 0.4);
+  border-radius: 0.25rem;
 }
 .tag {
   background-color: whitesmoke;
   padding: 4px 0 4px 8px;
-  border: 1px solid grey;
-  border-radius: 0.35rem;
+  border-radius: 0.25rem;
   font-size: x-small;
 }
 .close-btn {
