@@ -1,3 +1,5 @@
+@import "./quasar.variables.scss";
+
 * {
   font-family:
     "Nunito Variable",
@@ -36,12 +38,12 @@
 }
 
 .q-field--outlined .q-field__control {
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 .q-field--outlined .q-field__control::before {
   border-width: 0.1rem;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
 }
 
 .q-field--outlined .q-field__control:hover::before {
@@ -51,6 +53,5 @@
 .q-menu {
   box-shadow: none;
   border: 0.1rem solid $grey-5;
-  border-radius: 0.75rem;
   margin-top: 0.2rem !important;
 }

@@ -12,7 +12,7 @@
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span> File </span>
-        <q-menu style="border-radius: 0.5rem">
+        <q-menu>
           <q-list dense style="min-width: 100px">
             <q-item v-close-popup clickable @click="pendingClick = $refs.file">
               <q-item-section>Open File</q-item-section>
@@ -30,7 +30,7 @@
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span> Annotations </span>
-        <q-menu style="border-radius: 0.5rem">
+        <q-menu>
           <q-list dense style="min-width: 100px">
             <export-annotations />
             <q-item v-close-popup clickable @click="pendingClick = $refs.file">
@@ -49,7 +49,7 @@
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span> Tags </span>
-        <q-menu style="border-radius: 0.5rem">
+        <q-menu>
           <q-list dense style="min-width: 100px">
             <q-item v-close-popup clickable @click="exportTags()">
               <q-item-section>Export</q-item-section>
@@ -70,18 +70,19 @@
 
       <q-space />
 
-      <q-icon
-        style="margin-top: 5px"
-        color="white"
-        :name="$q.dark.isActive ? 'fas fa-sun' : 'fas fa-moon'"
-        class="cursor-pointer"
-        @click="toggleDarkMode"
-      />
+      <div class="q-ml-md">
+        <q-icon
+          color="white"
+          :name="$q.dark.isActive ? 'fa fa-sun' : 'fa fa-moon'"
+          class="cursor-pointer"
+          @click="toggleDarkMode"
+        />
+      </div>
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>Help</span>
 
-        <q-menu style="border-radius: 0.5rem">
+        <q-menu>
           <q-list dense style="min-width: 100px">
             <q-item v-close-popup clickable @click="showHelp = true">
               How to use?

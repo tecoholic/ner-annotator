@@ -3,7 +3,13 @@
     <q-card>
       <q-bar>
         <q-space />
-        <q-btn dense flat icon="close" v-close-popup @click="$emit('hide')">
+        <q-btn
+          dense
+          flat
+          icon="fa fa-close"
+          v-close-popup
+          @click="$emit('hide')"
+        >
           <q-tooltip class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
       </q-bar>

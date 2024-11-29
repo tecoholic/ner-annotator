@@ -8,10 +8,16 @@
     @drop.stop.prevent="onDrop"
   >
     <div :style="{ 'pointer-events': overlayActive ? 'none' : 'auto' }">
-      <q-layout view="hHh lpR fFf">
+      <q-layout view="hHh lpR lFf">
         <menu-bar />
 
-        <q-drawer bordered :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'">
+        <q-drawer
+          behavior="desktop"
+          bordered
+          side="left"
+          :model-value="currentPage === 'annotate'"
+          :class="$q.dark.isActive ? 'bg-dark' : 'bg-grey-2'"
+        >
           <annotation-sidebar />
         </q-drawer>
 
