@@ -57,7 +57,7 @@ Now go to [http://localhost:5173](http://localhost:5173)
 The desktop applications have been created using [Tauri](https://v2.tauri.app/).
 
 ```sh
-yarn tauri serve
+yarn tauri dev
 ```
 
 To build the final binaries run

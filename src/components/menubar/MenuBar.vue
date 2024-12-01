@@ -85,7 +85,7 @@
         <q-menu>
           <q-list dense style="min-width: 100px">
             <q-item v-close-popup clickable @click="showHelp = true">
-              How to use?
+              <q-item-section>How to use?</q-item-section>
             </q-item>
             <q-item
               v-close-popup
@@ -93,7 +93,7 @@
               href="https://github.com/tecoholic/ner-annotator/discussions"
               target="_blank"
             >
-              Forum
+              <q-item-section>Forum</q-item-section>
             </q-item>
             <q-item
               v-close-popup
@@ -101,7 +101,7 @@
               href="https://github.com/tecoholic/ner-annotator/issues"
               target="_blank"
             >
-              Report Issue
+              <q-item-section>Report Issue</q-item-section>
             </q-item>
             <q-separator />
             <q-item v-close-popup clickable @click="showAbout = true">

@@ -106,13 +106,10 @@
                 <p>
                   See the spaCy documentation
                   <a
-                    :class="
-                      $q.dark.isActive ? 'text-light-blue-4' : 'text-dark-blue'
-                    "
+                    :class="$q.dark.isActive && 'text-light-blue-4'"
                     href="https://spacy.io/api/data-formats#json-input"
+                    >here</a
                   >
-                    here
-                  </a>
                   on how to convert the annotations from JSON to DocBin format.
                 </p>
               </q-timeline-entry>

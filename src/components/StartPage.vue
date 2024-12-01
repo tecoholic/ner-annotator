@@ -7,30 +7,35 @@
 
     <div class="q-my-xl q-py-md column">
       <div class="row justify-around q-my-xl">
-        <q-file
-          class="col-5 q-mx-sm"
-          v-model="textFile"
-          accept=".txt"
-          filled
-          label="Open text file"
-          color="primary"
-          @rejected="
-            fileSelectionError(
-              'Only text files (.txt) can be used for creating annotations.'
-            )
-          "
-        >
-          <template v-slot:prepend>
-            <q-icon name="fas fa-file-text" />
-          </template>
-        </q-file>
-        <div>
+        <div class="col-5 q-mx-sm">
           <q-file
-            class="col-5 q-mx-sm"
+            v-model="textFile"
+            accept=".txt"
+            filled
+            label="Load a text file"
+            :color="highlightTextFileInput ? 'red-8' : 'primary'"
+            :bg-color="highlightTextFileInput && 'red-1'"
+            @rejected="
+              fileSelectionError(
+                'Only text files (.txt) can be used for creating annotations.'
+              )
+            "
+          >
+            <template v-slot:prepend>
+              <q-icon name="fas fa-file-text" />
+            </template>
+          </q-file>
+
+          <p class="text-caption q-mx-sm q-my-sm text-accent">
+            You can also drag and drop a file into this window!
+          </p>
+        </div>
+        <div class="col-5 q-mx-sm">
+          <q-file
             v-model="annotationFile"
             accept=".json"
             filled
-            label="Load Annotations"
+            label="Load annotations"
             color="teal"
             @rejected="fileSelectionError('Invalid annotation file')"
           >
@@ -38,25 +43,28 @@
               <q-icon name="fas fa-file-code" />
             </template>
           </q-file>
-          <p class="text-caption q-mx-sm q-my-sm text-grey-8">Optional</p>
+          <p class="text-caption q-mx-sm q-my-sm text-accent">Optional</p>
         </div>
       </div>
 
-      <div class="row">
-        <p class="col-12 q-my-md text-blue-7 text-center">
-          <q-icon name="fa fa-lightbulb" />
-          You can also drag and drop files into this window!
-        </p>
-      </div>
       <div class="row justify-center q-my-xl">
         <q-btn
           v-close-popup
           label="Start Annotating"
-          class="full-width"
           color="primary"
+          class="q-py-md"
           @click="onConfirmation"
         />
       </div>
+    </div>
+
+    <div class="row">
+      <p class="col-12 text-sm text-grey-8 text-center">
+        <q-icon name="fa fa-hand-holding-heart" class="q-mr-sm" />
+        Wondering what to do? See <strong>Help</strong>
+        <q-icon name="fa fa-arrow-right" class="q-mx-xs" />
+        <strong>How to Use?</strong>
+      </p>
     </div>
   </div>
 </template>
@@ -71,11 +79,20 @@ export default {
     return {
       textFile: null,
       annotationFile: null,
+      highlightTextFileInput: false,
     };
   },
   methods: {
     ...mapMutations(["setInputSentences", "loadAnnotations"]),
     onConfirmation() {
+      this.highlightTextFileInput = false;
+      if (!this.textFile) {
+        this.fileSelectionError(
+          "No text file selected. Open a text file to start annotating."
+        );
+        this.highlightTextFileInput = true;
+        return;
+      }
       try {
         let reader = new FileReader();
         reader.addEventListener("load", (event) => {
@@ -108,7 +125,7 @@ export default {
     fileSelectionError(msg) {
       this.$q.notify({
         type: "negative",
-        icon: "fas fa-explosion",
+        icon: "fas fa-file-circle-exclamation",
         message: msg,
         position: "center",
         timeout: 5000,
