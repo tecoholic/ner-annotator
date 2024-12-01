@@ -86,13 +86,12 @@ export default {
   },
   data() {
     return {
-      currentPage: "start",
       overlayActive: false,
       pendingFileDrop: null,
     };
   },
   computed: {
-    ...mapState(["annotations", "classes"]),
+    ...mapState(["annotations", "classes", "currentPage"]),
   },
   methods: {
     ...mapMutations([
@@ -101,10 +100,8 @@ export default {
       "setInputSentences",
       "clearAllAnnotations",
       "resetIndex",
+      "switchToPage",
     ]),
-    switchToPage(page) {
-      this.currentPage = page;
-    },
     onDragEnter() {
       this.overlayActive = true;
     },

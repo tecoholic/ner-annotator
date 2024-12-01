@@ -33,7 +33,12 @@
         <q-menu>
           <q-list dense style="min-width: 100px">
             <export-annotations />
-            <q-item v-close-popup clickable @click="pendingClick = $refs.file">
+            <q-item
+              v-close-popup
+              clickable
+              @click="pendingClick = $refs.file"
+              :disable="currentPage === 'start'"
+            >
               <q-item-section>Import</q-item-section>
               <input
                 ref="file"
@@ -51,10 +56,20 @@
         <span> Tags </span>
         <q-menu>
           <q-list dense style="min-width: 100px">
-            <q-item v-close-popup clickable @click="exportTags()">
+            <q-item
+              v-close-popup
+              clickable
+              @click="exportTags()"
+              :disable="currentPage == 'start'"
+            >
               <q-item-section>Export</q-item-section>
             </q-item>
-            <q-item v-close-popup clickable @click="$refs.file.click()">
+            <q-item
+              v-close-popup
+              clickable
+              @click="$refs.file.click()"
+              :disable="currentPage == 'start'"
+            >
               <q-item-section>Import</q-item-section>
               <input
                 ref="file"
@@ -187,7 +202,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["annotations", "classes"]),
+    ...mapState(["annotations", "classes", "currentPage"]),
   },
   methods: {
     ...mapMutations([
@@ -196,6 +211,7 @@ export default {
       "setInputSentences",
       "clearAllAnnotations",
       "resetIndex",
+      "switchToPage",
     ]),
     // Funtion that exports the tags to a JSON file
     exportTags: async function () {
@@ -227,6 +243,9 @@ export default {
       };
       filereader.readAsText(file);
       this.resetIndex();
+      if (this.currentPage != "annotate") {
+        this.switchToPage("annotate");
+      }
     },
     importAnnotations: function (e) {
       let file = e.target.files[0];

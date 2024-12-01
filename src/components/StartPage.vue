@@ -14,7 +14,7 @@
             filled
             label="Load a text file"
             :color="highlightTextFileInput ? 'red-8' : 'primary'"
-            :bg-color="highlightTextFileInput && 'red-1'"
+            :bg-color="highlightTextFileInput ? 'red-1' : 'grey-3'"
             @rejected="
               fileSelectionError(
                 'Only text files (.txt) can be used for creating annotations.'

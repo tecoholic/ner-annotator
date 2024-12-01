@@ -131,6 +131,11 @@ export default {
       event.stopPropagation();
     },
     tokenizeCurrentSentence() {
+      if (this.currentIndex == this.inputSentences.length) {
+        // last sentence done
+        return;
+      }
+
       this.currentSentence = this.inputSentences[this.currentIndex];
       this.currentAnnotation = this.annotations[this.currentIndex];
 
