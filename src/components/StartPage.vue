@@ -13,8 +13,9 @@
             accept=".txt"
             filled
             label="Load a text file"
-            :color="highlightTextFileInput ? 'red-8' : 'primary'"
-            :bg-color="highlightTextFileInput ? 'red-1' : 'grey-3'"
+            color="primary"
+            :label-color="highlightTextFileInput ? 'red-8' : ''"
+            :bg-color="highlightTextFileInput ? 'red-1' : ''"
             @rejected="
               fileSelectionError(
                 'Only text files (.txt) can be used for creating annotations.'
@@ -22,11 +23,11 @@
             "
           >
             <template v-slot:prepend>
-              <q-icon name="fas fa-file-text" />
+              <q-icon name="fas fa-file-text" :class="highlightTextFileInput ? 'text-red-8' : ''"/>
             </template>
           </q-file>
 
-          <p class="text-caption q-mx-sm q-my-sm text-accent">
+          <p :class="['text-caption q-mx-sm q-my-sm', $q.dark.isActive ? 'text-grey-6' : 'text-grey-8']">
             You can also drag and drop a file into this window!
           </p>
         </div>
@@ -36,14 +37,16 @@
             accept=".json"
             filled
             label="Load annotations"
-            color="teal"
+            color="primary"
             @rejected="fileSelectionError('Invalid annotation file')"
           >
             <template #prepend>
               <q-icon name="fas fa-file-code" />
             </template>
           </q-file>
-          <p class="text-caption q-mx-sm q-my-sm text-accent">Optional</p>
+          <p :class="['text-caption q-mx-sm q-my-sm', $q.dark.isActive ? 'text-grey-6' : 'text-grey-8']">
+            Optional
+          </p>
         </div>
       </div>
 
@@ -59,7 +62,7 @@
     </div>
 
     <div class="row">
-      <p class="col-12 text-sm text-grey-8 text-center">
+      <p :class="['col-12 text-sm text-center', $q.dark.isActive ? 'text-grey-6' : 'text-grey-8']">
         <q-icon name="fa fa-hand-holding-heart" class="q-mr-sm" />
         Wondering what to do? See <strong>Help</strong>
         <q-icon name="fa fa-arrow-right" class="q-mx-xs" />
@@ -81,6 +84,11 @@ export default {
       annotationFile: null,
       highlightTextFileInput: false,
     };
+  },
+  watch: {
+    textFile() {
+      this.highlightTextFileInput = false;
+    },
   },
   methods: {
     ...mapMutations(["setInputSentences", "loadAnnotations"]),
