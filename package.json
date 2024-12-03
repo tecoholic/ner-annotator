@@ -8,6 +8,7 @@
     "test": "jest",
     "dev": "vite",
     "build": "vite build",
+    "build-gh": "vite build --base=/ner-annotator/",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
