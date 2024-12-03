@@ -3,7 +3,7 @@
     <div class="q-pa-sm q-pl-md row items-center">
       <div>
         <q-avatar size="xs">
-          <img src="/assets/icon_32.png" />
+          <img :src="appIconUrl" />
         </q-avatar>
         <span class="q-ml-sm">
           <strong> NER Annotator </strong>
@@ -168,6 +168,7 @@ import { useQuasar } from "quasar";
 import AboutDialog from "../AboutDialog.vue";
 import ExitDialog from "../ExitDialog.vue";
 import HelpDialog from "../HelpDialog.vue";
+import AppIcon from "../../assets/icon_32.png";
 
 export default {
   name: "MenuBar",
@@ -199,6 +200,7 @@ export default {
       showAbout: false,
       pendingClick: null,
       showHelp: false,
+      appIconUrl: AppIcon,
     };
   },
   computed: {
