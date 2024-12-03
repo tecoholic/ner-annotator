@@ -3,29 +3,18 @@
     <div class="q-pa-sm q-pl-md row items-center">
       <div>
         <q-avatar size="xs">
-          <img src="/assets/icon_32.png">
+          <img src="/assets/icon_32.png" />
         </q-avatar>
         <span class="q-ml-sm">
-          <strong>
-            NER Annotator
-          </strong>
+          <strong> NER Annotator </strong>
         </span>
       </div>
 
       <div class="q-ml-md cursor-pointer non-selectable">
-        <span>
-          File
-        </span>
-        <q-menu style="border-radius: 0.5rem;">
-          <q-list
-            dense
-            style="min-width: 100px"
-          >
-            <q-item
-              v-close-popup
-              clickable
-              @click="pendingClick = $refs.file"
-            >
+        <span> File </span>
+        <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item v-close-popup clickable @click="pendingClick = $refs.file">
               <q-item-section>Open File</q-item-section>
               <input
                 ref="file"
@@ -33,26 +22,22 @@
                 accept=".txt"
                 style="display: none"
                 @change="openFile"
-              >
+              />
             </q-item>
           </q-list>
         </q-menu>
       </div>
 
       <div class="q-ml-md cursor-pointer non-selectable">
-        <span>
-          Annotations
-        </span>
-        <q-menu style="border-radius: 0.5rem;">
-          <q-list
-            dense
-            style="min-width: 100px"
-          >
+        <span> Annotations </span>
+        <q-menu>
+          <q-list dense style="min-width: 100px">
             <export-annotations />
             <q-item
               v-close-popup
               clickable
               @click="pendingClick = $refs.file"
+              :disable="currentPage === 'start'"
             >
               <q-item-section>Import</q-item-section>
               <input
@@ -61,25 +46,21 @@
                 accept=".json"
                 style="display: none"
                 @change="importAnnotations"
-              >
+              />
             </q-item>
           </q-list>
         </q-menu>
       </div>
 
       <div class="q-ml-md cursor-pointer non-selectable">
-        <span>
-          Tags
-        </span>
-        <q-menu style="border-radius: 0.5rem;">
-          <q-list
-            dense
-            style="min-width: 100px"
-          >
+        <span> Tags </span>
+        <q-menu>
+          <q-list dense style="min-width: 100px">
             <q-item
               v-close-popup
               clickable
               @click="exportTags()"
+              :disable="currentPage == 'start'"
             >
               <q-item-section>Export</q-item-section>
             </q-item>
@@ -87,6 +68,7 @@
               v-close-popup
               clickable
               @click="$refs.file.click()"
+              :disable="currentPage == 'start'"
             >
               <q-item-section>Import</q-item-section>
               <input
@@ -95,7 +77,7 @@
                 accept=".json"
                 style="display: none"
                 @change="importTags"
-              >
+              />
             </q-item>
           </q-list>
         </q-menu>
@@ -103,31 +85,30 @@
 
       <q-space />
 
-      <q-icon
-        style="margin-top: 5px"
-        color="white"
-        :name="$q.dark.isActive ? 'fas fa-sun' : 'fas fa-moon'"
-        class="cursor-pointer"
-        @click="toggleDarkMode"
-      />
+      <div class="q-ml-md">
+        <q-icon
+          color="white"
+          :name="$q.dark.isActive ? 'fa fa-sun' : 'fa fa-moon'"
+          class="cursor-pointer"
+          @click="toggleDarkMode"
+        />
+      </div>
 
       <div class="q-ml-md cursor-pointer non-selectable">
         <span>Help</span>
 
-        <q-menu style="border-radius: 0.5rem;">
-          <q-list
-            dense
-            style="min-width: 100px"
-          >
+        <q-menu>
+          <q-list dense style="min-width: 100px">
+            <q-item v-close-popup clickable @click="showHelp = true">
+              <q-item-section>How to use?</q-item-section>
+            </q-item>
             <q-item
               v-close-popup
               clickable
               href="https://github.com/tecoholic/ner-annotator/discussions"
               target="_blank"
             >
-              <q-item-section>
-                Forum
-              </q-item-section>
+              <q-item-section>Forum</q-item-section>
             </q-item>
             <q-item
               v-close-popup
@@ -135,36 +116,25 @@
               href="https://github.com/tecoholic/ner-annotator/issues"
               target="_blank"
             >
-              Report Issue
+              <q-item-section>Report Issue</q-item-section>
             </q-item>
             <q-separator />
-            <q-item
-              v-close-popup
-              clickable
-              @click="showAbout = true"
-            >
+            <q-item v-close-popup clickable @click="showAbout = true">
               <q-item-section>About</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
 
-        <about-dialog
-          :show="showAbout"
-          @hide="showAbout = false"
-        />
+        <about-dialog :show="showAbout" @hide="showAbout = false" />
+        <help-dialog :show="showHelp" @hide="showHelp = false" />
       </div>
     </div>
   </q-header>
 
-  <q-dialog
-    v-model="promptForProject"
-    persistent
-  >
+  <q-dialog v-model="promptForProject" persistent>
     <q-card style="min-width: 350px">
       <q-card-section>
-        <div class="text-h6">
-          Project Name
-        </div>
+        <div class="text-h6">Project Name</div>
       </q-card-section>
 
       <q-card-section class="q-pt-none">
@@ -176,20 +146,9 @@
         />
       </q-card-section>
 
-      <q-card-actions
-        align="right"
-        class="text-primary"
-      >
-        <q-btn
-          v-close-popup
-          flat
-          label="Cancel"
-        />
-        <q-btn
-          v-close-popup
-          flat
-          label="Create Project"
-        />
+      <q-card-actions align="right" class="text-primary">
+        <q-btn v-close-popup flat label="Cancel" />
+        <q-btn v-close-popup flat label="Create Project" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -208,10 +167,11 @@ import { exportFile } from "./utils";
 import { useQuasar } from "quasar";
 import AboutDialog from "../AboutDialog.vue";
 import ExitDialog from "../ExitDialog.vue";
+import HelpDialog from "../HelpDialog.vue";
 
 export default {
   name: "MenuBar",
-  components: { ExportAnnotations, AboutDialog, ExitDialog },
+  components: { ExportAnnotations, AboutDialog, HelpDialog, ExitDialog },
   setup() {
     const $q = useQuasar();
     return {
@@ -232,24 +192,32 @@ export default {
       },
     };
   },
-  data: function() {
+  data: function () {
     return {
       promptForProject: false,
       newProjectName: "",
       showAbout: false,
       pendingClick: null,
+      showHelp: false,
     };
   },
   computed: {
-    ...mapState(["annotations", "classes"]),
+    ...mapState(["annotations", "classes", "currentPage"]),
   },
   methods: {
-    ...mapMutations(["loadClasses", "loadAnnotations", "setInputSentences", "clearAllAnnotations", "resetIndex"]),
+    ...mapMutations([
+      "loadClasses",
+      "loadAnnotations",
+      "setInputSentences",
+      "clearAllAnnotations",
+      "resetIndex",
+      "switchToPage",
+    ]),
     // Funtion that exports the tags to a JSON file
-    exportTags: async function() {
+    exportTags: async function () {
       await exportFile(JSON.stringify(this.classes), "tags.json");
     },
-    importTags: function(e) {
+    importTags: function (e) {
       let file = e.target.files[0];
       let filereader = new FileReader();
       filereader.onload = (ev) => {
@@ -266,7 +234,7 @@ export default {
       };
       filereader.readAsText(file);
     },
-    openFile: function(e) {
+    openFile: function (e) {
       let file = e.target.files[0];
       let filereader = new FileReader();
       filereader.onload = (ev) => {
@@ -275,8 +243,11 @@ export default {
       };
       filereader.readAsText(file);
       this.resetIndex();
+      if (this.currentPage != "annotate") {
+        this.switchToPage("annotate");
+      }
     },
-    importAnnotations: function(e) {
+    importAnnotations: function (e) {
       let file = e.target.files[0];
       let filereader = new FileReader();
       filereader.onload = (ev) => {
@@ -293,7 +264,7 @@ export default {
       };
       filereader.readAsText(file);
     },
-    toggleDarkMode: function() {
+    toggleDarkMode: function () {
       this.$q.dark.toggle();
     },
   },

@@ -42,7 +42,7 @@ export const mutations = {
       id: lastIndex + 1,
       name: payload,
       color: niceColors[lastIndex % niceColors.length],
-    }
+    };
     state.classes = [...state.classes, newClass];
     if (state.classes.length === 1) {
       state.currentClass = state.classes[0];
@@ -81,6 +81,10 @@ export const mutations = {
       state.currentIndex += 1;
       state.currentAnnotation = state.annotations[state.currentIndex] || {};
     } else {
+      if (state.currentIndex == state.inputSentences.length - 1) {
+        // last sentence
+        state.currentIndex += 1;
+      }
       alert("You have completed all the sentences");
     }
   },
@@ -116,9 +120,10 @@ export const mutations = {
     LocalStorage.set("tags", state.classes);
   },
   loadAnnotations(state, payload) {
-    let isValid = typeof payload === "object" &&
-    "annotations" in payload &&
-    "classes" in payload;
+    let isValid =
+      typeof payload === "object" &&
+      "annotations" in payload &&
+      "classes" in payload;
 
     if (!isValid) {
       throw new Error("loadAnnotations: payload has invalid schema");
@@ -139,18 +144,21 @@ export const mutations = {
     for (var i = 0; i < annotations.length; i++) {
       if (annotations[i] == null) continue;
       let annotation = {
-        'text': annotations[i][0],
-        'entities': annotations[i][1].entities,
-      }
+        text: annotations[i][0],
+        entities: annotations[i][1].entities,
+      };
       newAnnotations[i] = annotation;
     }
     state.annotations = newAnnotations;
     state.currentAnnotation = state.annotations[state.currentIndex];
 
-    for(let c of classes) {
+    for (let c of classes) {
       this.commit("addClass", c);
     }
     LocalStorage.set("tags", state.classes);
+  },
+  switchToPage(state, payload) {
+    state.currentPage = payload;
   },
 };
 
@@ -174,8 +182,9 @@ const actions = {
   },
 };
 
-window.addEventListener('beforeunload', async (event) => {
-  event.returnValue = "Please make sure you export annotations before closing the file.";
+window.addEventListener("beforeunload", async (event) => {
+  event.returnValue =
+    "Please make sure you export annotations before closing the file.";
 });
 
 export default {
@@ -191,9 +200,10 @@ export default {
       annotationPrecision: "word",
       // current state
       currentAnnotation: {},
-      currentClass: tags && tags[0] || {},
+      currentClass: (tags && tags[0]) || {},
       currentIndex: 0,
       currentSentence: "",
+      currentPage: "start",
     };
   },
   getters,

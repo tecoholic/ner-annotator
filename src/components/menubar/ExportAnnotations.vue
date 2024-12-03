@@ -3,6 +3,7 @@
     v-close-popup
     clickable
     @click="generateJSONExport()"
+    :disable="!annotations.length"
   >
     <q-item-section>Export</q-item-section>
   </q-item>
@@ -21,10 +22,10 @@ export default {
     async generateJSONExport() {
       const output = {
         classes: this.classes.map((c) => c.name),
-        annotations: this.annotations.map((a) => ([
+        annotations: this.annotations.map((a) => [
           a.text,
-          {entities: a.entities}
-        ])),
+          { entities: a.entities },
+        ]),
       };
       const jsonStr = JSON.stringify(output);
       await exportFile(jsonStr, "annotations.json");

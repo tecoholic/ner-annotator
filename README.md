@@ -3,8 +3,8 @@
 NER Annotator for SpaCy allows you to create training data for creating a custom NER Model with custom tags.
 
 - Web Application: [https://tecoholic.github.io/ner-annotator/](https://tecoholic.github.io/ner-annotator/)
-- Linux: [Debian Package or an AppImage](https://github.com/tecoholic/ner-annotator/releases)
-- Windows: [x64 MSI Installer](https://github.com/tecoholic/ner-annotator/releases)
+- Linux: [Debian Packages & AppImage](https://github.com/tecoholic/ner-annotator/releases)
+- Windows: [Installers](https://github.com/tecoholic/ner-annotator/releases)
 
 ## Features
 
@@ -37,33 +37,33 @@ The JSON file created by the tool is generic and simply lists the start and end 
 
 ### Requirements
 
-1. Node JS 14.x
+1. NodeJS v21.x
 2. Yarn Package Manager
-3. Rust (for building desktop versions)
+3. Rust toolchain (for building desktop versions)
 
 ### Running it locally for development
 
 1. Open another terminal and start the server for the UI
 
 ```sh
-yarn
-yarn serve
+yarn install
+yarn dev
 ```
 
-Now go to [http://localhost:8081/ner-annotator/](http://localhost:8081/ner-annotator/)
+Now go to [http://localhost:5173](http://localhost:5173)
 
 ### Developing the desktop application
 
-The desktop applications have been created using [Tauri](https://tauri.studio).
+The desktop applications have been created using [Tauri](https://v2.tauri.app/).
 
 ```sh
-yarn tauri:serve
+yarn tauri dev
 ```
 
 To build the final binaries run
 
 ```sh
-yarn tauri:build
+yarn tauri build
 ```
 
 ## Credits

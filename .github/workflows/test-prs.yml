@@ -37,6 +37,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: matrix.platform == 'ubuntu-22.04'
         with:
+          name: linux-packages.zip
           path: |
             ${{ github.workspace }}/src-tauri/target/release/bundle/**/*.deb
             ${{ github.workspace }}/src-tauri/target/release/bundle/**/*.rpm
@@ -46,6 +47,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: matrix.platform == 'windows-latest'
         with:
+          name: windows-installers.zip
           path: |
             ${{ github.workspace }}\src-tauri\target\release\bundle\**\*.exe
             ${{ github.workspace }}\src-tauri\target\release\bundle\**\*.nsis
