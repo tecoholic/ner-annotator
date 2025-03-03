@@ -1,6 +1,6 @@
 > [!WARNING]
 > NER Annotator should be considered deprecated as it is no longer maintained actively.
-> However, the version hosted online and the desktop applications available as download are perfectly usable.
+> However, the version hosted online and the desktop applications are perfectly usable.
 >
 > If you are looking for an actively maintained NER tagging software, try [Label Studio](https://github.com/HumanSignal/label-studio)
 
@@ -24,7 +24,7 @@ NER Annotator for SpaCy allows you to create training data for creating a custom
 
 ## Screenshots
 
-![NER Annotator Screenshot](./public/assets/step-2.png)
+![NER Annotator Screenshot](./src/assets/step-2.png)
 
 ## FAQ
 
